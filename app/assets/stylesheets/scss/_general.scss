@@ -1,0 +1,45 @@
+@import "./_block.scss",
+        "./_title.scss",
+        "./_button.scss";
+
+* {
+	box-sizing: border-box;
+}
+
+:root {
+	--primary: #a936de;
+	--secondary: #eb850d;
+	--body-bg: #262b35;
+	--content-bg: #1a1d23;
+	--bg-dark: #111317;
+	--border-color: #3f4655;
+	--text-color: #b8c1d2;
+}
+
+html, body {
+	width: 100%;
+	height: 200%;
+}
+
+body {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	background: var(--body-bg);
+	color: var(--text-color);
+	font-size: 18px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	overflow-x: hidden;
+}
+
+a {
+	color: var(--primary);
+
+  &:hover {
+    color: var(--secondary);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
