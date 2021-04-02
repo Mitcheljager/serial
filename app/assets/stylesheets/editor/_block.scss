@@ -3,7 +3,6 @@
 	display: block;
 	padding: 1.5rem;
 	border-radius: 1rem;
-	border: 1px solid var(--bg-dark);
 	background: var(--content-bg);
 
   &::before {
@@ -26,4 +25,8 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
+
+	h3 {
+    margin: 0 0 1rem;
+  }
 }

@@ -19,13 +19,7 @@
 	<div class="board">
 		<Header />
 
-		<aside>
-			<slot name="sidebar"></slot>
-		</aside>
-
-		<main>
-			<Router { routes } />
-		</main>
+		<Router { routes } />
 	</div>
 { /if }
 

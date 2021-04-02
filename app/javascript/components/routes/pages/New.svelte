@@ -1,6 +1,17 @@
 <script>
   import { onMount } from "svelte"
 
+  import EditorJS from "@editorjs/editorjs"
+  import Attaches from "@editorjs/attaches"
+  import Checklist from "@editorjs/checklist"
+  import Code from "@editorjs/code"
+  import Delimiter from "@editorjs/delimiter"
+  import Header from "@editorjs/header"
+  import Image from "@editorjs/image"
+  import InlineCode from "@editorjs/inline-code"
+  import List from "@editorjs/list"
+  import Marker from "@editorjs/marker"
+  import Quote from "@editorjs/quote"
 
   const editor = new EditorJS({
     autofocus: true,

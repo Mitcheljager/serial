@@ -1,10 +1,11 @@
 <script>
   import { link } from "svelte-spa-router"
+
   export let page
   export let active
 </script>
 
-<a href="/pages/{ page.id }" class="page { active ? "page--active" : "" }" use:link>
+<a use:link href="/pages/{ page.id }" class="page { active ? "page--active" : "" }">
   <div>
     <div class="page__title">
       { page.title }
@@ -19,8 +20,8 @@
 <style lang="scss">
   .page {
     display: flex;
-    margin: 0 -1.5rem 0;
-    padding: .5rem 1.5rem;
+    margin: 0;
+    padding: .5rem .75rem;
     color: var(--text-color);
     text-decoration: none;
 

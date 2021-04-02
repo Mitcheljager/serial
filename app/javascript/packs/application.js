@@ -11,3 +11,9 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+import WebpackerSvelte from "webpacker-svelte"
+import App from "../App.svelte"
+import Section from "../components/sections/Section.svelte"
+
+WebpackerSvelte.setup({ App, Section })

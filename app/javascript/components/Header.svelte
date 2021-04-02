@@ -43,7 +43,6 @@
     padding: 0 1.5rem;
     background: var(--content-bg);
     transform: translateX(-50%);
-    font-size: 1.15rem;
     z-index: 20;
   }
 

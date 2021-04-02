@@ -1,4 +1,6 @@
 <script>
+  import { link } from "svelte-spa-router"
+
   import { pages } from "../../stores/data.js"
 
   import Page from "./pages/_Page.svelte"
@@ -14,7 +16,7 @@
     <div class="block__header">
       <h3>Pages</h3>
 
-      <a href="#/posts/new" class="button button--primary button--small">+ New</a>
+      <a href="/new/page" class="button button--primary button--small" use:link>+ New</a>
     </div>
 
     <div>
@@ -25,7 +27,7 @@
 
     <div class="push-down"></div>
 
-    <a href="#/pages" class="button">All pages</a>
+    <a href="/pages" class="button" use:link>All pages</a>
   </div>
 </div>
 
@@ -44,16 +46,5 @@
   .push-down {
     padding-top: .75rem;
     margin-top: auto;
-  }
-
-  .activity-button {
-    display: flex;
-    justify-content: center;
-    width: 20rem;
-    margin-top: 4px;
-  }
-
-  h3 {
-    margin: 0 0 1rem;
   }
 </style>
