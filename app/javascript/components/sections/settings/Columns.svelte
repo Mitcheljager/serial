@@ -1,5 +1,5 @@
 <script>
-  import Range from "./partials/Range.svelte"
+  import Range from "../../shared/Range.svelte"
 
   export let element
   export let index
@@ -14,9 +14,8 @@
 <Range { element } { index } { sectionIndex }
   label="Size of columns"
   key="column_size"
-  min=150 max=500 step=50 defaultValue=250>
-  The size of the columns depends on your screen size. They scale automatically as your resolution changes.
-</Range>
+  responsive=true
+  min=150 max=500 step=50 defaultValue=250 />
 
 <Range { element } { index } { sectionIndex }
   label="Gap between columns"

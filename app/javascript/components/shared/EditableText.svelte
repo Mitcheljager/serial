@@ -14,6 +14,7 @@
 
 <style lang="scss">
   span {
+    position: relative;
     display: inline-block;
     min-height: 1em;
     min-width: 1em;
@@ -23,6 +24,23 @@
       content: "Edit";
       font-style: italic;
       opacity: .5;
+    }
+
+    &:focus {
+      outline: none;
+
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: calc(-.5rem - 1px);
+        left: calc(-.5rem - 1px);
+        width: calc(100% + 1rem);
+        height: calc(100% + 1rem);
+        border: 2px dashed var(--text-color-dark);
+        pointer-events: none;
+        z-index: 0;
+      }
     }
   }
 </style>

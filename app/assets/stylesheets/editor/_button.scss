@@ -4,6 +4,7 @@
   position: relative;
   border-radius: 100px;
   padding: 0.5rem 1.5rem;
+  border: 0;
   background: var(--body-bg);
 	color: var(--text-color);
   font-size: 18px;
@@ -50,11 +51,34 @@
 
 .button--light {
 	background: var(--border-color);
+
+  &:hover,
+  &:active,
+  &.active {
+    background: var(--content-bg-light);
+    color: white;
+  }
 }
 
 .button--small {
 	padding: .5rem 1rem;
 	font-size: 14px;
 	line-height: 1.1em;
-	font-weight: no
+	font-weight: normal;
+}
+
+.button-group {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  border-radius: 5rem;
+  overflow: hidden;
+
+  .button {
+    border-radius: 0;
+    border-right: 1px solid var(--content-bg);
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
 }

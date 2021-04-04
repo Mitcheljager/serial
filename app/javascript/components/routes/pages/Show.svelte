@@ -5,9 +5,14 @@
 </script>
 
 { #each $page.sections as section }
-  <Section section={ section } />
+  <div>
+    <Section section={ section } />
+  </div>
 { /each }
 
 <style lang="scss">
-
+  div {
+    position: relative;
+    padding: .1px 0;
+  }
 </style>

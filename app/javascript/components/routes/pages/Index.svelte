@@ -2,11 +2,13 @@
   import { link } from "svelte-spa-router"
 
   import { pages, currentSectionId } from "../../../stores/data.js"
+  import { theme } from "../../../stores/theme.js"
 
   import Dropdown from "../../Dropdown.svelte"
   import Page from "./_Page.svelte"
   import ShowPage from "./Show.svelte"
   import SectionSettings from "../../sections/Settings.svelte"
+  import ThemeSettings from "../../theme/Settings.svelte"
 
   export let params = {}
 
@@ -15,6 +17,7 @@
 
 <div class="board">
   <aside class="sidebar">
+    <ThemeSettings />
     <SectionSettings />
   </aside>
 
@@ -41,7 +44,7 @@
       <em>Select a page to start editing...</em>
     { :else }
       <div class="block">
-        <div class="theme">
+        <div class="theme" style="--margin-multiplier: { $theme.margin || 1 }">
           <ShowPage />
         </div>
       </div>

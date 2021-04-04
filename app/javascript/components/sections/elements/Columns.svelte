@@ -1,7 +1,5 @@
 <script>
-  import { page } from "../../../stores/data.js"
-
-  import EditableText from "./EditableText.svelte"
+  import EditableText from "../../shared/EditableText.svelte"
 
   export let element
 
@@ -27,6 +25,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--column-size), 1fr));
     grid-gap: var(--column-gap);
+    margin: 2rem 0;
   }
 
   .column {

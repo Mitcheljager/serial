@@ -53,15 +53,4 @@
       overflow-y: auto;
     }
   }
-
-  .dropdown__item {
-    display: block;
-    padding: .25rem .75rem;
-    white-space: nowrap;
-
-    &:hover,
-    &:active {
-      background: var(--content-bg);
-    }
-  }
 </style>

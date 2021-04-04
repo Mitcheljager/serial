@@ -1,3 +1,7 @@
 .theme {
+  --margin-base: 1.5rem;
+  --margin-multiplier: 1;
+  --margin: calc(var(--margin-base) * var(--margin-multiplier));
+
   @import "*";
 }
