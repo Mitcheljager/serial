@@ -1,7 +1,7 @@
 <script>
   export let section
 
-  import { hoveringElement } from "../../stores/data.js"
+  import { page, hoveringElement } from "../../stores/data.js"
 
   import Paragraph from "./elements/Paragraph.svelte"
   import Heading from "./elements/Heading.svelte"
@@ -14,17 +14,26 @@
   ]
 </script>
 
-<div style="background-color: { section.background_color }">
-  { #each section.elements as element }
-    <div class="wrapper">
-      <div class="element" class:active={ $hoveringElement == element.id } on:mouseenter={ () => $hoveringElement = element.id } on:mouseleave={ () => $hoveringElement = null }>
+<div class="section" style="background-color: { section.properties.background_color }; --spacing: { section.properties.spacing || 0 } ">
+  <div class="wrapper">
+    { #each $page.sections[0].elements as element }
+      <div
+        class="element"
+        class:active={ $hoveringElement == element.id }
+        on:mouseenter={ () => $hoveringElement = element.id }
+        on:mouseleave={ () => $hoveringElement = null }>
+
         <svelte:component this={ components.filter(i =>  i.identifier == element.type)[0].component } { element } />
       </div>
-    </div>
-  { /each }
+    { /each }
+  </div>
 </div>
 
 <style lang="scss">
+  .section {
+    padding: calc(1px + (var(--margin) * .5 * var(--spacing))) 0;  
+  }
+
   .element {
     position: relative;
     margin: var(--margin) 0;

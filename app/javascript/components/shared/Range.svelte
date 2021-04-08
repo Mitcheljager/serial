@@ -1,12 +1,10 @@
 <script>
-  import { page } from "../../stores/data.js"
+  import { page, currentSectionIndex } from "../../stores/data.js"
   import { theme } from "../../stores/theme.js"
 
   export let element = null
   export let index = null
   export let setTheme = false
-  export let sectionIndex = null
-  export let label
   export let key
   export let defaultValue
   export let min
@@ -15,19 +13,23 @@
   export let responsive = false
 
   let value = defaultValue
-  if (element && element[key]) value = element[key]
-  if (theme && theme[key]) value = theme[key]
+  if (element && element.properties[key]) value = element.properties[key]
+  if (element == null && $page.sections[$currentSectionIndex].properties[key]) value = $page.sections[$currentSectionIndex].properties[key]
+  if (setTheme && $theme[key]) value = $theme[key]
 
   function setValue() {
     if (element) element.properties[key] = value
-    if (sectionIndex && index) $page.sections[sectionIndex].elements[index] = element
-    if (theme) $theme[key] = value
+    if (index != null) $page.sections[$currentSectionIndex].elements[index] = element
+    if (element == null && !setTheme) $page.sections[$currentSectionIndex].properties[key] = value
+    if (setTheme) $theme[key] = value
   }
 </script>
 
+
+
 <div class="range">
-  <label>
-    { label }
+  <label for="range">
+    <slot></slot>
 
     { #if responsive }
       <div class="marker">
@@ -46,9 +48,11 @@
   </div>
 
   <div class="help">
-    <slot></slot>
+    <slot name="help"></slot>
   </div>
 </div>
+
+
 
 <style lang="scss">
   label {
@@ -72,6 +76,7 @@
   .range-input {
     display: flex;
     align-items: center;
+    margin: .25rem 0;
   }
 
   .range-input__range {
@@ -130,6 +135,7 @@
     border-radius: .5rem;
     background: var(--bg-dark);
     z-index: 20;
+    pointer-events: none;
 
     .marker:hover & {
       display: block;

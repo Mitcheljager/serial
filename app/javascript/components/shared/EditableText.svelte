@@ -10,7 +10,11 @@
   }
 </script>
 
-<span contenteditable bind:innerHTML={ content } on:input={ change } />
+
+
+<span contenteditable spellcheck=false bind:innerHTML={ content } on:input={ change } />
+
+
 
 <style lang="scss">
   span {
@@ -20,8 +24,8 @@
     min-width: 1em;
 
     &:empty::after {
-      display: block;
       content: "Edit";
+      display: block;
       font-style: italic;
       opacity: .5;
     }

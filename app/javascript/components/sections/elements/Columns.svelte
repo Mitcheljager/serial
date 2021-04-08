@@ -3,12 +3,15 @@
 
   export let element
 
+  $: enableBackground = element.properties.enable_background || false
   $: columnCount = { length: element.properties.column_count || 3 }
   $: columnSize = element.properties.column_size || 250
   $: columnGap = element.properties.column_gap !== undefined ? element.properties.column_gap : 2
 </script>
 
-<div class="columns" style="--column-size: { columnSize }px; --column-gap: { columnGap * 0.5 }rem">
+
+
+<div class="columns" class:with-background={ enableBackground } style="--column-size: { columnSize }px; --column-gap: { columnGap * 0.5 }rem">
   { #each columnCount as _, i }
     <div class="column">
       <h3><EditableText { element } key="title_{ i }" defaultValue="Title" /></h3>
@@ -18,6 +21,8 @@
   { /each }
 </div>
 
+
+
 <style lang="scss">
   .columns {
     --column-size: 250px;
@@ -25,12 +30,17 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--column-size), 1fr));
     grid-gap: var(--column-gap);
-    margin: 2rem 0;
   }
 
   .column {
-    padding: 1rem;
-    background: var(--bg-dark);
+    margin-bottom: var(--margin);
+
+    .columns.with-background & {
+      margin: 0;
+      padding: clamp(1rem, calc(1vw * var(--margin-multiplier)), calc(var(--margin-multiplier) * .5rem));
+      background: var(--bg-dark);
+      border-radius: var(--border-radius);
+    }
   }
 
   h3 {

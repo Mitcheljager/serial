@@ -1,18 +1,21 @@
 <script>
   export let key
   export let value
-  export let sectionIndex
 
-  import { page } from "../../stores/data.js"
+  import { page, currentSectionIndex } from "../../stores/data.js"
+
+  $: keyValue = $page.sections[$currentSectionIndex].properties[key]
 
   function setKey(key, value) {
-    $page.sections[sectionIndex][key] = value
+    $page.sections[$currentSectionIndex].properties[key] = value
   }
 </script>
 
+
+
 <button
   class="button button--light button--small"
-  class:active={ $page.sections[sectionIndex][key] == value || (value == "" && $page.sections[sectionIndex][key] == undefined) }
+  class:active={ keyValue == value || (value == "" && keyValue == undefined) }
   on:click={ () => setKey(key, value) }>
   <slot></slot>
 </button>

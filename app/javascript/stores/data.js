@@ -1,4 +1,4 @@
-import { writable } from "svelte/store"
+import { writable, derived, get } from "svelte/store"
 
 const pages = writable([
   {
@@ -24,6 +24,7 @@ const page = writable({
   sections: [
     {
       id: 1,
+      properties: [],
       elements: [
         {
           id: 1,
@@ -40,7 +41,7 @@ const page = writable({
   ]
 })
 
-const currentSectionId = writable(1)
+const currentSectionIndex = writable(0)
 const hoveringElement = writable(null)
 
-export { pages, page, currentSectionId, hoveringElement }
+export { pages, page, currentSectionIndex, hoveringElement }

@@ -19,6 +19,7 @@
     "@rails/webpacker": "5.2.1",
     "node-sass": "^5.0.0",
     "sass-loader": "^11.0.1",
+    "sortablejs": "^1.13.0",
     "svelte": "^3.35.0",
     "svelte-loader": "^3.0.0",
     "svelte-outside-click": "^1.1.1",

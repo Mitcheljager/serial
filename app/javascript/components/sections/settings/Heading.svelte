@@ -3,11 +3,11 @@
 
   export let element
   export let index
-  export let sectionIndex
 </script>
 
-<Range { element } { index } { sectionIndex }
-  label="Text size"
+<Range { element } { index }
   key="size"
   responsive=true
-  min=1 max=6 step=1 defaultValue=3 />
+  min=1 max=6 step=1 defaultValue=3>
+  Text size
+</Range>

@@ -1,7 +1,11 @@
 .theme {
-  --margin-base: 1.5rem;
+  --margin-base: 1rem;
   --margin-multiplier: 1;
   --margin: calc(var(--margin-base) * var(--margin-multiplier));
+
+  --border-radius-base: .5rem;
+  --border-radius-multiplier: 1;
+  --border-radius: calc(var(--border-radius-base) * var(--border-radius-multiplier));
 
   @import "*";
 }

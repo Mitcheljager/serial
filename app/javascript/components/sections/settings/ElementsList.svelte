@@ -1,0 +1,106 @@
+<script>
+  import Sortable from "sortablejs"
+  import { onMount } from "svelte"
+
+  import { page, currentSectionIndex, hoveringElement } from "../../../stores/data.js"
+
+  import Heading from "./Heading.svelte"
+  import Columns from "./Columns.svelte"
+
+  const components = [
+    { component: Heading, identifier: "heading" },
+    { component: Columns, identifier: "columns" }
+  ]
+
+  let currentSection = null
+  let listElement
+  let sortable
+
+  onMount(createSortable)
+
+  function createSortable() {
+    sortable = new Sortable(listElement, {
+      handle: ".section__header",
+      animation: 100,
+      store: {
+        set: updateOrder
+      }
+    })
+  }
+
+  function updateOrder() {
+    const listItems = listElement.querySelectorAll("[data-index]")
+    const order = Array.from(listItems).map(item => parseInt(item.dataset.index))
+    const sortableOrder = sortable.toArray()
+    
+    const elementsList = $page.sections[$currentSectionIndex].elements
+    const orderedList = order.map(index => elementsList[index])
+    
+    $page.sections[$currentSectionIndex].elements = orderedList
+
+    setTimeout(() => sortable.sort(sortableOrder, false))
+  }
+</script>
+
+
+
+<div bind:this={ listElement }>
+  { #each $page.sections[$currentSectionIndex].elements as element, index }
+    <div
+      data-id={ element.id }
+      data-index={ index }
+      class="section"
+      class:hovering={ $hoveringElement == element.id }
+      on:mouseenter={ () => $hoveringElement = element.id }
+      on:mouseleave={ () => $hoveringElement = null }>
+
+      <div class="section__header" on:click={ () => currentSection = currentSection == index ? null : index }>
+        <h4>{ element.type }</h4>
+
+        <span>{ currentSection == index ? "-" : "+" }</span>
+      </div>
+
+      { #if currentSection == index }
+        <div class="section__content">
+          <svelte:component this={ components.filter(i => i.identifier == element.type)[0].component } { element } { index } />
+        </div>
+      { /if }
+    </div>
+  { /each }
+</div>
+
+
+
+<style lang="scss">
+  .section {
+    margin-bottom: .25rem;
+    border-radius: .5rem;
+    background: var(--content-bg);
+    overflow: hidden;
+
+    &.hovering {
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+  }
+
+  .section__header {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+    background: var(--bg-dark);
+    cursor: pointer;
+
+    h4 {
+      text-transform: capitalize;
+      margin: 0;
+    }
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  .section__content {
+    padding: 1rem 1rem 0;
+  }
+</style>
