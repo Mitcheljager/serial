@@ -6,6 +6,8 @@
   import IconBell from "./icons/Bell.svelte"
   import IconList from "./icons/List.svelte"
   import IconHome from "./icons/Home.svelte"
+
+  import { currentUser } from "../stores/user.js"
 </script>
 
 <header class="header">
@@ -23,10 +25,10 @@
     </a>
   </div>
 
-  <a class="header__notifications" href="#/notifications">
-    <IconBell active={ $location == "/notifications" } />
-    <div class="bubble">2</div>
-  </a>
+  
+  <div class="header__notifications">
+    Logged in as <strong>{ $currentUser.username }</strong>
+  </div>
 </header>
 
 

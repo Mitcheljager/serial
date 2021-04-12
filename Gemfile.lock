@@ -62,7 +62,12 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    argon2-kdf (0.1.6)
+    bcrypt (3.1.16)
     bindex (0.8.1)
+    blind_index (2.2.0)
+      activesupport (>= 5)
+      argon2-kdf (>= 0.1.1)
     bootsnap (1.7.3)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -80,12 +85,15 @@ GEM
     crass (1.0.6)
     erubi (1.10.0)
     ffi (1.15.0-x64-mingw32)
+    ffi-win32-extensions (1.0.4)
+      ffi
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    lockbox (0.6.3)
     loofah (2.9.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -189,6 +197,9 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    win32-security (0.5.0)
+      ffi
+      ffi-win32-extensions
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.2)
@@ -197,10 +208,13 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  bcrypt
+  blind_index
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
   jbuilder (~> 2.7)
+  lockbox
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.3, >= 6.1.3.1)
@@ -213,6 +227,7 @@ DEPENDENCIES
   webdrivers
   webpacker (~> 5.0)
   webpacker-svelte (~> 1.0.0)
+  win32-security
 
 RUBY VERSION
    ruby 2.7.2p137
