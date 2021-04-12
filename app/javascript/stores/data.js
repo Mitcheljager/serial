@@ -24,6 +24,7 @@ const page = writable({
   sections: [
     {
       id: 1,
+      name: "Some name",
       properties: [],
       elements: [
         {
@@ -41,7 +42,8 @@ const page = writable({
   ]
 })
 
+const currentTab = writable("theme")
 const currentSectionIndex = writable(0)
 const hoveringElement = writable(null)
 
-export { pages, page, currentSectionIndex, hoveringElement }
+export { pages, page, currentSectionIndex, hoveringElement, currentTab }

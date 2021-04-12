@@ -1,6 +1,9 @@
 {
   "name": "serial",
   "private": true,
+  "resolutions": {
+    "acorn": "^8.1.0"
+  },
   "dependencies": {
     "@editorjs/attaches": "^1.0.1",
     "@editorjs/checklist": "^1.3.0",

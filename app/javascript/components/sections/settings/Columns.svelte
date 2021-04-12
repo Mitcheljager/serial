@@ -22,7 +22,7 @@
 <Range { element } { index }
   key="column_size"
   responsive=true
-  min=150 max=500 step=50 defaultValue=250>
+  min=150 max=400 step=25 defaultValue=250>
   Size of columns
 </Range>
 

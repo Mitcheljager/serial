@@ -4,7 +4,7 @@
   let active = false
 
   function addElement(type) {
-    $page.sections[$currentSectionIndex].elements = [...$page.sections[$currentSectionIndex].elements, { id: Math.random(10000), type: type, properties: {} }]
+    $page.sections[$currentSectionIndex].elements = [...$page.sections[$currentSectionIndex].elements || [], { id: Math.random(10000), type: type, properties: {} }]
 
     active = false
   }

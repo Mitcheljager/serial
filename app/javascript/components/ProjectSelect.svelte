@@ -1,5 +1,5 @@
 <script>
-  import Dropdown from "./Dropdown.svelte"
+  import Dropdown from "./shared/Dropdown.svelte"
 </script>
 
 <Dropdown>

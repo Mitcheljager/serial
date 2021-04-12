@@ -2,11 +2,9 @@
   import { theme } from "../../stores/theme.js"
 
   import Range from "../shared/Range.svelte"
-
-  function setKey(key, value) {
-    $theme[key] = value
-  }
 </script>
+
+
 
 <Range setTheme=true
   key="font_size_body"
@@ -24,7 +22,7 @@
 
 <Range setTheme=true
   key="border_radius"
-  min=0 max=3 step=1 defaultValue=2>
+  min=0 max=3 step=1 defaultValue=1>
   Roundness
   <span slot="help">This values determines how "round" several elements on your page are. Round elements appear more friendly.</span>
 </Range>

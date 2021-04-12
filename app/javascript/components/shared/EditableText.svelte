@@ -3,7 +3,7 @@
   export let key
   export let defaultValue = ""
 
-  $: content = element.properties[key] || defaultValue
+  $: content = element.properties?.[key] || defaultValue
 
   function change() {
     element.properties[key] = content

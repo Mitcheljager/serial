@@ -4,6 +4,7 @@
 
   import { page, currentSectionIndex, hoveringElement } from "../../../stores/data.js"
 
+  import AddElement from "./AddElement.svelte"
   import Heading from "./Heading.svelte"
   import Columns from "./Columns.svelte"
 
@@ -45,7 +46,7 @@
 
 
 <div bind:this={ listElement }>
-  { #each $page.sections[$currentSectionIndex].elements as element, index }
+  { #each $page.sections[$currentSectionIndex].elements || [] as element, index }
     <div
       data-id={ element.id }
       data-index={ index }
@@ -68,6 +69,8 @@
     </div>
   { /each }
 </div>
+
+<AddElement />
 
 
 

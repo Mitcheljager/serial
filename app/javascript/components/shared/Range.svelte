@@ -12,10 +12,15 @@
   export let step = 1
   export let responsive = false
 
-  let value = defaultValue
-  if (element && element.properties[key]) value = element.properties[key]
-  if (element == null && $page.sections[$currentSectionIndex].properties[key]) value = $page.sections[$currentSectionIndex].properties[key]
-  if (setTheme && $theme[key]) value = $theme[key]
+  $: value = setInitialValue($currentSectionIndex)
+
+  function setInitialValue() {
+    if (element && element.properties?.[key]) return element.properties[key]
+    if (element == null && $page.sections[$currentSectionIndex].properties?.[key]) return $page.sections[$currentSectionIndex].properties[key]
+    if (setTheme && $theme[key]) return $theme[key]
+
+    return defaultValue
+  }
 
   function setValue() {
     if (element) element.properties[key] = value

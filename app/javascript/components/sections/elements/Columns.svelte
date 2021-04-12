@@ -6,7 +6,7 @@
   $: enableBackground = element.properties.enable_background || false
   $: columnCount = { length: element.properties.column_count || 3 }
   $: columnSize = element.properties.column_size || 250
-  $: columnGap = element.properties.column_gap !== undefined ? element.properties.column_gap : 2
+  $: columnGap = element.properties.column_gap !== undefined ? element.properties.column_gap : 1
 </script>
 
 
@@ -33,10 +33,7 @@
   }
 
   .column {
-    margin-bottom: var(--margin);
-
     .columns.with-background & {
-      margin: 0;
       padding: clamp(1rem, calc(1vw * var(--margin-multiplier)), calc(var(--margin-multiplier) * .5rem));
       background: var(--bg-dark);
       border-radius: var(--border-radius);

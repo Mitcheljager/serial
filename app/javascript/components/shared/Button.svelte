@@ -4,7 +4,7 @@
 
   import { page, currentSectionIndex } from "../../stores/data.js"
 
-  $: keyValue = $page.sections[$currentSectionIndex].properties[key]
+  $: keyValue = $page.sections[$currentSectionIndex].properties?.[key]
 
   function setKey(key, value) {
     $page.sections[$currentSectionIndex].properties[key] = value

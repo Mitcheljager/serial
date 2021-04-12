@@ -1,34 +1,43 @@
 <script>
   import { link } from "svelte-spa-router"
 
-  import { pages } from "../../../stores/data.js"
+  import { pages, currentTab } from "../../../stores/data.js"
 
-  import Dropdown from "../../Dropdown.svelte"
+  import Dropdown from "../../shared/Dropdown.svelte"
   import Page from "./_Page.svelte"
   import ShowPage from "./Show.svelte"
+  import SectionsList from "../../sections/settings/SectionsList.svelte"
   import SectionSettings from "../../sections/Settings.svelte"
   import ThemeSettings from "../../theme/Settings.svelte"
   import Theme from "../../theme/Base.svelte"
 
   export let params = {}
 
-  let currentTab = "sections"
-
   $: currentPage = $pages.filter(page => page.id == params.id)[0] || $pages[0]
+
+  function setTab(tab) {
+    $currentTab = tab || event.detail.tab
+  }
 </script>
 
 
 
 <div class="board">
   <aside class="sidebar">
-    <div class="tabs button-group">
-      <button on:click={ () => currentTab = "theme" } class="button button--light" class:active={ currentTab == "theme" }>Theme</button>
-      <button on:click={ () => currentTab = "sections" } class="button button--light" class:active={ currentTab == "sections" }>Sections</button>
+    <div class="tabs button-group" class:tabs--three={ $currentTab == "section" }>
+      <button on:click={ () => setTab("theme") } class="button button--light" class:active={ $currentTab == "theme" }>Theme</button>
+      <button on:click={ () => setTab("sections") } class="button button--light" class:active={ $currentTab == "sections" }>Sections</button>
+
+      { #if $currentTab == "section" }
+        <button on:click={ () => setTab("section") } class="button button--light" class:active={ $currentTab == "section" }>Edit</button>
+      { /if }
     </div>
 
-    { #if currentTab == "theme" }
+    { #if $currentTab == "theme" }
       <ThemeSettings />
-    { :else if currentTab == "sections" }
+    { :else if $currentTab == "sections" }
+      <SectionsList on:setTab={ setTab } />
+    { :else if $currentTab == "section" }
       <SectionSettings />
     { /if }
   </aside>
@@ -105,5 +114,14 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: .15rem;
     margin-bottom: 1.5rem;
+
+    &--three {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .button {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   }
 </style>
