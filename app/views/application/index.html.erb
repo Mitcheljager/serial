@@ -1,1 +1,5 @@
-<%= svelte_component("App", { user: { id: current_user.id, username: current_user.username } }) if current_user %>
+<%= svelte_component("App", { 
+    _user: { id: current_user.id, username: current_user.username },
+    _project: current_user.projects.first,
+    _projects: current_user.projects
+  }) if current_user %>

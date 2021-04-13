@@ -4,7 +4,7 @@
 
   import { page, currentSectionIndex, hoveringElement } from "../../../stores/data.js"
 
-  import AddElement from "./AddElement.svelte"
+  import AddElement from "./Add.svelte"
   import Heading from "./Heading.svelte"
   import Columns from "./Columns.svelte"
 
@@ -13,7 +13,7 @@
     { component: Columns, identifier: "columns" }
   ]
 
-  let currentSection = null
+  let currentElement = null
   let listElement
   let sortable
 
@@ -41,6 +41,10 @@
 
     setTimeout(() => sortable.sort(sortableOrder, false))
   }
+
+  function setCurrentElement(index) {
+    currentElement = currentElement == index ? null : index
+  }
 </script>
 
 
@@ -48,20 +52,20 @@
 <div bind:this={ listElement }>
   { #each $page.sections[$currentSectionIndex].elements || [] as element, index }
     <div
-      data-id={ element.id }
+      data-id={ element.uuid }
       data-index={ index }
       class="section"
-      class:hovering={ $hoveringElement == element.id }
-      on:mouseenter={ () => $hoveringElement = element.id }
+      class:hovering={ $hoveringElement == element.uuid }
+      on:mouseenter={ () => $hoveringElement = element.uuid }
       on:mouseleave={ () => $hoveringElement = null }>
 
-      <div class="section__header" on:click={ () => currentSection = currentSection == index ? null : index }>
+      <div class="section__header" on:click={ () => setCurrentElement(index) }>
         <h4>{ element.type }</h4>
 
-        <span>{ currentSection == index ? "-" : "+" }</span>
+        <span>{ currentElement == index ? "-" : "+" }</span>
       </div>
 
-      { #if currentSection == index }
+      { #if currentElement == index }
         <div class="section__content">
           <svelte:component this={ components.filter(i => i.identifier == element.type)[0].component } { element } { index } />
         </div>

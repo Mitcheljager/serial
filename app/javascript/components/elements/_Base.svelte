@@ -1,0 +1,51 @@
+<script>
+  import { hoveringElement, currentSectionIndex, currentTab } from "../../stores/data.js"
+
+  import Paragraph from "./Paragraph.svelte"
+  import Heading from "./Heading.svelte"
+  import Columns from "./Columns.svelte"
+
+  export let sectionIndex
+  export let element
+
+  const components = [
+    { component: Paragraph, identifier: "paragraph" },
+    { component: Heading, identifier: "heading" },
+    { component: Columns, identifier: "columns" }
+  ]
+</script>
+
+
+
+<div
+  class="element"
+  class:active={ $hoveringElement == element.uuid }
+  on:click={ () => { $currentTab = "section"; $currentSectionIndex = sectionIndex } }
+  on:mouseenter={ () => $hoveringElement = element.uuid }
+  on:mouseleave={ () => $hoveringElement = null }>
+
+  <svelte:component this={ components.filter(i =>  i.identifier == element.type)[0].component } { element } />
+</div>
+
+
+
+<style lang="scss">
+  .element {
+    position: relative;
+    margin: var(--margin) 0;
+  }
+
+  .active::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    width: calc(100% + 2rem);
+    height: calc(100% + 2rem);
+    box-shadow: inset 0 0 0 2px var(--primary);
+    border-radius: .5rem;
+    pointer-events: none;
+    z-index: 10;
+  }
+</style>

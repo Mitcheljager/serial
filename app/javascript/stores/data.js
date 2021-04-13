@@ -28,12 +28,12 @@ const page = writable({
       properties: [],
       elements: [
         {
-          id: 1,
+          uuid: 1,
           type: "heading",
           properties: { content: "Test title"  }
         },
         {
-          id: 2,
+          uuid: 2,
           type: "columns",
           properties: { content_1: "Test column 1 content", content_2: "Abc", title_1: "Test title" }
         }

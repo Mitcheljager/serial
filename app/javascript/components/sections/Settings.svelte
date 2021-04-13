@@ -3,7 +3,7 @@
 
   import Button from "../shared/Button.svelte"
   import Range from "../shared/Range.svelte"
-  import ElementsList from "./settings/ElementsList.svelte"
+  import ElementsList from "../elements/settings/List.svelte"
 
   $: section = $page.sections[$currentSectionIndex]
 </script>

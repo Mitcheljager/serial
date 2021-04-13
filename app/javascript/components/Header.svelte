@@ -10,6 +10,8 @@
   import { currentUser } from "../stores/user.js"
 </script>
 
+
+
 <header class="header">
   <ProjectSelect />
 
@@ -25,11 +27,11 @@
     </a>
   </div>
 
-  
-  <div class="header__notifications">
+  <div class="header__user">
     Logged in as <strong>{ $currentUser.username }</strong>
   </div>
 </header>
+
 
 
 <style lang="scss">
@@ -103,52 +105,8 @@
     display: flex;
   }
 
-  .bubble {
-    position: absolute;
-    top: -.5em;
-    right: -.5em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    height: 1.5em;
-    width: 1.5em;
-    padding: .25rem;
-    margin-left: auto;
-    background: linear-gradient(105deg, var(--secondary) 0%, var(--primary) 100%);
-    box-shadow: 0 0 0 3px var(--content-bg);
-    color: white;
-    line-height: 1em;
-    font-size: 11px;
-    text-decoration: none;
-    font-weight: bold;
-    z-index: 5;
-    transition: transform 100ms;
-
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(105deg, var(--secondary) 0%, var(--primary) 100%);
-      filter: blur(10px);
-      opacity: 1;
-      z-index: -1;
-    }
-  }
-
-  .header__notifications {
+  .header__user {
     position: relative;
     margin-left: auto;
-
-    &:hover,
-    &:active {
-      .bubble {
-        transform: translateY(-3px);
-      }
-    }
   }
 </style>

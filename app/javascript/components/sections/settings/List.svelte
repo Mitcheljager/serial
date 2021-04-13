@@ -4,7 +4,7 @@
 
   import { page, currentSectionIndex, currentTab } from "../../../stores/data.js"
 
-  import AddSection from "./AddSection.svelte"
+  import AddSection from "./Add.svelte"
 
   let listElement
   let sortable

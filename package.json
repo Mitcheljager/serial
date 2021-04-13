@@ -30,6 +30,7 @@
     "svelte-preprocess-sass": "^1.0.0",
     "svelte-spa-router": "^3.1.0",
     "turbolinks": "^5.2.0",
+    "uuid": "^8.3.2",
     "webpacker-svelte": "^1.0.0"
   },
   "version": "0.1.0",

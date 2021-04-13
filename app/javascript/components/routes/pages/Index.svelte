@@ -6,7 +6,7 @@
   import Dropdown from "../../shared/Dropdown.svelte"
   import Page from "./_Page.svelte"
   import ShowPage from "./Show.svelte"
-  import SectionsList from "../../sections/settings/SectionsList.svelte"
+  import SectionsList from "../../sections/settings/List.svelte"
   import SectionSettings from "../../sections/Settings.svelte"
   import ThemeSettings from "../../theme/Settings.svelte"
   import Theme from "../../theme/Base.svelte"
@@ -58,7 +58,9 @@
         </Dropdown>
       </div>
 
-      <a href="/new/page" class="button button--primary button--small" use:link>+</a>
+      <a href="/new/page" class="button button--light button--small" use:link>+</a>
+
+      <button class="ml-auto button button--primary button--small">Save</button>
     </div>
 
     { #if !currentPage }

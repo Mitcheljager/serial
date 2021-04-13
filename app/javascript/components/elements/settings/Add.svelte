@@ -1,10 +1,13 @@
 <script>
+  import { v4 as uuid } from "uuid"
+
   import { page, currentSectionIndex } from "../../../stores/data.js"
 
   let active = false
 
   function addElement(type) {
-    $page.sections[$currentSectionIndex].elements = [...$page.sections[$currentSectionIndex].elements || [], { id: Math.random(10000), type: type, properties: {} }]
+    const newElement = { uuid: uuid(), type: type, properties: {} }
+    $page.sections[$currentSectionIndex].elements = [...$page.sections[$currentSectionIndex].elements || [], newElement]
 
     active = false
   }

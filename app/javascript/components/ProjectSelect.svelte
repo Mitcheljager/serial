@@ -1,16 +1,22 @@
 <script>
   import Dropdown from "./shared/Dropdown.svelte"
+
+  import { projects, project } from "../stores/project.js"
 </script>
+
+
 
 <Dropdown>
   <div href="://" slot="label">
-    Project name
+    { $project.name }
   </div>
 
-  { #each [0] as project }
-    <a href="://" class="project">Other project name</a>
+  { #each $projects as _project }
+    <a href="://" class="project">{ _project.name }</a>
   { /each }
 </Dropdown>
+
+
 
 <style lang="scss">
   .project {
