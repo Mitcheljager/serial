@@ -1,11 +1,12 @@
 <script>
-  import { link } from "svelte-spa-router"
+  import { onMount } from "svelte"
+  import { location, querystring } from "svelte-spa-router"
 
-  import { pages, currentTab } from "../../../stores/data.js"
+  import { pages, page, currentTab } from "../../../stores/data.js"
+  import RailsFetch from "../../../shared/railsFetch.js"
 
-  import Dropdown from "../../shared/Dropdown.svelte"
-  import Page from "./_Page.svelte"
   import ShowPage from "./Show.svelte"
+  import PageSelect from "./PageSelect.svelte"
   import SectionsList from "../../sections/settings/List.svelte"
   import SectionSettings from "../../sections/Settings.svelte"
   import ThemeSettings from "../../theme/Settings.svelte"
@@ -13,59 +14,56 @@
 
   export let params = {}
 
-  $: currentPage = $pages.filter(page => page.id == params.id)[0] || $pages[0]
+  onMount(() => {
+    getPages()
+  })
+
+  $: getCurrentPage(params.uuid)
 
   function setTab(tab) {
     $currentTab = tab || event.detail.tab
   }
+
+  function getPages() {
+    new RailsFetch("/pages", { project_id: 1 }).post()
+    .then(data => $pages = JSON.parse(data))
+    .then(() => getCurrentPage())
+  }
+
+  function getCurrentPage() {
+    new RailsFetch("/page", { project_id: 1, uuid: params.uuid }).post()
+    .then(data => $page = JSON.parse(data))
+  }
 </script>
 
+{ #if $page }
+  <div class="board">
+    <aside class="sidebar">
+      <div class="tabs button-group" class:tabs--three={ $currentTab == "section" }>
+        <button on:click={ () => setTab("theme") } class="button button--light" class:active={ $currentTab == "theme" }>Theme</button>
+        <button on:click={ () => setTab("sections") } class="button button--light" class:active={ $currentTab == "sections" }>Sections</button>
 
-
-<div class="board">
-  <aside class="sidebar">
-    <div class="tabs button-group" class:tabs--three={ $currentTab == "section" }>
-      <button on:click={ () => setTab("theme") } class="button button--light" class:active={ $currentTab == "theme" }>Theme</button>
-      <button on:click={ () => setTab("sections") } class="button button--light" class:active={ $currentTab == "sections" }>Sections</button>
-
-      { #if $currentTab == "section" }
-        <button on:click={ () => setTab("section") } class="button button--light" class:active={ $currentTab == "section" }>Edit</button>
-      { /if }
-    </div>
-
-    { #if $currentTab == "theme" }
-      <ThemeSettings />
-    { :else if $currentTab == "sections" }
-      <SectionsList on:setTab={ setTab } />
-    { :else if $currentTab == "section" }
-      <SectionSettings />
-    { /if }
-  </aside>
-
-  <div class="content">
-    <div class="content__actions">
-      Page:
-
-      <div class="page-select">
-        <Dropdown>
-          <div slot="label">
-            { currentPage.title }
-          </div>
-        
-          { #each $pages as page }
-            <Page { page } />
-          { /each }
-        </Dropdown>
+        { #if $currentTab == "section" }
+          <button on:click={ () => setTab("section") } class="button button--light" class:active={ $currentTab == "section" }>Edit</button>
+        { /if }
       </div>
 
-      <a href="/new/page" class="button button--light button--small" use:link>+</a>
+      { #if $currentTab == "theme" }
+        <ThemeSettings />
+      { :else if $currentTab == "sections" }
+        <SectionsList on:setTab={ setTab } />
+      { :else if $currentTab == "section" }
+        <SectionSettings />
+      { /if }
+    </aside>
 
-      <button class="ml-auto button button--primary button--small">Save</button>
-    </div>
+    <div class="content">
+      <div class="content__actions">
+        <PageSelect />
 
-    { #if !currentPage }
-      <em>Select a page to start editing...</em>
-    { :else }
+        <button class="ml-auto button button--primary button--small">Save</button>
+      </div>
+
       <div class="overflow">
         <div class="block">
           <Theme>
@@ -73,10 +71,11 @@
           </Theme>
         </div>
       </div>
-    { /if }
+    </div>
   </div>
-</div>
-
+{ :else }
+  <em>Loading pages</em>
+{ /if }
 
 
 <style lang="scss">
@@ -105,10 +104,6 @@
     overflow: hidden;
     padding-bottom: 5rem;
     border-radius: 1rem;
-  }
-
-  .page-select {
-    margin: 0 .75rem;
   }
 
   .tabs {

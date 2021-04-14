@@ -1,46 +1,7 @@
 import { writable, derived, get } from "svelte/store"
 
-const pages = writable([
-  {
-    id: 1,
-    title: "Test"
-  },
-  {
-    id: 2,
-    title: "Test 2"
-  },
-  {
-    id: 3,
-    title: "Test 3"
-  },
-  {
-    id: 4,
-    title: "Test 4 with a longer title"
-  }
-])
-
-const page = writable({
-  id: 1,
-  sections: [
-    {
-      id: 1,
-      name: "Some name",
-      properties: [],
-      elements: [
-        {
-          uuid: 1,
-          type: "heading",
-          properties: { content: "Test title"  }
-        },
-        {
-          uuid: 2,
-          type: "columns",
-          properties: { content_1: "Test column 1 content", content_2: "Abc", title_1: "Test title" }
-        }
-      ]
-    }
-  ]
-})
+const pages = writable(null)
+const page = writable(null)
 
 const currentTab = writable("theme")
 const currentSectionIndex = writable(0)

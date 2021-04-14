@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_133218) do
+ActiveRecord::Schema.define(version: 2021_04_14_144710) do
 
   create_table "elements", force: :cascade do |t|
     t.string "uuid"
-    t.string "type"
+    t.string "content_type"
     t.integer "section_id", null: false
     t.text "properties", default: "[]"
     t.integer "position"

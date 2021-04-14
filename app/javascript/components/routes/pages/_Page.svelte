@@ -5,7 +5,7 @@
   export let active
 </script>
 
-<a use:link href="/pages/{ page.id }" class="page { active ? "page--active" : "" }">
+<a use:link href="/pages/{ page.uuid }" class="page { active ? "page--active" : "" }">
   <div>
     <div class="page__title">
       { page.title }

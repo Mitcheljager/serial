@@ -8,14 +8,11 @@
 
 
 
-<button class="button button--light button--small w-100" on:click={ addSection }>
+<button class="button button--light button--small w-100 mt-1/4" on:click={ addSection }>
   <span>Add section</span>
 </button>
 
 
 
 <style lang="scss">
-  .button {
-    margin-top: 1.5rem;
-  }
 </style>

@@ -13,18 +13,20 @@
     { component: Heading, identifier: "heading" },
     { component: Columns, identifier: "columns" }
   ]
+
+  console.log(element)
 </script>
 
 
 
 <div
   class="element"
-  class:active={ $hoveringElement == element.uuid }
+  class:element--hovering={ $hoveringElement == element.uuid }
   on:click={ () => { $currentTab = "section"; $currentSectionIndex = sectionIndex } }
   on:mouseenter={ () => $hoveringElement = element.uuid }
   on:mouseleave={ () => $hoveringElement = null }>
 
-  <svelte:component this={ components.filter(i =>  i.identifier == element.type)[0].component } { element } />
+  <svelte:component this={ components.filter(i => i.identifier == element.content_type)[0].component } { element } />
 </div>
 
 
@@ -33,19 +35,19 @@
   .element {
     position: relative;
     margin: var(--margin) 0;
-  }
 
-  .active::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -1rem;
-    left: -1rem;
-    width: calc(100% + 2rem);
-    height: calc(100% + 2rem);
-    box-shadow: inset 0 0 0 2px var(--primary);
-    border-radius: .5rem;
-    pointer-events: none;
-    z-index: 10;
+    &--hovering::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -1rem;
+      left: -1rem;
+      width: calc(100% + 2rem);
+      height: calc(100% + 2rem);
+      box-shadow: inset 0 0 0 2px var(--primary);
+      border-radius: .5rem;
+      pointer-events: none;
+      z-index: 10;
+    }
   }
 </style>

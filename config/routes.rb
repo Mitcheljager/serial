@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root "application#index"
 
-  resources :pages
   resources :sections, defaults: { format: :json }
 
   resources :users, only: [:create]
@@ -10,4 +9,9 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
   get "login", to: "sessions#new", as: "login"
   get "logout", to: "sessions#destroy", as: "logout"
+
+  defaults format: :json do
+    post "pages", to: "pages#index"
+    post "page", to: "pages#show"
+  end
 end

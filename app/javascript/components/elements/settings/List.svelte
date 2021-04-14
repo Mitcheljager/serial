@@ -60,14 +60,14 @@
       on:mouseleave={ () => $hoveringElement = null }>
 
       <div class="section__header" on:click={ () => setCurrentElement(index) }>
-        <h4>{ element.type }</h4>
+        <h4>{ element.content_type }</h4>
 
         <span>{ currentElement == index ? "-" : "+" }</span>
       </div>
 
       { #if currentElement == index }
         <div class="section__content">
-          <svelte:component this={ components.filter(i => i.identifier == element.type)[0].component } { element } { index } />
+          <svelte:component this={ components.filter(i => i.identifier == element.content_type)[0].component } { element } { index } />
         </div>
       { /if }
     </div>

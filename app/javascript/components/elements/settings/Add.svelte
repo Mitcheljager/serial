@@ -6,7 +6,7 @@
   let active = false
 
   function addElement(type) {
-    const newElement = { uuid: uuid(), type: type, properties: {} }
+    const newElement = { uuid: uuid(), content_type: type, properties: {} }
     $page.sections[$currentSectionIndex].elements = [...$page.sections[$currentSectionIndex].elements || [], newElement]
 
     active = false
@@ -16,7 +16,7 @@
 
 
 <div style="position: relative">
-  <button class="button button--light button--small w-100" on:click={ () => active = !active }>
+  <button class="button button--light button--small w-100 mt-1/4" on:click={ () => active = !active }>
     <span>Add element</span>
   </button>
 
@@ -33,7 +33,6 @@
 <style lang="scss">
   .button {
     position: relative;
-    margin-top: 1.5rem;
   }
 
   .popup {

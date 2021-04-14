@@ -6,7 +6,7 @@ import NotFound from "./components/routes/NotFound.svelte"
 
 export default {
   "/": Home,
-  "/pages/:id?": PageIndex,
+  "/pages/:uuid?": PageIndex,
   "/new/page": PageNew,
   "/notifications": Notifications,
   "*": NotFound
