@@ -1,4 +1,4 @@
-import { writable, derived, get } from "svelte/store"
+import { writable } from "svelte/store"
 
 const pages = writable(null)
 const page = writable(null)

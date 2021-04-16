@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_04_14_144710) do
     t.string "uuid"
     t.string "content_type"
     t.integer "section_id", null: false
-    t.text "properties", default: "[]"
+    t.text "properties", default: "{}"
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_04_14_144710) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.text "properties"
+    t.text "properties", default: "{}"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2021_04_14_144710) do
     t.string "uuid"
     t.string "name"
     t.integer "page_id", null: false
-    t.text "properties", default: "[]"
+    t.text "properties", default: "{}"
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

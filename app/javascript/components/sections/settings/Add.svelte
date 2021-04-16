@@ -1,8 +1,11 @@
 <script>
+  import { v4 as uuid } from "uuid"
+
   import { page } from "../../../stores/data.js"
 
   function addSection() {
-    $page.sections = [...$page.sections, { id: Math.random(10000), name: "Unnamed section", properties: [] }]
+    const newElement = { uuid: uuid(), name: "Unnamed section", properties: {} }
+    $page.sections = [...$page.sections || [], newElement]
   }
 </script>
 

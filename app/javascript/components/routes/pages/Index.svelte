@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte"
-  import { location, querystring } from "svelte-spa-router"
 
   import { pages, page, currentTab } from "../../../stores/data.js"
   import RailsFetch from "../../../shared/railsFetch.js"
@@ -14,27 +13,44 @@
 
   export let params = {}
 
-  onMount(() => {
-    getPages()
-  })
+  onMount(getPages)
 
   $: getCurrentPage(params.uuid)
+  $: console.log($page)
 
   function setTab(tab) {
     $currentTab = tab || event.detail.tab
   }
 
   function getPages() {
-    new RailsFetch("/pages", { project_id: 1 }).post()
+    new RailsFetch("/pages", {
+      project_id: 1
+    }).post()
     .then(data => $pages = JSON.parse(data))
     .then(() => getCurrentPage())
   }
 
   function getCurrentPage() {
-    new RailsFetch("/page", { project_id: 1, uuid: params.uuid }).post()
+    new RailsFetch("/page", {
+      project_id: 1,
+      uuid: params.uuid
+    }).post()
     .then(data => $page = JSON.parse(data))
   }
+
+  function saveCurrentPage() {
+    console.log($page)
+
+    new RailsFetch("/page/save", {
+      project_id: 1,
+      data: $page
+    }).post()
+    .then(data => console.log(JSON.parse(data)))
+    .catch(data => console.log(JSON.parse(data)))
+  }
 </script>
+
+
 
 { #if $page }
   <div class="board">
@@ -61,7 +77,7 @@
       <div class="content__actions">
         <PageSelect />
 
-        <button class="ml-auto button button--primary button--small">Save</button>
+        <button on:click={ saveCurrentPage } class="ml-auto button button--primary button--small">Save</button>
       </div>
 
       <div class="overflow">
@@ -76,6 +92,7 @@
 { :else }
   <em>Loading pages</em>
 { /if }
+
 
 
 <style lang="scss">
@@ -102,7 +119,6 @@
 
   .overflow {
     overflow: hidden;
-    padding-bottom: 5rem;
     border-radius: 1rem;
   }
 

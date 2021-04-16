@@ -50,7 +50,7 @@
 
 
 <div bind:this={ listElement }>
-  { #each $page.sections[$currentSectionIndex].elements || [] as element, index }
+  { #each $page.sections[$currentSectionIndex].elements || {} as element, index }
     <div
       data-id={ element.uuid }
       data-index={ index }

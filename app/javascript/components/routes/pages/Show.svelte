@@ -11,7 +11,7 @@
 
 <Navigation />
 
-{ #each $page.sections as section, index (section.id) }
+{ #each $page.sections as section, index (section.uuid) }
   <div animate:flip="{{ duration: 200 }}">
     <Section { section } { index } />
   </div>

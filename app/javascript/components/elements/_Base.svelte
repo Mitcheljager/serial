@@ -13,8 +13,6 @@
     { component: Heading, identifier: "heading" },
     { component: Columns, identifier: "columns" }
   ]
-
-  console.log(element)
 </script>
 
 

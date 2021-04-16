@@ -4,7 +4,7 @@ class CreateSections < ActiveRecord::Migration[6.1]
       t.string :uuid
       t.string :name
       t.references :page, null: false, foreign_key: true
-      t.text :properties, default: "[]"
+      t.text :properties, default: "{}"
       t.integer :position
 
       t.timestamps

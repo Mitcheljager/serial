@@ -13,5 +13,7 @@ Rails.application.routes.draw do
   defaults format: :json do
     post "pages", to: "pages#index"
     post "page", to: "pages#show"
+    post "page/save", to: "pages#update"
+    post "page/create", to: "pages#create"
   end
 end

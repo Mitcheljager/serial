@@ -37,7 +37,7 @@
 
 
 <div bind:this={ listElement }>
-  { #each $page.sections as section, index }
+  { #each $page.sections as section, index (section.uuid) }
     <div
       data-id={ section.id }
       data-index={ index }

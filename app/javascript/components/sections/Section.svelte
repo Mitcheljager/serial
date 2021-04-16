@@ -16,7 +16,7 @@
   --spacing: { section.properties?.spacing || 0 } ">
 
   <div class="wrapper">
-    { #each $page.sections[index].elements || [] as element (element.uuid) }
+    { #each $page.sections[index].elements || {} as element (element.uuid) }
       <div animate:flip="{{ duration: 200 }}">
         <Element { element } sectionIndex={ index } />
       </div>
