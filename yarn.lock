@@ -800,6 +800,17 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@editorjs/quote/-/quote-2.4.0.tgz#effe570f9055831a230e0417fafa6091a6169a47"
 
+"@irojs/iro-core@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@irojs/iro-core/-/iro-core-1.2.0.tgz#3587c2db7a6de09f76dbf75b94605ac251039ca8"
+
+"@jaames/iro@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-5.5.1.tgz#1935713fe3cca8c4eadcfc6013b6f846ac8be097"
+  dependencies:
+    "@irojs/iro-core" "^1.2.0"
+    preact "^10.0.0"
+
 "@npmcli/move-file@^1.0.1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@npmcli/move-file/-/move-file-1.1.2.tgz#1a82c3e372f7cae9253eb66d72543d6b8685c674"
@@ -5256,6 +5267,10 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.17, postcss@^7.0.2
     chalk "^2.4.2"
     source-map "^0.6.1"
     supports-color "^6.1.0"
+
+preact@^10.0.0:
+  version "10.5.13"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.13.tgz#85f6c9197ecd736ce8e3bec044d08fd1330fa019"
 
 prepend-http@^1.0.0:
   version "1.0.4"

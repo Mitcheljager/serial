@@ -1,11 +1,10 @@
 <script>
-  import { hoveringElement, currentSectionIndex, currentTab } from "../../stores/data.js"
+  import { hoveringElement } from "../../stores/data.js"
 
   import Paragraph from "./Paragraph.svelte"
   import Heading from "./Heading.svelte"
   import Columns from "./Columns.svelte"
 
-  export let sectionIndex
   export let element
 
   const components = [
@@ -20,7 +19,6 @@
 <div
   class="element"
   class:element--hovering={ $hoveringElement == element.uuid }
-  on:click={ () => { $currentTab = "section"; $currentSectionIndex = sectionIndex } }
   on:mouseenter={ () => $hoveringElement = element.uuid }
   on:mouseleave={ () => $hoveringElement = null }>
 

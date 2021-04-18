@@ -1,11 +1,12 @@
 <script>
   import { onMount } from "svelte"
 
-  import { pages, page, currentTab } from "../../../stores/data.js"
   import RailsFetch from "../../../shared/railsFetch.js"
+  import { pages, page, currentTab } from "../../../stores/data.js"
 
   import ShowPage from "./Show.svelte"
-  import PageSelect from "./PageSelect.svelte"
+  import PageSelect from "./_PageSelect.svelte"
+  import SaveButton from "./_SaveButton.svelte"
   import SectionsList from "../../sections/settings/List.svelte"
   import SectionSettings from "../../sections/Settings.svelte"
   import ThemeSettings from "../../theme/Settings.svelte"
@@ -37,17 +38,6 @@
     }).post()
     .then(data => $page = JSON.parse(data))
   }
-
-  function saveCurrentPage() {
-    console.log($page)
-
-    new RailsFetch("/page/save", {
-      project_id: 1,
-      data: $page
-    }).post()
-    .then(data => console.log(JSON.parse(data)))
-    .catch(data => console.log(JSON.parse(data)))
-  }
 </script>
 
 
@@ -77,7 +67,7 @@
       <div class="content__actions">
         <PageSelect />
 
-        <button on:click={ saveCurrentPage } class="ml-auto button button--primary button--small">Save</button>
+        <SaveButton />
       </div>
 
       <div class="overflow">
@@ -101,6 +91,12 @@
     grid-template-columns: 300px auto;
     grid-gap: 1.5rem;
     margin-top: 1.5rem;
+  }
+
+  .sidebar {
+    :global(h2) {
+      margin-top: 0;
+    }
   }
 
   .content {

@@ -21,6 +21,10 @@
   &:active {
     color: white;
   }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
 }
 
 
@@ -28,8 +32,8 @@
   background: linear-gradient(105deg, var(--secondary) 0%, var(--primary) 100%);
   color: white;
 
-  &:hover,
-  &:active {
+  &:hover:not([disabled]),
+  &:active:not([disabled]) {
     filter: brightness(1.1);
   }
 
@@ -52,8 +56,8 @@
 .button--light {
 	background: var(--border-color);
 
-  &:hover,
-  &:active,
+  &:hover:not([disabled]),
+  &:active:not([disabled]),
   &.active {
     background: var(--content-bg-light);
     color: white;
@@ -63,7 +67,7 @@
 .button--small {
 	padding: .5rem 1rem;
 	font-size: 14px;
-	line-height: 1.1em;
+	line-height: 1em;
 	font-weight: normal;
 }
 

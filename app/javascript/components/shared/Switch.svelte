@@ -2,13 +2,15 @@
   export let element = null
   export let index = null
   export let key
+  export let defaultValue = false
 
   import { page, currentSectionIndex } from "../../stores/data.js"
 
-  let checked = false
+  let checked = $page.sections[$currentSectionIndex].elements[index].properties[key] || defaultValue
 
   function setKey(key) {
-    $page.sections[$currentSectionIndex].elements[index].properties[key] = event.target.checked
+    element.properties[key] = event.target.checked
+    $page.sections[$currentSectionIndex].elements[index] = element
   }
 </script>
 

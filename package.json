@@ -16,6 +16,7 @@
     "@editorjs/list": "^1.6.1",
     "@editorjs/marker": "^1.2.2",
     "@editorjs/quote": "^2.4.0",
+    "@jaames/iro": "^5.5.1",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",

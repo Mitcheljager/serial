@@ -37,6 +37,7 @@
       padding: clamp(1rem, calc(1vw * var(--margin-multiplier)), calc(var(--margin-multiplier) * .5rem));
       background: var(--bg-dark);
       border-radius: var(--border-radius);
+      color: var(--text-color);
     }
   }
 

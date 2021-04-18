@@ -34,7 +34,7 @@
 
 <div class="range">
   <label for="range">
-    <slot></slot>
+    <span class="form-label"><slot /></span>
 
     { #if responsive }
       <div class="marker">
@@ -49,11 +49,11 @@
 
   <div class="range-input">
     <input type="range" { min } { max } { step } bind:value on:input={ setValue } class="range-input__range" />
-    <input type="text" { min } { max } bind:value on:input={ setValue } class="range-input__number" />
+    <input type="text" { min } { max } bind:value on:input={ setValue } class="form-input range-input__number" />
   </div>
 
   <div class="help">
-    <slot name="help"></slot>
+    <slot name="help" />
   </div>
 </div>
 
@@ -75,7 +75,7 @@
   }
 
   .range {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .range-input {
@@ -107,22 +107,9 @@
   }
 
   .range-input__number {
-    appearance: none;
     width: 3rem;
-    padding: .25rem .5rem;
-    border: 0;
-    border-radius: .5rem;
     margin-left: .5rem;
-    background: var(--bg-dark);
-    color: var(--text-color);
     text-align: right;
-    font-size: 1rem;
-  }
-
-  .help {
-    font-size: .85rem;
-    font-style: italic;
-    opacity: .75;
   }
 
   .marker {

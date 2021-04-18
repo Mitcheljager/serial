@@ -50,7 +50,7 @@
 
 
 <div bind:this={ listElement }>
-  { #each $page.sections[$currentSectionIndex].elements || {} as element, index }
+  { #each $page.sections[$currentSectionIndex].elements || {} as element, index (element.uuid) }
     <div
       data-id={ element.uuid }
       data-index={ index }
@@ -59,13 +59,13 @@
       on:mouseenter={ () => $hoveringElement = element.uuid }
       on:mouseleave={ () => $hoveringElement = null }>
 
-      <div class="section__header" on:click={ () => setCurrentElement(index) }>
+      <div class="section__header" on:click={ () => setCurrentElement(element.uuid) }>
         <h4>{ element.content_type }</h4>
 
         <span>{ currentElement == index ? "-" : "+" }</span>
       </div>
 
-      { #if currentElement == index }
+      { #if currentElement == element.uuid }
         <div class="section__content">
           <svelte:component this={ components.filter(i => i.identifier == element.content_type)[0].component } { element } { index } />
         </div>

@@ -36,6 +36,8 @@
 
 
 
+<h2>Sections</h2>
+
 <div bind:this={ listElement }>
   { #each $page.sections as section, index (section.uuid) }
     <div
@@ -63,10 +65,6 @@
     background: var(--bg-dark);
     cursor: pointer;
     overflow: hidden;
-
-    &.hovering {
-      box-shadow: 0 0 0 2px var(--primary);
-    }
 
     h4 {
       margin: 0;

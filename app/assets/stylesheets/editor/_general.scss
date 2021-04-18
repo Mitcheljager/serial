@@ -3,16 +3,23 @@
 }
 
 :root {
-	--primary: #a936de;
-	--secondary: #eb850d;
-	--body-bg: #262b35;
-	--content-bg: #1a1d23;
-	--content-bg-light: #4e586e;
-	--bg-dark: #111317;
-	--border-color: #3f4655;
-	--text-color: #b8c1d2;
-	--text-color-dark: #6c788b;
-	--text-color-light: #d5deee;
+	$body-bg: hsl(220, 15%, 20%);
+	$text-color: hsl(219, 22%, 77%);
+
+	--primary: hsl(281, 72%, 54%);
+	--secondary: hsl(32, 90%, 49%);
+	--red: #b33834;
+	--orange: #e89930;
+	--green: #35d377;
+	--body-bg: #{ $body-bg };
+	--content-bg: #{ darken($body-bg, 5%) };
+	--content-bg-light: #{ lighten($body-bg, 15%)};
+	--bg-dark: #{ darken($body-bg, 10%) };
+	--border-color: #{ lighten($body-bg, 10%) };
+	--text-color: #{ $text-color };
+	--text-color-medium: #{ desaturate(darken($text-color, 15%), 5%) };
+	--text-color-dark: #{ desaturate(darken($text-color, 30%), 10%) };
+	--text-color-light: #{ lighten($text-color, 15%) };
 }
 
 html, body {

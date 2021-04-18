@@ -32,6 +32,11 @@ export default class RailsFetch {
     })
 
     const data = await response.text()
+
+    if (!response.ok) {
+      throw new Error("Something went wrong")
+    }
+
     return data
   }
 }

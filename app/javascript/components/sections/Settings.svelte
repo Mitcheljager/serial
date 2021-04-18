@@ -10,7 +10,7 @@
 
 
 
-<h3>Section - { section.name }</h3>
+<h2>{ section.name }</h2>
 
 <Range
   key="spacing"
@@ -22,8 +22,8 @@
 
 <div class="button-group">
   <Button key="background_color" value="">None</Button>
-  <Button key="background_color" value="red">Red</Button>
-  <Button key="background_color" value="blue">Blue</Button>
+  <Button key="background_color" value="var(--primary-color)">Primary</Button>
+  <Button key="background_color" value="var(--secondary-color)">Secondary</Button>
 </div>
 
 <h3>Elements</h3>

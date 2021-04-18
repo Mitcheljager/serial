@@ -8,6 +8,7 @@
 	import { currentUser } from "./stores/user.js"
 
 	import Header from "./components/Header.svelte"
+	import GlobalError from "./components/GlobalError.svelte"
 
 	export let _user
 	export let _project
@@ -26,6 +27,8 @@
 	})
 </script>
 
+
+
 { #if $currentUser }
 	{ #if !loading }
 		<div class="board">
@@ -37,6 +40,10 @@
 { :else }
 	Please log in
 { /if }
+
+<GlobalError />
+
+
 
 <style lang="scss">
 	.board {
