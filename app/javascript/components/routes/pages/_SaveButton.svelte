@@ -1,5 +1,6 @@
 <script>
   import RailsFetch from "../../../shared/railsFetch.js"
+  import { theme } from "../../../stores/theme.js"
   import { page } from "../../../stores/data.js"
   import { globalError } from "../../../stores/error.js"
 
@@ -7,15 +8,15 @@
   let success = false
   let error = false
 
-  function saveCurrentPage() {
+  function save() {
     saving = true
 
-    new RailsFetch("/page/save", {
-      project_id: 1,
-      data: $page
-    }).post()
-    .then(data => setTimeout(() => success = true, 500))
-    .catch(data => setTimeout(() => {
+    Promise.all([
+      new Promise((resolve, reject) => savePage(resolve, reject)),
+      new Promise((resolve, reject) => saveTheme(resolve, reject))
+    ])
+    .then(() => setTimeout(() => success = true, 500))
+    .catch(() => setTimeout(() => {
       error = true
       $globalError = "Something went wrong when saving, please try again."
     }, 500))
@@ -25,13 +26,31 @@
       success = false
     }, 2000))
   }
+
+  function savePage(resolve, reject) {
+    new RailsFetch("/page/save", {
+      project_id: 1,
+      data: $page
+    }).post()
+    .then(() => resolve())
+    .catch(() => reject())
+  }
+
+  function saveTheme(resolve, reject) {
+    new RailsFetch("/project/save", {
+      project_id: 1,
+      properties: $theme
+    }).post()
+    .then(() => resolve())
+    .catch(() => reject())
+  }
 </script>
 
 
 
 <button
   disabled={ saving }
-  on:click={ saveCurrentPage }
+  on:click={ save }
   class:button--primary={ !saving }
   class:button--light={ saving }
   class:button--success={ success && saving }

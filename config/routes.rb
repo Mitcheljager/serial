@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get "logout", to: "sessions#destroy", as: "logout"
 
   defaults format: :json do
+    post "project/save", to: "projects#update"
+
     post "pages", to: "pages#index"
     post "page", to: "pages#show"
     post "page/save", to: "pages#update"

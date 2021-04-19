@@ -4,6 +4,7 @@
 	import Router from "svelte-spa-router"
 	import routes from "./routes"
 
+	import { theme } from "./stores/theme.js"
 	import { projects, project } from "./stores/project.js"
 	import { currentUser } from "./stores/user.js"
 
@@ -20,6 +21,7 @@
 		$currentUser = _user
 		$project = _project
 		$projects = _projects
+		$theme = JSON.parse($project.properties)
 
 		window.addEventListener("load", () => {
 			loading = false
