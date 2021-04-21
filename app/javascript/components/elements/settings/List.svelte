@@ -2,7 +2,7 @@
   import Sortable from "sortablejs"
   import { onMount } from "svelte"
 
-  import { page, currentSectionIndex, hoveringElement } from "../../../stores/data.js"
+  import { page, currentSectionIndex, currentElement, hoveringElement } from "../../../stores/data.js"
 
   import AddElement from "./Add.svelte"
   import Heading from "./Heading.svelte"
@@ -13,7 +13,6 @@
     { component: Columns, identifier: "columns" }
   ]
 
-  let currentElement = null
   let listElement
   let sortable
 
@@ -37,13 +36,14 @@
     const elementsList = $page.sections[$currentSectionIndex].elements
     const orderedList = order.map(index => elementsList[index])
     
+    orderedList.map((item, index) => item.position = index)
     $page.sections[$currentSectionIndex].elements = orderedList
 
     setTimeout(() => sortable.sort(sortableOrder, false))
   }
 
-  function setCurrentElement(index) {
-    currentElement = currentElement == index ? null : index
+  function setCurrentElement(uuid) {
+    $currentElement = $currentElement == uuid ? null : uuid
   }
 </script>
 
@@ -55,6 +55,7 @@
       data-id={ element.uuid }
       data-index={ index }
       class="section"
+      class:active={ $currentElement == element.uuid }
       class:hovering={ $hoveringElement == element.uuid }
       on:mouseenter={ () => $hoveringElement = element.uuid }
       on:mouseleave={ () => $hoveringElement = null }>
@@ -62,10 +63,10 @@
       <div class="section__header" on:click={ () => setCurrentElement(element.uuid) }>
         <h4>{ element.content_type }</h4>
 
-        <span>{ currentElement == index ? "-" : "+" }</span>
+        <span>{ $currentElement == element.uuid ? "-" : "+" }</span>
       </div>
 
-      { #if currentElement == element.uuid }
+      { #if $currentElement == element.uuid }
         <div class="section__content">
           <svelte:component this={ components.filter(i => i.identifier == element.content_type)[0].component } { element } { index } />
         </div>
@@ -105,9 +106,14 @@
     span {
       font-weight: bold;
     }
+
+    .active & {
+      color: var(--text-color-light);
+    }
   }
 
   .section__content {
     padding: 1rem 1rem 0;
+    border-top: 0;
   }
 </style>

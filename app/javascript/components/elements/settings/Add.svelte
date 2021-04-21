@@ -6,7 +6,9 @@
   let active = false
 
   function addElement(type) {
-    const newElement = { uuid: uuid(), content_type: type, properties: {} }
+    const listLength = $page.sections[$currentSectionIndex].elements.length
+    const newElement = { uuid: uuid(), content_type: type, position: listLength, properties: {} }
+    
     $page.sections[$currentSectionIndex].elements = [...$page.sections[$currentSectionIndex].elements || [], newElement]
 
     active = false

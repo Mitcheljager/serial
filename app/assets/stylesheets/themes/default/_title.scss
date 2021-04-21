@@ -1,0 +1,17 @@
+h1,
+h2,
+h3 {
+  color: white;
+}
+
+.text-primary-color-offset {
+  h1, h2, h3 {
+    color: var(--primary-color-text-offset);
+  }
+}
+
+.text-secondary-color-offset {
+  h1, h2, h3 {
+    color: var(--secondary-color-text-offset);
+  }
+}

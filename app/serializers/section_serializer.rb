@@ -6,6 +6,9 @@ class SectionSerializer < ActiveModel::Serializer
   end
 
   def elements
-    ActiveModel::SerializableResource.new(object.elements,  each_serializer: ElementSerializer)
+    ActiveModel::SerializableResource.new(
+      object.elements.order(:position, :asc),
+      each_serializer: ElementSerializer
+    )
   end
 end

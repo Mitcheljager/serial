@@ -15,8 +15,8 @@
 
 <div
   class="section"
-  class:primary-color={ backgroundColor == "var(--primary-color)" }
-  class:secondary-color={ backgroundColor == "var(--secondary-color)" }
+  class:text-primary-color-offset={ backgroundColor == "var(--primary-color)" }
+  class:text-secondary-color-offset={ backgroundColor == "var(--secondary-color)" }
   style="
   --background-color: { backgroundColor };
   --spacing: { section.properties?.spacing || 0 }"
@@ -38,13 +38,5 @@
     padding: calc(1px + (var(--margin) * .5 * var(--spacing))) 0;
     min-height: 100px;
     background-color: var(--background-color);
-
-    &.primary-color {
-      color: var(--primary-color-text-offset)
-    }
-
-    &.secondary-color {
-      color: var(--secondary-color-text-offset)
-    }
   }
 </style>

@@ -8,7 +8,7 @@
 
   let checked = $page.sections[$currentSectionIndex].elements[index].properties[key] || defaultValue
 
-  function setKey(key) {
+  function setKey() {
     element.properties[key] = event.target.checked
     $page.sections[$currentSectionIndex].elements[index] = element
   }
@@ -17,8 +17,8 @@
 
 
 <div class="switch">
-  <input class="switch__input" type="checkbox" id="{ $currentSectionIndex }-{ key }" bind:checked on:input={ () => setKey(key) }>
-  <label class="switch__label" for="{ $currentSectionIndex }-{ key }"><slot></slot></label>
+  <input class="switch__input" type="checkbox" id="{ $currentSectionIndex }-{ key }" bind:checked on:input={ setKey }>
+  <label class="switch__label form-label" for="{ $currentSectionIndex }-{ key }"><slot></slot></label>
 </div>
 
 

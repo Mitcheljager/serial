@@ -4,7 +4,9 @@
   import { page } from "../../../stores/data.js"
 
   function addSection() {
-    const newElement = { uuid: uuid(), name: "Unnamed section", properties: {} }
+    const listLength = $page.sections.length
+    const newElement = { uuid: uuid(), name: "Unnamed section", position: listLength, properties: {} }
+
     $page.sections = [...$page.sections || [], newElement]
   }
 </script>

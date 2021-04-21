@@ -8,18 +8,25 @@
 
 	--primary: hsl(281, 72%, 54%);
 	--secondary: hsl(32, 90%, 49%);
+
 	--red: #b33834;
 	--orange: #e89930;
 	--green: #35d377;
+
 	--body-bg: #{ $body-bg };
 	--content-bg: #{ darken($body-bg, 5%) };
 	--content-bg-light: #{ lighten($body-bg, 15%)};
 	--bg-dark: #{ darken($body-bg, 10%) };
 	--border-color: #{ lighten($body-bg, 10%) };
+
 	--text-color: #{ $text-color };
 	--text-color-medium: #{ desaturate(darken($text-color, 15%), 5%) };
 	--text-color-dark: #{ desaturate(darken($text-color, 30%), 10%) };
 	--text-color-light: #{ lighten($text-color, 15%) };
+	--font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-family-titles: "Lato", sans-serif;
+
+	--max-width: 1600px;
 }
 
 html, body {
@@ -30,10 +37,12 @@ body {
 	position: relative;
 	margin: 0;
 	padding: 0;
-	background: var(--body-bg);
+	background: image-url("background-blobs-header-1.svg") no-repeat;
+	background-size: 100% clamp(100px, 30vw, 500px);
+	background-color: var(--body-bg);
 	color: var(--text-color);
 	font-size: 16px;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-family: var(--font-family);
 	overflow-x: hidden;
 }
 
@@ -47,4 +56,8 @@ a {
   &:focus {
     outline: none;
   }
+}
+
+[contenteditable]:focus {
+	outline: none;
 }

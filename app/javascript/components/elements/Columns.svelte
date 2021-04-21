@@ -1,9 +1,11 @@
 <script>
   import EditableText from "../shared/EditableText.svelte"
+  import EditableButton from "../shared/EditableButton.svelte"
 
   export let element
 
   $: enableBackground = element.properties.enable_background || false
+  $: enableButtons = element.properties.enable_buttons || false
   $: columnCount = { length: element.properties.column_count || 3 }
   $: columnSize = element.properties.column_size || 250
   $: columnGap = element.properties.column_gap !== undefined ? element.properties.column_gap : 1
@@ -16,7 +18,13 @@
     <div class="column">
       <h3><EditableText { element } key="title_{ i }" defaultValue="Title" /></h3>
 
-      <EditableText { element } key="content_{ i }" defaultValue="Column content" />
+      <div class="mb-1/2">
+        <EditableText { element } key="content_{ i }" defaultValue="Column content" />
+      </div>
+
+      { #if enableButtons }
+        <EditableButton { element } key="button_{ i }" />
+      { /if }
     </div>
   { /each }
 </div>
@@ -42,6 +50,10 @@
   }
 
   h3 {
-    margin: 0 0 1rem;
+    margin: 0 0 .75rem;
+
+    .columns.with-background & {
+      color: white;
+    }
   }
 </style>

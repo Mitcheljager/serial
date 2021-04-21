@@ -1,5 +1,5 @@
 <script>
-  import { hoveringElement } from "../../stores/data.js"
+  import { hoveringElement, currentElement } from "../../stores/data.js"
 
   import Paragraph from "./Paragraph.svelte"
   import Heading from "./Heading.svelte"
@@ -20,7 +20,8 @@
   class="element"
   class:element--hovering={ $hoveringElement == element.uuid }
   on:mouseenter={ () => $hoveringElement = element.uuid }
-  on:mouseleave={ () => $hoveringElement = null }>
+  on:mouseleave={ () => $hoveringElement = null }
+  on:click={ () => $currentElement = element.uuid }>
 
   <svelte:component this={ components.filter(i => i.identifier == element.content_type)[0].component } { element } />
 </div>

@@ -13,6 +13,11 @@
   Include background
 </Switch>
 
+<Switch { element } { index }
+  key="enable_buttons">
+  Include buttons
+</Switch>
+
 <Range { element } { index }
   key="column_count"
   min=1 max=10 step=1 defaultValue=3>

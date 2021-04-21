@@ -7,6 +7,7 @@
   import ShowPage from "./Show.svelte"
   import PageSelect from "./_PageSelect.svelte"
   import SaveButton from "./_SaveButton.svelte"
+  import FloatingSettings from "./_FloatingSettings.svelte"
   import SectionsList from "../../sections/settings/List.svelte"
   import SectionSettings from "../../sections/Settings.svelte"
   import ThemeSettings from "../../theme/Settings.svelte"
@@ -54,13 +55,17 @@
         { /if }
       </div>
 
-      { #if $currentTab == "theme" }
-        <ThemeSettings />
-      { :else if $currentTab == "sections" }
-        <SectionsList on:setTab={ setTab } />
-      { :else if $currentTab == "section" }
-        <SectionSettings />
-      { /if }
+      <div class="sidebar__content">
+        <div class="mb-1/1">
+          { #if $currentTab == "theme" }
+            <ThemeSettings />
+          { :else if $currentTab == "sections" }
+            <SectionsList on:setTab={ setTab } />
+          { :else if $currentTab == "section" }
+            <SectionSettings />
+          { /if }
+        </div>
+      </div>
     </aside>
 
     <div class="content">
@@ -70,11 +75,15 @@
         <SaveButton />
       </div>
 
-      <div class="overflow">
+      <div class="block-scroll" data-role="theme-container">
         <div class="block">
-          <Theme>
-            <ShowPage />
-          </Theme>
+          <div class="overflow">
+            <Theme>
+              <ShowPage />
+            </Theme>
+
+            <FloatingSettings />
+          </div>
         </div>
       </div>
     </div>
@@ -86,23 +95,56 @@
 
 
 <style lang="scss">
+  $actions-height: 40px;
+
   .board {
     display: grid;
-    grid-template-columns: 300px auto;
+    grid-template-columns: calc(300px + 1.5rem) auto;
     grid-gap: 1.5rem;
-    margin-top: 1.5rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
   }
 
   .sidebar {
+    display: grid;
+    grid-template-rows: $actions-height auto;
+    grid-gap: 1.5rem;
+    height: calc(100vh - 60px);
+    padding: 1.5rem 0 0 1.5rem;
+
     :global(h2) {
       margin-top: 0;
     }
   }
 
+  .sidebar__content {
+    padding: 0 2px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
   .content {
+    display: grid;
+    grid-template-rows: $actions-height auto;
+    grid-gap: .75rem;
+    height: calc(100vh - 60px);
+    padding: 1.5rem 1.5rem 0 0;
+
+    .block-scroll {
+      height: 100%;
+      border-top: 2px solid var(--border-color);
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      overflow: auto;
+      scrollbar-width: none;
+    }
+
     .block {
       padding: 0;
       min-height: 600px;
+      border: 2px solid var(--border-color);
+      border-top: 0;
+      margin-bottom: 3rem;
     }
   }
 
@@ -110,7 +152,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: .75rem;
   }
 
   .overflow {
@@ -122,7 +163,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: .15rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 
     &--three {
       grid-template-columns: repeat(3, 1fr);
@@ -131,6 +172,7 @@
     .button {
       padding-left: 1rem;
       padding-right: 1rem;
+      border: 0;
     }
   }
 </style>

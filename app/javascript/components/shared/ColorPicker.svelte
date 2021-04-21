@@ -90,7 +90,7 @@
     <div class="color-picker__handle" on:click={ () => active = !active } bind:this={ handle }></div>
 
     { #if active }
-      <div class="color-picker__content" in:fly={{ y: 10, duration: 200 }}>
+      <div class="color-picker__content" in:fly={{ y: 10, duration: 150 }}>
         <div bind:this={ element }></div>
 
         <input class="form-input mt-1/4" on:input={ setColorViaInput } bind:value={ hexString } />

@@ -22,6 +22,5 @@
 <style lang="scss">
   div {
     position: relative;
-    padding: .1px 0;
   }
 </style>

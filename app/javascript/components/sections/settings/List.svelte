@@ -27,6 +27,7 @@
     
     const elementsList = $page.sections
     const orderedList = order.map(index => elementsList[index])
+    orderedList.map((item, index) => item.position = index)
     
     $page.sections = orderedList
 

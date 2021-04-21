@@ -15,7 +15,7 @@
 <header class="header">
   <ProjectSelect />
 
-  <div class="header__navigation">
+  <nav class="header__navigation">
     <a class="header__item" use:active={{ path: "/", className: "header__item--active" }} href="/" use:link>
       <IconHome active={ $location == "/" } />
       <span>Home</span>
@@ -25,7 +25,7 @@
       <IconList active={ $location == "/pages" } />
       <span>Pages</span>
     </a>
-  </div>
+  </nav>
 
   <div class="header__user">
     Logged in as <strong>{ $currentUser.username }</strong>
@@ -36,17 +36,16 @@
 
 <style lang="scss">
   .header {
-    position: fixed;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     top: 0;
-    left: 50%;
-    width: 100%;
     height: 60px;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
     padding: 0 1.5rem;
     background: var(--content-bg);
-    transform: translateX(-50%);
     z-index: 20;
   }
 

@@ -18,7 +18,7 @@
   key="secondary_color"
   defaultValue={{ h: 32, s: 90, l: 49 }}>
   Secondary color
-  <span slot="help">For best effect this color should be fairly different from the Primary color.</span>
+  <span slot="help">This color is used to accent the primary color and create contrast.</span>
 </ColorPicker>
 
 <hr />

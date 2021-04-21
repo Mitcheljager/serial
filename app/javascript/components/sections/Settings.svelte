@@ -10,7 +10,7 @@
 
 
 
-<h2>{ section.name }</h2>
+<h2 contenteditable spellcheck=false bind:textContent={ section.name } />
 
 <Range
   key="spacing"
@@ -18,7 +18,7 @@
   Section Spacing
 </Range>
 
-<div>Background</div>
+<div class="form-label mb-1/4">Background</div>
 
 <div class="button-group">
   <Button key="background_color" value="">None</Button>

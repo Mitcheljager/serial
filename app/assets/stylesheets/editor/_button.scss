@@ -6,6 +6,7 @@
   padding: 0.5rem 1.5rem;
   border: 0;
   background: var(--body-bg);
+  font-family: var(--font-family-titles);
 	color: var(--text-color);
   font-size: 1rem;
   line-height: 1.5em;
@@ -66,9 +67,8 @@
 
 .button--small {
 	padding: .5rem 1rem;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 1em;
-	font-weight: normal;
 }
 
 .button-group {

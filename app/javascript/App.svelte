@@ -33,7 +33,7 @@
 
 { #if $currentUser }
 	{ #if !loading }
-		<div class="board">
+		<div class="container">
 			<Header />
 
 			<Router { routes } />
@@ -48,8 +48,9 @@
 
 
 <style lang="scss">
-	.board {
-		padding: 4rem 1.5rem;
-		margin: 0 auto;
+	.container {
+		height: 100vh;
+		width: 100vw;
+		overflow: hidden;
 	}
 </style>
