@@ -12,8 +12,8 @@
     saving = true
 
     Promise.all([
-      new Promise((resolve, reject) => savePage(resolve, reject)),
-      new Promise((resolve, reject) => saveTheme(resolve, reject))
+      new Promise((resolve, reject) => post("/page/save", { project_id: 1, data: $page }, resolve, reject)),
+      new Promise((resolve, reject) => post("/project/save", { project_id: 1, properties: $theme }, resolve, reject))
     ])
     .then(() => setTimeout(() => success = true, 500))
     .catch(() => setTimeout(() => {
@@ -27,20 +27,8 @@
     }, 2000))
   }
 
-  function savePage(resolve, reject) {
-    new RailsFetch("/page/save", {
-      project_id: 1,
-      data: $page
-    }).post()
-    .then(() => resolve())
-    .catch(() => reject())
-  }
-
-  function saveTheme(resolve, reject) {
-    new RailsFetch("/project/save", {
-      project_id: 1,
-      properties: $theme
-    }).post()
+  function post(url, data, resolve, reject) {
+    new RailsFetch(url, data).post()
     .then(() => resolve())
     .catch(() => reject())
   }

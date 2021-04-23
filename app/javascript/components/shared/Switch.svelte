@@ -4,13 +4,13 @@
   export let key
   export let defaultValue = false
 
-  import { page, currentSectionIndex } from "../../stores/data.js"
+  import { getElementKey, setElementKey } from "../../shared/key"
+  import { currentSectionIndex } from "../../stores/data"
 
-  let checked = $page.sections[$currentSectionIndex].elements[index].properties[key] || defaultValue
+  let checked = getElementKey($currentSectionIndex, element, key) || defaultValue
 
   function setKey() {
-    element.properties[key] = event.target.checked
-    $page.sections[$currentSectionIndex].elements[index] = element
+    setElementKey($currentSectionIndex, element, key, event.target.checked)
   }
 </script>
 

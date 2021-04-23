@@ -56,7 +56,7 @@
       </div>
 
       <div class="sidebar__content">
-        <div class="mb-1/1">
+        <div class="mb-1/1 mt-1/4">
           { #if $currentTab == "theme" }
             <ThemeSettings />
           { :else if $currentTab == "sections" }
@@ -132,18 +132,16 @@
 
     .block-scroll {
       height: 100%;
-      border-top: 2px solid var(--border-color);
       border-top-left-radius: 1rem;
       border-top-right-radius: 1rem;
       overflow: auto;
       scrollbar-width: none;
+      box-shadow: 0 .5rem 1.5rem hsla(0, 0, 0, .25);
     }
 
     .block {
-      padding: 0;
       min-height: 600px;
-      border: 2px solid var(--border-color);
-      border-top: 0;
+      padding: 0;
       margin-bottom: 3rem;
     }
   }
@@ -162,7 +160,7 @@
   .tabs {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: .15rem;
+    grid-gap: .25rem;
     margin-bottom: 0;
 
     &--three {

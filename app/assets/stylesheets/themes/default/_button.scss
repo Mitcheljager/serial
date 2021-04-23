@@ -1,5 +1,7 @@
 .button {
   all: initial;
+  box-sizing: border-box;
+  position: relative;
   display: inline-block;
   padding: .5rem 1.5rem;
   border-radius: calc(var(--border-radius) / 2);
@@ -7,5 +9,55 @@
   color: var(--text-color-light);
   font-family: var(--font-family);
   font-weight: bold;
+  text-align: center;
   cursor: pointer;
+
+  &:hover,
+  &:active {
+    filter: brightness(1.15);
+  }
+
+  &::after,
+  &::before {
+    all: initial;
+  }
+}
+
+.button--primary {
+  background: var(--primary-color);
+  color: var(--primary-color-text-offset);
+}
+
+.button--secondary {
+  background: var(--secondary-color);
+  color: var(--secondary-color-text-offset);
+}
+
+.button--gradient {
+  background: linear-gradient(105deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: var(--primary-color-text-offset);
+}
+
+.button--border {
+  background: transparent;
+  border: 2px solid currentColor;
+  color: currentColor;
+}
+
+.button--large {
+  font-size: 1.15rem;
+  padding: .75rem 2rem;
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+.button--link {
+  background: transparent;
+  padding-left: 0;
+  padding-right: 0;
+  color: currentColor;
+  border-bottom: 2px solid currentColor;
+  border-radius: 0;
 }

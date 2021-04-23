@@ -8,7 +8,7 @@
   $: enableButtons = element.properties.enable_buttons || false
   $: columnCount = { length: element.properties.column_count || 3 }
   $: columnSize = element.properties.column_size || 250
-  $: columnGap = element.properties.column_gap !== undefined ? element.properties.column_gap : 1
+  $: columnGap = element.properties.column_gap || 2
 </script>
 
 

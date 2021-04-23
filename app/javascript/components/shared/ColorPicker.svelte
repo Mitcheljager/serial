@@ -138,7 +138,7 @@
 
     &:hover,
     &:active {
-      filter: brightness(1.2);
+      filter: brightness(1.15);
     }
   }
 
@@ -148,8 +148,12 @@
     left: 0;
     padding: 1.5rem;
     max-width: 300px;
-    background: var(--content-bg);
+    background: var(--border-color);
     z-index: 10;
     border-radius: .5rem;
+  }
+
+  input {
+    background: var(--content-bg);
   }
 </style>

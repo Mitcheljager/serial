@@ -2,12 +2,13 @@
   export let key
   export let value
 
+  import { getSectionKey, setSectionKey } from "../../shared/key"
   import { page, currentSectionIndex } from "../../stores/data.js"
 
-  $: keyValue = $page.sections[$currentSectionIndex].properties?.[key]
+  $: keyValue = getSectionKey($currentSectionIndex, key, $page)
 
   function setKey(key, value) {
-    $page.sections[$currentSectionIndex].properties[key] = value
+    setSectionKey($currentSectionIndex, key, value)
   }
 </script>
 

@@ -3,11 +3,11 @@
 
   export let element
   export let key
-  export let defaultValue = { label: "Link" }
+  export let defaultValue = { }
 
-  $: button = element.properties?.[key] || defaultValue
+  $: button = element.properties[key] || defaultValue
 
-  function openSettings() {
+  function toggleSettings() {
     event.preventDefault()
 
     const settingsKey = { key: key, element: element }
@@ -22,12 +22,13 @@
 
 
 <a 
-  class="button"
+  data-editable-button
+  class="button button--{ button.style } button--{ button.size }"
   class:active={ $currentEditableButton?.key == key && $currentEditableButton?.element == element }
   href="{ button.link }"
-  on:click={ openSettings }>
+  on:click={ toggleSettings }>
 
-  { button.label }
+  { button.label || "Link" }
 </a>
 
 
@@ -39,12 +40,12 @@
     &::before {
       content: "";
       position: absolute;
-      left: -.25rem;
-      right: -.25rem;
-      top: -.25rem;
-      bottom: -.25rem;
+      left: -.5rem;
+      right: -.5rem;
+      top: -.5rem;
+      bottom: -.5rem;
       border-radius: calc(var(--border-radius) / 2);
-      box-shadow: 0 0 0 2px var(--secondary);
+      border: 2px dashed var(--text-color-dark);
     }
   }
 </style>

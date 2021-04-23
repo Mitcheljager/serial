@@ -7,6 +7,7 @@
 
   function change() {
     element.properties[key] = content
+
   }
 </script>
 
