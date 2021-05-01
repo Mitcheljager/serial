@@ -5,8 +5,8 @@
   display: inline-block;
   padding: .5rem 1.5rem;
   border-radius: calc(var(--border-radius) / 2);
-  background: var(--content-bg-light);
-  color: var(--text-color-light);
+  background: var(--palette-light);
+  color: var(--palette-font-light);
   font-family: var(--font-family);
   font-weight: bold;
   text-align: center;
@@ -14,7 +14,7 @@
 
   &:hover,
   &:active {
-    filter: brightness(1.15);
+    filter: brightness(1.05);
   }
 
   &::after,
@@ -51,6 +51,10 @@
 
 .button--full-width {
   width: 100%;
+}
+
+.button--pill {
+  border-radius: 99px;
 }
 
 .button--link {

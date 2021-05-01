@@ -1,6 +1,6 @@
 <script>
   import { onMount, onDestroy } from "svelte"
-  import { fade, fly } from "svelte/transition"
+  import { fly } from "svelte/transition"
   import iro from "@jaames/iro"
 
   import { theme } from "../../stores/theme.js"

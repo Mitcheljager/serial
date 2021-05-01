@@ -108,6 +108,7 @@
 
   .range-input__number {
     width: 3rem;
+    padding: .25rem .5rem;
     margin-left: .5rem;
     text-align: right;
   }

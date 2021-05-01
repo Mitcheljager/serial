@@ -1,14 +1,13 @@
 <script>
   import Range from "../shared/Range.svelte"
   import ColorPicker from "../shared/ColorPicker.svelte"
-  import Select from "../shared/Select.svelte"
+  import PalettePicker from "../shared/PalettePicker.svelte"
+  import FontPicker from "../shared/FontPicker.svelte"
 </script>
 
 
 
 <h2>Theme Settings</h2>
-
-<h3>Colors</h3>
 
 <ColorPicker
   key="primary_color"
@@ -24,19 +23,19 @@
   <span slot="help">This color is used to accent the primary color and create contrast.</span>
 </ColorPicker>
 
+<PalettePicker key="palette" />
+
 <hr />
 
-<h3>Fonts</h3>
+<FontPicker key="font_heading">
+  Title font
+</FontPicker>
 
-<Select
-  key="font_body"
-  array={{ "Default": "", "Arial": "Arial" }}>
+<FontPicker key="font_body">
   Body font
-</Select>
+</FontPicker>
 
 <hr />
-
-<h3>Layout</h3>
 
 <Range
   setTheme=true

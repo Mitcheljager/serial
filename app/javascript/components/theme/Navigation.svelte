@@ -17,12 +17,12 @@
 <style lang="scss">
   nav {
     padding: calc(.5rem + (.5rem * var(--margin-multiplier))) 0;
-    background: var(--bg-dark);
+    background: var(--palette-dark);
   }
 
   .logo {
     margin-right: 1.5rem;
-    color: var(--text-color-light);
+    color: var(--palette-font-light);
     text-decoration: none;
     font-weight: bold;
   }
@@ -38,7 +38,7 @@
   .navigation__item {
     display: block;
     margin: 0 1rem 0 0;
-    color: var(--text-color);
+    color: var(--palette-font);
     text-decoration: none;
   }
 </style>

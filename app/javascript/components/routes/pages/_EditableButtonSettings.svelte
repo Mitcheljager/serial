@@ -38,7 +38,7 @@
   <div class="grid__item">
     <label for="button-label" class="form-label">Style</label>
 
-    <select class="form-input mt-1/8" on:change={ () => setKey("style") }>
+    <select class="form-input mt-1/8" value={ button?.style || "" } on:change={ () => setKey("style") }>
       <option value="">Default</option>
       <option value="primary">Primary</option>
       <option value="secondary">Secondary</option>
@@ -51,10 +51,11 @@
   <div class="grid__item">
     <label for="button-label" class="form-label">Size</label>
 
-    <select class="form-input mt-1/8" on:change={ () => setKey("size") }>
+    <select class="form-input mt-1/8" value={ button?.size || "" } on:change={ () => setKey("size") }>
       <option value="">Default</option>
       <option value="large">Large</option>
       <option value="full-width">Full width</option>
+      <option value="pill">Pill</option>
     </select>
   </div>
 </div>

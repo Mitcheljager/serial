@@ -1,7 +1,10 @@
 h1,
 h2,
-h3 {
-  color: white;
+h3,
+h4,
+h5 {
+  font-family: var(--font-heading, var(--font-family-titles));
+  color: var(--palette-font-light);
 }
 
 .text-primary-color-offset {

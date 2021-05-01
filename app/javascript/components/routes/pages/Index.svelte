@@ -100,7 +100,7 @@
   .board {
     display: grid;
     grid-template-columns: calc(300px + 1.5rem) auto;
-    grid-gap: 1.5rem;
+    grid-gap: clamp(1.5rem, 2vw, 3rem);
     max-width: var(--max-width);
     margin: 0 auto;
   }

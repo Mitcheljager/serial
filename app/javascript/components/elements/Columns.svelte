@@ -43,9 +43,9 @@
   .column {
     .columns.with-background & {
       padding: clamp(1rem, calc(1vw * var(--margin-multiplier)), calc(var(--margin-multiplier) * .5rem));
-      background: var(--bg-dark);
+      background: var(--palette-dark);
       border-radius: var(--border-radius);
-      color: var(--text-color);
+      color: var(--palette-font);
     }
   }
 
@@ -53,7 +53,7 @@
     margin: 0 0 .75rem;
 
     .columns.with-background & {
-      color: white;
+      color: var(--palette-font-light);
     }
   }
 </style>
