@@ -2,17 +2,15 @@
   import { onMount, onDestroy } from "svelte"
   import { fly } from "svelte/transition"
 
-  import { currentEditableButton } from "../../../stores/data"
-
-  import EditableButtonSettings from "./_EditableButtonSettings.svelte"
-
-  $: active = $currentEditableButton
-  $: { if (active) getWidth() }
+  import { currentEditableButton, currentEditableText } from "../../../stores/data"
 
   let element
   let width = 0
 
-  onMount(() => document.addEventListener("click", clickOutside))
+  onMount(() => {
+    getWidth()
+    document.addEventListener("click", clickOutside)
+  })
   onDestroy(() => document.removeEventListener("click", clickOutside))
 
   function getWidth() {
@@ -21,26 +19,23 @@
   }
   
   function clickOutside(event) {
-    if (!active) return
     if (event.target.closest(".floating-settings")) return
-    if (event.target.closest("[data-editable-button]")) return
 
-    $currentEditableButton = null
+    if (!event.target.closest("[data-editable-button]")) $currentEditableButton = null
+    if (!event.target.closest("[contenteditable]")) $currentEditableText = null
   }
 </script>
 
 
 
-{ #if active }
-  <div
-    bind:this={ element }
-    class="floating-settings"
-    style="--width: { width }px"
-    transition:fly={{ y: 100, duration: 150 }}>
+<div
+  bind:this={ element }
+  class="floating-settings"
+  style="--width: { width }px"
+  transition:fly={{ y: 100, duration: 150 }}>
 
-    <EditableButtonSettings />
-  </div>
-{ /if }
+  <slot></slot>
+</div>
 
 
 

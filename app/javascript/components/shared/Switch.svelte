@@ -1,16 +1,25 @@
 <script>
   export let element = null
-  export let index = null
   export let key
   export let defaultValue = false
+  export let type = "element"
 
-  import { getElementKey, setElementKey } from "../../shared/key"
-  import { currentSectionIndex } from "../../stores/data"
+  import { getElementKey, setElementKey, getSectionKey, setSectionKey } from "../../shared/key"
+  import { currentSectionIndex, page } from "../../stores/data"
 
-  let checked = getElementKey($currentSectionIndex, element, key) || defaultValue
+  let checked = defaultValue
+  if (type == "element") {
+    checked = getElementKey($currentSectionIndex, element, key) || defaultValue
+  } else if (type == "section") {
+    checked = getSectionKey($currentSectionIndex, key, $page) || defaultValue
+  }
 
-  function setKey() {
-    setElementKey($currentSectionIndex, element, key, event.target.checked)
+  function setKey(event) {
+    if (type == "element") {
+      setElementKey($currentSectionIndex, element, key, event.target.checked)
+    } else if (type == "section") {
+      setSectionKey($currentSectionIndex, key, event.target.checked)
+    }
   }
 </script>
 
@@ -64,7 +73,7 @@
       height: calc(1rem - 8px);
       width: calc(2rem - 8px);
       border-radius: 99px;
-      background: var(--border-color);
+      background: var(--text-color-dark);
       z-index: 0;
       pointer-events: none;
       transition: right 100ms;
@@ -84,7 +93,7 @@
       height: 1rem;
       width: calc(3rem - 4px);
       border-radius: 99px;
-      border: 2px solid var(--border-color);
+      border: 2px solid var(--text-color-dark);
       z-index: 0;
       pointer-events: none;
 

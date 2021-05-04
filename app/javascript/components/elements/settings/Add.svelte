@@ -26,6 +26,7 @@
     <div class="popup">
       <span class="popup__item" on:click={ () => addElement("heading") }>Heading</span>
       <span class="popup__item" on:click={ () => addElement("columns") }>Columns</span>
+      <span class="popup__item" on:click={ () => addElement("offset") }>Offset</span>
     </div>
   { /if }
 </div>

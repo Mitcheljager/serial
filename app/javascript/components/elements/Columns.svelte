@@ -8,7 +8,7 @@
   $: enableButtons = element.properties.enable_buttons || false
   $: columnCount = { length: element.properties.column_count || 3 }
   $: columnSize = element.properties.column_size || 250
-  $: columnGap = element.properties.column_gap || 2
+  $: columnGap = element.properties.column_gap == undefined ? 2 : element.properties.column_gap
 </script>
 
 
@@ -41,11 +41,19 @@
   }
 
   .column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
     .columns.with-background & {
       padding: clamp(1rem, calc(1vw * var(--margin-multiplier)), calc(var(--margin-multiplier) * .5rem));
-      background: var(--palette-dark);
+      background: var(--palette-content);
       border-radius: var(--border-radius);
       color: var(--palette-font);
+    }
+
+    :global(.button) {
+      margin-top: auto;
     }
   }
 
@@ -53,7 +61,7 @@
     margin: 0 0 .75rem;
 
     .columns.with-background & {
-      color: var(--palette-font-light);
+      color: var(--palette-font-heading);
     }
   }
 </style>

@@ -4,6 +4,7 @@
   import Button from "../shared/Button.svelte"
   import Range from "../shared/Range.svelte"
   import ElementsList from "../elements/settings/List.svelte"
+  import ShapePicker from "../shared/ShapePicker.svelte"
 
   $: section = $page.sections[$currentSectionIndex]
 </script>
@@ -26,7 +27,12 @@
   <Button key="background_color" value="var(--secondary-color)">Secondary</Button>
 </div>
 
-<h3>Elements</h3>
+{ #if $page.sections[$currentSectionIndex].properties.background_color }
+  <ShapePicker key="shape_top">Shape top</ShapePicker>
+  <ShapePicker key="shape_bottom">Shape bottom</ShapePicker>
+{ /if }
+
+<h3 class="mt-1/1">Elements</h3>
 
 <ElementsList />
 

@@ -1,25 +1,13 @@
 <script>
-  import { onMount, onDestroy } from "svelte"
-  import { fly } from "svelte/transition"
-
   import { theme } from "../../stores/theme.js"
   import { palettes } from "../../stores/palettes.js"
 
-  let active = false
-  
-  $: currentPalette = $theme.palette || $palettes[0]
+  import SettingsDropdown from "./SettingsDropdown.svelte"
 
-  onMount(() => document.addEventListener("click", clickOutside))
-  onDestroy(() => document.removeEventListener("click", clickOutside))
+  $: currentPalette = $theme.palette || $palettes[0]
 
   function setPalette(palette) {
     $theme.palette = palette
-  }
-
-  function clickOutside(event) {
-    if (event.target.closest(".palette")) return
-
-    active = false
   }
 </script>
 
@@ -31,66 +19,41 @@
   The overall colors of the backgrounds, fonts, and other elements.
 </p>
 
-<div class="palette mt-1/8">
-  <div class="palette__label form-input" on:click={ () => active = !active }>
+<SettingsDropdown>
+  <div class="label" slot="label">
     <div class="colors">
       { #each Object.entries(currentPalette.colors) as [name, value] }
         <div class="colors__circle" style="--color: { value }"></div>
       { /each }
     </div>
 
-    <div class="palette__name">{ currentPalette.name }</div>
+    <div class="label__name">{ currentPalette.name }</div>
   </div>
 
-  { #if active }
-    <div class="palette__content" in:fly={{ y: 10, duration: 150 }}>
-      { #each $palettes as palette }
-        <div class="palette__item" class:palette__item--active={ palette == currentPalette }>
-          <div class="colors" on:click={ () => setPalette(palette) }>
-            { #each Object.entries(palette.colors) as [name, value] }
-              <div class="colors__circle" style="--color: { value }"></div>
-            { /each }
+  { #each $palettes as palette }
+    <div class="palette__item" class:palette__item--active={ palette == currentPalette }>
+      <div class="colors" on:click={ () => setPalette(palette) }>
+        { #each Object.entries(palette.colors) as [name, value] }
+          <div class="colors__circle" style="--color: { value }"></div>
+        { /each }
 
-            <div class="palette__name">{ palette.name }</div>
-          </div>
-        </div>
-      { /each }
+        <div class="palette__name">{ palette.name }</div>
+      </div>
     </div>
-  { /if }
-</div>
+  { /each }
+</SettingsDropdown>
 
 
 
 <style lang="scss">
-  .palette {
-    position: relative;
-  }
-
-  .palette__label {
-    cursor: pointer;
+  .label {
     display: flex;
     align-items: center;
-
-    &:hover,
-    &:active {
-      filter: brightness(1.15);
-    }
   }
 
+  .label__name,
   .palette__name {
     margin-left: .75rem;
-  }
-
-  .palette__content {
-    position: absolute;
-    top: 3rem;
-    left: 0;
-    padding: .75rem;
-    width: 100%;
-    max-width: 300px;
-    background: var(--border-color);
-    z-index: 10;
-    border-radius: .5rem;
   }
 
   .palette__item {

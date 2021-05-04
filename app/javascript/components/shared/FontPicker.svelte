@@ -3,7 +3,6 @@
   import { fonts } from "../../stores/fonts.js"
 
   export let key
-  export let defaultValue
 
   let custom = false
 
@@ -14,7 +13,7 @@
       custom = true
     } else {
       custom = false
-      $theme[key] = JSON.parse(event.target.value)
+      $theme[key] = event.target.value ? JSON.parse(event.target.value) : ""
     }
   }
 </script>

@@ -4,13 +4,15 @@
   import Paragraph from "./Paragraph.svelte"
   import Heading from "./Heading.svelte"
   import Columns from "./Columns.svelte"
+  import Offset from "./Offset.svelte"
 
   export let element
 
   const components = [
     { component: Paragraph, identifier: "paragraph" },
     { component: Heading, identifier: "heading" },
-    { component: Columns, identifier: "columns" }
+    { component: Columns, identifier: "columns" },
+    { component: Offset, identifier: "offset" }
   ]
 </script>
 

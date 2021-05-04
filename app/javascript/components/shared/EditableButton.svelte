@@ -11,11 +11,7 @@
     event.preventDefault()
 
     const settingsKey = { key: key, element: element }
-    if ($currentEditableButton?.key == settingsKey.key && $currentEditableButton?.element == settingsKey.element) {
-      $currentEditableButton = null
-    } else {
-      $currentEditableButton = settingsKey
-    }
+    $currentEditableButton = settingsKey
   }
 </script>
 
@@ -45,7 +41,7 @@
       top: -.5rem;
       bottom: -.5rem;
       border-radius: calc(var(--border-radius) / 2);
-      border: 2px dashed var(--text-color-dark);
+      border: 2px dashed var(--palette-font-alt);
     }
   }
 </style>

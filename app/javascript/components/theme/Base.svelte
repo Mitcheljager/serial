@@ -35,12 +35,12 @@
     --primary-color-text-offset: { primaryColor.l > 65 ? "black" : "white" };
     --secondary-color: hsl({ secondaryColor.h }, { secondaryColor.s }%, { secondaryColor.l }%);
     --secondary-color-text-offset: { secondaryColor.l > 65 ? "black" : "white" };
-    --palette-normal: { palette.colors.normal };
-    --palette-dark: { palette.colors.dark };
-    --palette-light: { palette.colors.light };
+    --palette-body: { palette.colors.body };
+    --palette-content: { palette.colors.content };
+    --palette-border: { palette.colors.border };
     --palette-font: { palette.colors.font };
-    --palette-font-dark: { palette.colors.font_dark };
-    --palette-font-light: { palette.colors.font_light };">
+    --palette-font-alt: { palette.colors.font_alt };
+    --palette-font-heading: { palette.colors.font_heading };">
   <slot></slot>
 </div>
 
@@ -48,7 +48,7 @@
 
 <style lang="scss">
   .theme {
-    background: var(--palette-normal);
+    background: var(--palette-body);
     font-size: var(--font-size-body);
     color: var(--palette-font);
   }

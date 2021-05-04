@@ -7,10 +7,12 @@
   import AddElement from "./Add.svelte"
   import Heading from "./Heading.svelte"
   import Columns from "./Columns.svelte"
+  import Offset from "./Offset.svelte"
 
   const components = [
     { component: Heading, identifier: "heading" },
-    { component: Columns, identifier: "columns" }
+    { component: Columns, identifier: "columns" },
+    { component: Offset, identifier: "offset" }
   ]
 
   let listElement

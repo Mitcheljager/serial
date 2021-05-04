@@ -1,4 +1,6 @@
 <script>
+  import Shape from "./_Shape.svelte"
+
   import { flip } from "svelte/animate"
 
   import { page, currentSectionIndex, currentTab } from "../../stores/data.js"
@@ -22,6 +24,8 @@
   --spacing: { section.properties?.spacing || 0 }"
   on:click={ () => { $currentTab = "section"; $currentSectionIndex = index } }>
 
+  <Shape position="top" { section } { index } />
+
   <div class="wrapper">
     { #each $page.sections[index].elements || {} as element (element.uuid) }
       <div animate:flip="{{ duration: 200 }}">
@@ -29,14 +33,23 @@
       </div>
     { /each }
   </div>
+
+  <Shape position="bottom" { section } { index } />
 </div>
 
 
 
 <style lang="scss">
   .section {
-    padding: calc(1px + (var(--margin) * .5 * var(--spacing))) 0;
+    position: relative;
     min-height: 100px;
     background-color: var(--background-color);
+    overflow: hidden;
+  }
+
+  .wrapper {
+    position: relative;
+    padding: calc(1px + (var(--margin) * .5 * var(--spacing))) 1.5rem;
+    z-index: 1;
   }
 </style>

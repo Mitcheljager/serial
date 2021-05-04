@@ -25,6 +25,7 @@
     "sass-loader": "^11.0.1",
     "sortablejs": "^1.13.0",
     "svelte": "^3.35.0",
+    "svelte-inline-svg": "^1.0.8",
     "svelte-loader": "^3.0.0",
     "svelte-outside-click": "^1.1.1",
     "svelte-preprocess": "^4.7.0",

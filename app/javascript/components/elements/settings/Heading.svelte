@@ -1,13 +1,13 @@
 <script>
-  import Range from "../../shared/Range.svelte"
+  import Offset from "../../shared/Range.svelte"
 
   export let element
   export let index
 </script>
 
-<Range { element } { index }
+<Offset { element } { index }
   key="size"
   responsive=true
-  min=1 max=6 step=1 defaultValue=3>
+  min=1 max=6 step=1 defaultValue=1>
   Text size
-</Range>
+</Offset>

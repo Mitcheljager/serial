@@ -2,16 +2,18 @@
   import { onMount } from "svelte"
 
   import RailsFetch from "../../../shared/railsFetch.js"
-  import { pages, page, currentTab } from "../../../stores/data.js"
+  import { pages, page, currentTab, currentEditableButton, currentEditableText } from "../../../stores/data.js"
 
   import ShowPage from "./Show.svelte"
   import PageSelect from "./_PageSelect.svelte"
   import SaveButton from "./_SaveButton.svelte"
-  import FloatingSettings from "./_FloatingSettings.svelte"
   import SectionsList from "../../sections/settings/List.svelte"
   import SectionSettings from "../../sections/Settings.svelte"
   import ThemeSettings from "../../theme/Settings.svelte"
   import Theme from "../../theme/Base.svelte"
+  import FloatingSettings from "./_FloatingSettings.svelte"
+  import EditableButtonSettings from "./_EditableButtonSettings.svelte"
+  import TextEditor from "./_TextEditor.svelte"
 
   export let params = {}
 
@@ -82,7 +84,13 @@
               <ShowPage />
             </Theme>
 
-            <FloatingSettings />
+            { #if $currentEditableButton }
+              <FloatingSettings><EditableButtonSettings /></FloatingSettings>
+            { /if }
+
+            { #if $currentEditableText }
+              <FloatingSettings><TextEditor /></FloatingSettings>
+            { /if }
           </div>
         </div>
       </div>
