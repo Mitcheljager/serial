@@ -3,3 +3,7 @@
     _project: current_user.projects.first,
     _projects: current_user.projects
   }) if current_user %>
+
+<% if !current_user %>
+  <h1>Not logged in</h1>
+<% end %>

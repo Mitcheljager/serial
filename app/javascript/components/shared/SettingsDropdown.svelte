@@ -54,9 +54,11 @@
     padding: .75rem;
     width: 100%;
     max-width: 300px;
+    max-height: 450px;
     background: var(--border-color);
     box-shadow: 0 0 0 2px var(--body-bg);
     z-index: 10;
     border-radius: .5rem;
+    overflow-y: auto;
   }
 </style>
