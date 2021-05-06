@@ -20,7 +20,7 @@
 </p>
 
 <SettingsDropdown>
-  <div class="label" slot="label">
+  <div class="clickable-label label" slot="label">
     <div class="colors">
       { #each Object.entries(currentPalette.colors) as [name, value] }
         <div class="colors__circle" style="--color: { value }"></div>

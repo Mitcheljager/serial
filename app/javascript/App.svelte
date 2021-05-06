@@ -4,9 +4,11 @@
 	import Router from "svelte-spa-router"
 	import routes from "./routes"
 
+	import RailsFetch from "./shared/railsFetch.js"
 	import { theme } from "./stores/theme.js"
 	import { projects, project } from "./stores/project.js"
 	import { currentUser } from "./stores/user.js"
+	import { pages } from "./stores/data.js"
 
 	import Header from "./components/Header.svelte"
 	import GlobalError from "./components/GlobalError.svelte"
@@ -23,10 +25,19 @@
 		$projects = _projects
 		$theme = JSON.parse($project.properties)
 
+		getPages()
+
 		window.addEventListener("load", () => {
 			loading = false
 		})
 	})
+
+	function getPages() {
+    new RailsFetch("/pages", {
+      project_id: 1
+    }).post()
+    .then(data => $pages = JSON.parse(data))
+  }
 </script>
 
 

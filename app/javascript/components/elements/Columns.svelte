@@ -18,12 +18,12 @@
     <div class="column">
       <h3><EditableText { element } key="title_{ i }" defaultValue="Title" /></h3>
 
-      <div class="mb-1/2">
-        <EditableText { element } key="content_{ i }" defaultValue="Column content" />
-      </div>
+      <EditableText { element } key="content_{ i }" defaultValue="Column content" />
 
       { #if enableButtons }
-        <EditableButton { element } key="button_{ i }" />
+        <div class="pt-1/2 mt-auto w-100">
+          <EditableButton { element } key="button_{ i }" />
+        </div>
       { /if }
     </div>
   { /each }
@@ -50,10 +50,6 @@
       background: var(--palette-content);
       border-radius: var(--border-radius);
       color: var(--palette-font);
-    }
-
-    :global(.button) {
-      margin-top: auto;
     }
   }
 

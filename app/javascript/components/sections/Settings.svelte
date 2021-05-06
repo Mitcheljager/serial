@@ -28,8 +28,10 @@
 </div>
 
 { #if $page.sections[$currentSectionIndex].properties.background_color }
-  <ShapePicker key="shape_top">Shape top</ShapePicker>
-  <ShapePicker key="shape_bottom">Shape bottom</ShapePicker>
+  <div class="form-label mt-1/8">Shape</div>
+
+  <ShapePicker key="shape_top">Top</ShapePicker>
+  <ShapePicker key="shape_bottom" flipped=true>Bottom</ShapePicker>
 { /if }
 
 <h3 class="mt-1/1">Elements</h3>

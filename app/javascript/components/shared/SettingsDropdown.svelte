@@ -18,7 +18,7 @@
 
 
 <div class="dropdown mt-1/8" bind:this={ element }>
-  <div class="dropdown__label form-input" on:click={ () => active = !active }>
+  <div on:click={ () => active = !active }>
     <slot name="label"></slot>
   </div>
 
@@ -34,17 +34,6 @@
 <style lang="scss">
   .dropdown {
     position: relative;
-  }
-
-  .dropdown__label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-
-    &:hover,
-    &:active {
-      filter: brightness(1.15);
-    }
   }
 
   .dropdown__content {

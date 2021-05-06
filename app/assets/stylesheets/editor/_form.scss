@@ -29,3 +29,16 @@
   font-style: italic;
   color: var(--text-color-medium);
 }
+
+.clickable-label {
+  @extend .form-input;
+
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover,
+  &:active {
+    filter: brightness(1.15);
+  }
+}

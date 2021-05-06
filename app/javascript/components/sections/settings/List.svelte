@@ -1,9 +1,11 @@
 <script>
   import Sortable from "sortablejs"
   import { onMount } from "svelte"
+  import { flip } from "svelte/animate"
 
   import { page, currentSectionIndex, currentTab } from "../../../stores/data.js"
 
+  import TrashIcon from "../../icons/Trash.svelte"
   import AddSection from "./Add.svelte"
 
   let listElement
@@ -27,11 +29,18 @@
     
     const elementsList = $page.sections
     const orderedList = order.map(index => elementsList[index])
+
     orderedList.map((item, index) => item.position = index)
-    
     $page.sections = orderedList
 
     setTimeout(() => sortable.sort(sortableOrder, false))
+  }
+
+  function removeSection(uuid) {
+    event.stopPropagation()
+
+    if (confirm("You sure?"))
+      $page.sections = $page.sections.filter(s => s.uuid != uuid)
   }
 </script>
 
@@ -42,12 +51,19 @@
 <div bind:this={ listElement }>
   { #each $page.sections as section, index (section.uuid) }
     <div
-      data-id={ section.id }
+      data-id={ section.uuid }
       data-index={ index }
       on:click={ () => { $currentTab = "section"; $currentSectionIndex = index } }
+      animate:flip={{ duration: 200 }}
       class="section">
 
       <h4>{ section.name }</h4>
+
+      <div class="actions">
+        <div class="delete" on:click={ () => removeSection(section.uuid) }>
+          <TrashIcon />
+        </div>
+      </div>
     </div>
   { /each }
 </div>
@@ -67,8 +83,34 @@
     cursor: pointer;
     overflow: hidden;
 
+    &:hover,
+    &:active {
+      h4 {
+        color: var(--text-color-light);
+      }
+    }
+
     h4 {
       margin: 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .delete {
+    :global(svg) {
+      height: 1rem;
+      width: 1rem;
+    }
+
+    &:hover,
+    &:active {
+      :global(svg path) {
+        fill: red;
+      }
     }
   }
 </style>

@@ -27,12 +27,12 @@ class PagesController < ApplicationController
   private
 
   def save_sections
-    sections = params[:data][:sections]
+    @sections = params[:data][:sections]
 
-    return true unless sections.present?
+    return true unless @sections.present?
 
-    sections.each do |section|
-      @section = Section.find_or_create_by(uuid: section[:uuid])
+    @sections.each do |section|
+      @section = @page.sections.find_or_create_by(uuid: section[:uuid])
       
       if @section.update(
         page: @page,
@@ -44,6 +44,8 @@ class PagesController < ApplicationController
       else
         return false
       end
+
+      destroy_unused_sections
     end
 
     return true
@@ -55,7 +57,7 @@ class PagesController < ApplicationController
     return true unless elements.present?
 
     elements.each do |element|
-      @element = Element.find_or_create_by(uuid: element[:uuid])
+      @element = @section.elements.find_or_create_by(uuid: element[:uuid])
       
       if @element.update(
         section: @section,
@@ -69,6 +71,10 @@ class PagesController < ApplicationController
   end
 
   def destroy_unused_sections
+    section_uuids = @sections.pluck(:uuid)
+
+    sections_to_destroy = @page.sections.where.not(uuid: section_uuids)
+    sections_to_destroy.destroy_all
   end
 
   def destroy_unused_elements

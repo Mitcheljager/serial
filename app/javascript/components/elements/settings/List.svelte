@@ -1,6 +1,7 @@
 <script>
   import Sortable from "sortablejs"
   import { onMount } from "svelte"
+  import { flip } from "svelte/animate"
 
   import { page, currentSectionIndex, currentElement, hoveringElement } from "../../../stores/data.js"
 
@@ -59,6 +60,7 @@
       class="section"
       class:active={ $currentElement == element.uuid }
       class:hovering={ $hoveringElement == element.uuid }
+      animate:flip={{ duration: 200 }}
       on:mouseenter={ () => $hoveringElement = element.uuid }
       on:mouseleave={ () => $hoveringElement = null }>
 

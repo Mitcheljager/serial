@@ -23,6 +23,7 @@
   ]
 
   export let key
+  export let flipped = false
   
   $: type = getSectionKey($currentSectionIndex, key, $page) || ""
 
@@ -33,9 +34,22 @@
 
 
 
-<div class="form-label mt-1/4"><slot></slot></div>
-
 <SettingsDropdown>
+  <div class="group" slot="label">
+    <div class="form-label"><slot></slot></div>
+
+    <div
+      class="clickable-label label"
+      class:label--reverse={ getSectionKey($currentSectionIndex, `${ key }_reverse`, $page) }
+      class:item--flipped={ flipped }>
+      { #if type }
+        <svelte:component this={ components.filter(i => i.identifier == type)[0].component } />
+      { :else }
+        None
+      { /if }
+    </div>
+  </div>
+
   <Range
     key="{ key }_size"
     min=50 max=300 step=10 defaultValue=100>
@@ -54,21 +68,23 @@
     Reverse
   </Switch>
 
-  <div class="label" slot="label">
-    { #if type }
-      <svelte:component this={ components.filter(i => i.identifier == type)[0].component } />
-    { :else }
-      None
-    { /if }
-  </div>
-
   <div>
-    <div class="item" class:item--active={ !type } on:click={ () => setKey("") }>
+    <div 
+      class="item"
+      class:item--active={ !type }
+      on:click={ () => setKey("") }>
+
       None
     </div>
 
     { #each components as component }
-      <div class="item" class:item--active={ type == component.identifier } on:click={ () => setKey(component.identifier) }>
+      <div
+        class="item"
+        class:item--active={ type == component.identifier }
+        class:item--reverse={ getSectionKey($currentSectionIndex, `${ key }_reverse`, $page) }
+        class:item--flipped={ flipped }
+        on:click={ () => setKey(component.identifier) }>
+
         <svelte:component this={ component.component } />
       </div>
     { /each }
@@ -78,18 +94,41 @@
 
 
 <style lang="scss">
+  .group {
+    display: flex;
+    align-items: center;
+  }
+
+  .form-label {
+    width: 7.5rem;
+    margin-right: .75rem;
+    color: var(--text-color);
+  }
+
   .label,
   .item {
-    width: 100%;
-
     :global(svg) {
       width: 100%;
-      height: 50px;
+      height: 40px;
+      background: var(--text-color-dark);
+      transform: scale(var(--scale-x, 1), var(--scale-y, 1))
 
       :global(path),
       :global(rect) {
-        fill: var(--text-color-dark);
-        color: var(--text-color-dark);
+        fill: var(--bg-dark);
+        color: var(--bg-dark);
+      }
+    }
+
+    &--reverse {
+      :global(svg) {
+        --scale-x: -1
+      }
+    }
+
+    &--flipped {
+      :global(svg) {
+        --scale-y: -1
       }
     }
   }
@@ -98,7 +137,15 @@
     cursor: pointer;
     padding: .5rem;
     margin-bottom: .25rem;
-    border: 1px solid var(--text-color-dark);
+    border: 2px solid var(--text-color-dark);
+
+    :global(svg) {
+      :global(path),
+      :global(rect) {
+        fill: var(--border-color);
+        color: var(--border-color);
+      }
+    }
 
     &:hover,
     &:active,
@@ -107,10 +154,7 @@
       color: var(--text-color-light);
 
       :global(svg) {
-        :global(path),
-        :global(rect) {
-          fill: var(--text-color);
-        }
+        background: var(--text-color);
       }
     }
   }

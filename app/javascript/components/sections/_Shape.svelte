@@ -35,7 +35,7 @@
       --size: { size }px;
       transform: scale({ reverse ? -1 : 1 }, { position == "top" ? 1 : -1 })">
 
-    <svelte:component this={ components.filter(i => i.identifier == type)[0].component } { position } />
+    <svelte:component this={ components.filter(i => i.identifier == type)[0].component } />
   </div>
 { /if }
 

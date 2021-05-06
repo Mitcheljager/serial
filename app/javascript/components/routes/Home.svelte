@@ -20,9 +20,11 @@
     </div>
 
     <div>
-      { #each $pages as page }
-        <Page { page } />
-      { /each }
+      { #if $pages }
+        { #each $pages as page }
+          <Page { page } />
+        { /each }
+      { /if }
     </div>
 
     <div class="push-down"></div>
