@@ -52,11 +52,11 @@ class PagesController < ApplicationController
   end
 
   def save_elements(section)
-    elements = section[:elements]
+    @elements = section[:elements]
 
-    return true unless elements.present?
+    return true unless @elements.present?
 
-    elements.each do |element|
+    @elements.each do |element|
       @element = @section.elements.find_or_create_by(uuid: element[:uuid])
       
       if @element.update(
@@ -67,6 +67,8 @@ class PagesController < ApplicationController
       else
         return false
       end
+
+      destroy_unused_elements
     end
   end
 
@@ -78,5 +80,9 @@ class PagesController < ApplicationController
   end
 
   def destroy_unused_elements
+    element_uuids = @elements.pluck(:uuid)
+
+    elements_to_destroy = @section.elements.where.not(uuid: element_uuids)
+    elements_to_destroy.destroy_all
   end
 end

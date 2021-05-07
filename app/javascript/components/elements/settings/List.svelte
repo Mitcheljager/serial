@@ -1,11 +1,12 @@
 <script>
   import Sortable from "sortablejs"
   import { onMount } from "svelte"
-  import { flip } from "svelte/animate"
 
   import { page, currentSectionIndex, currentElement, hoveringElement } from "../../../stores/data.js"
 
+  import TrashIcon from "../../icons/Trash.svelte"
   import AddElement from "./Add.svelte"
+
   import Heading from "./Heading.svelte"
   import Columns from "./Columns.svelte"
   import Offset from "./Offset.svelte"
@@ -48,6 +49,13 @@
   function setCurrentElement(uuid) {
     $currentElement = $currentElement == uuid ? null : uuid
   }
+
+  function removeElement(uuid) {
+    event.stopPropagation()
+
+    const filteredElements = $page.sections[$currentSectionIndex].elements.filter(s => s.uuid != uuid)
+    if (confirm("You sure?")) $page.sections[$currentSectionIndex].elements = filteredElements
+  }
 </script>
 
 
@@ -60,14 +68,21 @@
       class="section"
       class:active={ $currentElement == element.uuid }
       class:hovering={ $hoveringElement == element.uuid }
-      animate:flip={{ duration: 200 }}
       on:mouseenter={ () => $hoveringElement = element.uuid }
       on:mouseleave={ () => $hoveringElement = null }>
 
       <div class="section__header" on:click={ () => setCurrentElement(element.uuid) }>
         <h4>{ element.content_type }</h4>
 
-        <span>{ $currentElement == element.uuid ? "-" : "+" }</span>
+        <div class="actions">
+          <div class="actions__item delete" on:click={ () => removeElement(element.uuid) }>
+            <TrashIcon />
+          </div>
+
+          <div class="actions__item">
+            { $currentElement == element.uuid ? "-" : "+" }
+          </div>
+        </div>
       </div>
 
       { #if $currentElement == element.uuid }
@@ -107,10 +122,6 @@
       margin: 0;
     }
 
-    span {
-      font-weight: bold;
-    }
-
     .active & {
       color: var(--text-color-light);
     }
@@ -119,5 +130,30 @@
   .section__content {
     padding: 1rem 1rem 0;
     border-top: 0;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .actions__item {
+    margin-left: .5rem;
+    width: 1rem;
+    text-align: center;
+  }
+
+  .delete {
+    :global(svg) {
+      height: 1rem;
+      width: 1rem;
+    }
+
+    &:hover,
+    &:active {
+      :global(svg path) {
+        fill: red;
+      }
+    }
   }
 </style>

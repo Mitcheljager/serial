@@ -39,8 +39,7 @@
   function removeSection(uuid) {
     event.stopPropagation()
 
-    if (confirm("You sure?"))
-      $page.sections = $page.sections.filter(s => s.uuid != uuid)
+    if (confirm("You sure?")) $page.sections = $page.sections.filter(s => s.uuid != uuid)
   }
 </script>
 

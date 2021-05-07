@@ -1,7 +1,7 @@
 <script>
   import { v4 as uuid } from "uuid"
 
-  import { page, currentSectionIndex } from "../../../stores/data.js"
+  import { page, currentSectionIndex, currentElement } from "../../../stores/data.js"
 
   let active = false
 
@@ -12,6 +12,7 @@
     $page.sections[$currentSectionIndex].elements = [...$page.sections[$currentSectionIndex].elements || [], newElement]
 
     active = false
+    $currentElement = newElement.uuid
   }
 </script>
 
