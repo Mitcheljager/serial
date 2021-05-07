@@ -47,6 +47,14 @@
 
 <Range
   setTheme=true
+  key="max_width"
+  min=1 max=4 step=1 defaultValue=2>
+  Page width
+  <span slot="help">The maximum width of your website, mostly relevant on larger screens.</span>
+</Range>
+
+<Range
+  setTheme=true
   key="margin"
   min=1 max=4 step=1 defaultValue=2>
   Spacing
@@ -56,7 +64,7 @@
 <Range
   setTheme=true
   key="border_radius"
-  min=0 max=3 step=1 defaultValue=1>
+  min=0 max=4 step=1 defaultValue=1>
   Roundness
   <span slot="help">This values determines how "round" several elements on your page are. Round elements appear more friendly.</span>
 </Range>

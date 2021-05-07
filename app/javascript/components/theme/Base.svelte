@@ -8,6 +8,7 @@
   $: fontHeading = $theme.font_heading || ""
   $: fontSizeBody = $theme.font_size_body || 16
   $: margin = $theme.margin || 2
+  $: maxWidth = $theme.max_width || 2
   $: borderRadius = $theme.border_radius != undefined ? $theme.border_radius : 2
   $: primaryColor = $theme.primary_color || { h: 281, s: 72, l: 54 }
   $: secondaryColor = $theme.secondary_color || { h: 32, s: 90, l: 49 }
@@ -30,6 +31,7 @@
     --font-heading: { fontHeading.property || "" };
     --font-size-body: { fontSizeBody }px;
     --margin-multiplier: { margin };
+    --max-width: { 600 + (maxWidth * 150) }px;
     --border-radius-multiplier: { borderRadius };
     --primary-color: hsl({ primaryColor.h }, { primaryColor.s }%, { primaryColor.l }%);
     --primary-color-text-offset: { primaryColor.l > 65 ? "black" : "white" };

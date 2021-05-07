@@ -2,7 +2,7 @@
   import { onMount } from "svelte"
 
   import RailsFetch from "../../../shared/railsFetch.js"
-  import { pages, page, currentTab, currentEditableButton, currentEditableText } from "../../../stores/data.js"
+  import { page, currentTab, currentEditableButton, currentEditableText } from "../../../stores/data.js"
 
   import ShowPage from "./Show.svelte"
   import PageSelect from "./_PageSelect.svelte"
@@ -17,21 +17,13 @@
 
   export let params = {}
 
-  onMount(getPages)
+  onMount(getCurrentPage)
 
   $: getCurrentPage(params.uuid)
   $: console.log($page)
 
   function setTab(tab) {
     $currentTab = tab || event.detail.tab
-  }
-
-  function getPages() {
-    new RailsFetch("/pages", {
-      project_id: 1
-    }).post()
-    .then(data => $pages = JSON.parse(data))
-    .then(() => getCurrentPage())
   }
 
   function getCurrentPage() {
