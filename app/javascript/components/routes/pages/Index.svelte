@@ -2,15 +2,16 @@
   import { onMount } from "svelte"
 
   import RailsFetch from "../../../shared/railsFetch.js"
-  import { page, currentTab, currentEditableButton, currentEditableText } from "../../../stores/data.js"
+  import { page, currentTab, currentEditableButton, currentEditableText, currentNavigation } from "../../../stores/data.js"
 
   import ShowPage from "./Show.svelte"
   import PageSelect from "./_PageSelect.svelte"
   import SaveButton from "./_SaveButton.svelte"
   import SectionsList from "../../sections/settings/List.svelte"
   import SectionSettings from "../../sections/Settings.svelte"
-  import ThemeSettings from "../../theme/Settings.svelte"
+  import ThemeSettings from "../../theme/settings/Theme.svelte"
   import Theme from "../../theme/Base.svelte"
+  import NavigationSettings from "../../theme/settings/Navigation.svelte"
   import FloatingSettings from "./_FloatingSettings.svelte"
   import EditableButtonSettings from "./_EditableButtonSettings.svelte"
   import TextEditor from "./_TextEditor.svelte"
@@ -40,12 +41,16 @@
 { #if $page }
   <div class="board">
     <aside class="sidebar">
-      <div class="tabs button-group" class:tabs--three={ $currentTab == "section" }>
+      <div class="tabs button-group" class:tabs--three={ $currentTab == "section" || $currentTab == "navigation" }>
         <button on:click={ () => setTab("theme") } class="button button--light" class:active={ $currentTab == "theme" }>Theme</button>
         <button on:click={ () => setTab("sections") } class="button button--light" class:active={ $currentTab == "sections" }>Sections</button>
 
         { #if $currentTab == "section" }
-          <button on:click={ () => setTab("section") } class="button button--light" class:active={ $currentTab == "section" }>Edit</button>
+          <button class="button button--light active">Edit</button>
+        { /if }
+
+        { #if $currentTab == "navigation" }
+          <button class="button button--light active">Nav</button>
         { /if }
       </div>
 
@@ -57,6 +62,8 @@
             <SectionsList on:setTab={ setTab } />
           { :else if $currentTab == "section" }
             <SectionSettings />
+          { :else if $currentTab == "navigation" }
+            <NavigationSettings />
           { /if }
         </div>
       </div>

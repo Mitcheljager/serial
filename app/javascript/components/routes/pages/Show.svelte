@@ -5,6 +5,7 @@
 
   import Section from "../../sections/Section.svelte"
   import Navigation from "../../theme/Navigation.svelte"
+  import Footer from "../../theme/Footer.svelte"
 </script>
 
 
@@ -16,6 +17,8 @@
     <Section { section } { index } />
   </div>
 { /each }
+
+<Footer />
 
 
 

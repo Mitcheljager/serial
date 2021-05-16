@@ -20,7 +20,7 @@
 
 
 
-<div class="group mt-1/8">
+<div class="select-group mt-1/8">
   <div class="form-label"><slot></slot></div>
 
   <select class="form-input" on:change={ setKey }>
@@ -40,13 +40,5 @@
 
 
 <style lang="scss">
-  .group {
-    display: flex;
-    align-items: center;
-  }
 
-  .form-label {
-    width: 7.5rem;
-    margin-right: .75rem;
-  }
 </style>

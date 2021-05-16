@@ -7,6 +7,8 @@
   --border-radius-multiplier: 1;
   --border-radius: calc(var(--border-radius-base) * var(--border-radius-multiplier));
 
+  --gradient: linear-gradient(105deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+
   font-family: var(--font-body, var(--font-family));
 
   @import "*";

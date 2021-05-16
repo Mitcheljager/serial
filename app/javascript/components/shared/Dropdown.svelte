@@ -1,56 +1,54 @@
 <script>
-  import { fade } from "svelte/transition"
+  import { onMount, onDestroy } from "svelte"
+  import { fly } from "svelte/transition"
 
   let active = false
+  let element
+
+  onMount(() => document.addEventListener("click", clickOutside))
+  onDestroy(() => document.removeEventListener("click", clickOutside))
+
+  function clickOutside(event) {
+    if (event.target.closest(".dropdown") == element) return
+
+    active = false
+  }
 </script>
 
-<div class="dropdown">
-  <div class="dropdown__action" on:click={ () => active = !active }>
+
+
+<div class="dropdown mt-1/8" bind:this={ element }>
+  <div on:click={ () => active = !active }>
     <slot name="label"></slot>
   </div>
 
   { #if active }
-    <div class="dropdown__content" transition:fade={{ duration: 100 }}>
-      <slot></slot>
+    <div class="dropdown__content" in:fly={{ y: 10, duration: 150 }}>
+     <slot></slot>
     </div>
   { /if }
 </div>
 
+
+
 <style lang="scss">
   .dropdown {
     position: relative;
-    font-weight: bold;
-    white-space: nowrap;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .dropdown__action {
-    position: relative;
-    padding: .25rem .75rem;
-    border: 2px solid var(--border-color);
-    border-radius: 1rem;
-    z-index: 1;
-
-    &:hover,
-    &:active {
-      color: white;
-    }
   }
 
   .dropdown__content {
     position: absolute;
-    top: 0;
+    top: 3rem;
     left: 0;
-    height: auto;
-    max-height: 500px;
-    width: 250px;
-    padding-top: 1.5rem;
-    border: 2px solid var(--border-color);
-    border-radius: 1rem;
-    background: var(--body-bg);
-    box-shadow: 0 3px 6px #00000050;
-    overflow: hidden;
+    padding: .75rem;
+    width: 100%;
+    min-width: 200px;
+    max-width: 300px;
+    max-height: 450px;
+    background: var(--border-color);
+    box-shadow: 0 0 0 2px var(--body-bg);
+    z-index: 10;
+    border-radius: .5rem;
     overflow-y: auto;
   }
 </style>

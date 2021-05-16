@@ -98,18 +98,4 @@
     display: flex;
     align-items: center;
   }
-
-  .delete {
-    :global(svg) {
-      height: 1rem;
-      width: 1rem;
-    }
-
-    &:hover,
-    &:active {
-      :global(svg path) {
-        fill: red;
-      }
-    }
-  }
 </style>

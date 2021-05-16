@@ -1,5 +1,6 @@
 import { get } from "svelte/store"
 import { page } from "../stores/data.js"
+import { theme } from "../stores/theme.js"
 
 function getElementKey(sectionIndex, element, key) {
   return get(page).sections[sectionIndex]?.elements[getElementIndex(sectionIndex, element)]?.properties[key]
@@ -28,4 +29,23 @@ function setSectionKey(index, key, value) {
   page.set(newPage)
 }
 
-export { getElementKey, setElementKey, getSectionKey, setSectionKey, getElementIndex }
+function setThemeKey(key, value) {
+  const newTheme = get(theme)
+  newTheme[key] = value
+  
+  theme.set(newTheme)
+}
+
+function getThemeKey(key) {
+  return get(theme)[key]
+}
+
+export {
+  getElementKey,
+  setElementKey,
+  getElementIndex,
+  getSectionKey,
+  setSectionKey,
+  getThemeKey,
+  setThemeKey
+}

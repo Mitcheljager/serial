@@ -1,8 +1,8 @@
 <script>
-  import Range from "../shared/Range.svelte"
-  import ColorPicker from "../shared/ColorPicker.svelte"
-  import PalettePicker from "../shared/PalettePicker.svelte"
-  import FontPicker from "../shared/FontPicker.svelte"
+  import Range from "../../shared/Range.svelte"
+  import ColorPicker from "../../shared/ColorPicker.svelte"
+  import PalettePicker from "../../shared/PalettePicker.svelte"
+  import FontPicker from "../../shared/FontPicker.svelte"
 </script>
 
 

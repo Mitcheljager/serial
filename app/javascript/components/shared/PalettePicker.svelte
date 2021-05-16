@@ -2,7 +2,7 @@
   import { theme } from "../../stores/theme.js"
   import { palettes } from "../../stores/palettes.js"
 
-  import SettingsDropdown from "./SettingsDropdown.svelte"
+  import Dropdown from "./Dropdown.svelte"
 
   $: currentPalette = $theme.palette || $palettes[0]
 
@@ -19,7 +19,7 @@
   The overall colors of the backgrounds, fonts, and other elements.
 </p>
 
-<SettingsDropdown>
+<Dropdown>
   <div class="clickable-label label" slot="label">
     <div class="colors">
       { #each Object.entries(currentPalette.colors) as [name, value] }
@@ -41,7 +41,7 @@
       </div>
     </div>
   { /each }
-</SettingsDropdown>
+</Dropdown>
 
 
 

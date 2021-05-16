@@ -24,6 +24,16 @@
   }
 }
 
+.select-group {
+  display: flex;
+  align-items: center;
+
+  .form-label {
+    width: 10rem;
+    margin-right: .75rem;
+  }
+}
+
 .help {
   font-size: .85em;
   font-style: italic;

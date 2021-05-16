@@ -34,7 +34,7 @@
 }
 
 .button--gradient {
-  background: linear-gradient(105deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: var(--gradient);
   color: var(--primary-color-text-offset);
 }
 

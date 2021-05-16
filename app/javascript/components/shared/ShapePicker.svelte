@@ -2,19 +2,17 @@
   import { getSectionKey, setSectionKey } from "../../shared/key"
   import { page, currentSectionIndex } from "../../stores/data.js"
 
-  import SettingsDropdown from "./SettingsDropdown.svelte"
+  import Dropdown from "./Dropdown.svelte"
   import Range from "./Range.svelte"
   import Switch from "./Switch.svelte"
 
   import Slant from "../sections/shapes/Slant.svelte"
   import Layered from "../sections/shapes/Layered.svelte"
-  import StraightLayered from "../sections/shapes/StraightLayered.svelte"
   import Wavy from "../sections/shapes/Wavy.svelte"
   import Wavy2 from "../sections/shapes/Wavy2.svelte"
   import Wavy3 from "../sections/shapes/Wavy3.svelte"
 
   const components = [
-    { component: StraightLayered, identifier: "straight_layered" },
     { component: Slant, identifier: "slant" },
     { component: Layered, identifier: "layered" },
     { component: Wavy, identifier: "wavy" },
@@ -34,14 +32,14 @@
 
 
 
-<SettingsDropdown>
-  <div class="group" slot="label">
+<Dropdown>
+  <div class="select-group" slot="label">
     <div class="form-label"><slot></slot></div>
 
     <div
       class="clickable-label label"
       class:label--reverse={ getSectionKey($currentSectionIndex, `${ key }_reverse`, $page) }
-      class:item--flipped={ flipped }>
+      class:label--flipped={ flipped }>
       { #if type }
         <svelte:component this={ components.filter(i => i.identifier == type)[0].component } />
       { :else }
@@ -89,19 +87,12 @@
       </div>
     { /each }
   </div>
-</SettingsDropdown>
+</Dropdown>
 
 
 
 <style lang="scss">
-  .group {
-    display: flex;
-    align-items: center;
-  }
-
   .form-label {
-    width: 7.5rem;
-    margin-right: .75rem;
     color: var(--text-color);
   }
 

@@ -1,19 +1,16 @@
 <script>
   import Slant from "./shapes/Slant.svelte"
   import Layered from "./shapes/Layered.svelte"
-  import StraightLayered from "./shapes/StraightLayered.svelte"
   import Wavy from "./shapes/Wavy.svelte"
   import Wavy2 from "./shapes/Wavy2.svelte"
   import Wavy3 from "./shapes/Wavy3.svelte"
 
   export let position
   export let section
-  export let index
 
   const components = [
     { component: Slant, identifier: "slant" },
     { component: Layered, identifier: "layered" },
-    { component: StraightLayered, identifier: "straight_layered" },
     { component: Wavy, identifier: "wavy" },
     { component: Wavy2, identifier: "wavy_2" },
     { component: Wavy3, identifier: "wavy_3" }
