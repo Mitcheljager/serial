@@ -11,13 +11,17 @@
   import Wavy from "../sections/shapes/Wavy.svelte"
   import Wavy2 from "../sections/shapes/Wavy2.svelte"
   import Wavy3 from "../sections/shapes/Wavy3.svelte"
+  import Round from "../sections/shapes/Round.svelte"
+  import RoundInverse from "../sections/shapes/RoundInverse.svelte"
 
   const components = [
     { component: Slant, identifier: "slant" },
     { component: Layered, identifier: "layered" },
     { component: Wavy, identifier: "wavy" },
     { component: Wavy2, identifier: "wavy_2" },
-    { component: Wavy3, identifier: "wavy_3" }
+    { component: Wavy3, identifier: "wavy_3" },
+    { component: Round, identifier: "round" },
+    { component: RoundInverse, identifier: "round_inverse" },
   ]
 
   export let key
