@@ -1,7 +1,8 @@
 <%= svelte_component("App", { 
     _user: { id: current_user.id, username: current_user.username },
     _project: current_user.projects.first,
-    _projects: current_user.projects
+    _projects: current_user.projects,
+    _directUploadUrl: rails_direct_uploads_url
   }) if current_user %>
 
 <% if !current_user %>

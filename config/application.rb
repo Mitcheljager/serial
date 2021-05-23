@@ -10,6 +10,8 @@ module Serial
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    config.active_storage.replace_on_assign_to_many = false
+    config.active_storage.track_variants = true
 
     config.before_configuration do
       env_file = File.join(Rails.root, "config", "local_env.yml")

@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.0.0"
 
 gem "active_model_serializers"
+gem "active_storage_validations"
 gem "rails", "~> 6.1.3", ">= 6.1.3.1"
 gem "sqlite3", "~> 1.4"
 gem "puma", "~> 5.0"
@@ -16,6 +17,9 @@ gem "webpacker-svelte", "~> 1.0.0"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "lockbox"
 gem "blind_index"
+gem "mini_magick", ">= 4.9.5"
+gem "image_processing", "~> 1.2"
+gem "aws-sdk-s3", require: false
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

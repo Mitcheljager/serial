@@ -1,5 +1,5 @@
 <script>
-  import { currentEditableText } from "../../stores/data"
+  import { currentEditable } from "../../stores/data"
 
   export let element
   export let key
@@ -12,10 +12,10 @@
   }
 
   function showSettings() {
-    $currentEditableText = null
+    $currentEditable = null
 
-    const settingsKey = { key, element }
-    $currentEditableText = settingsKey
+    const settingsKey = { type: "text", key, element }
+    $currentEditable = settingsKey
   }
 </script>
 

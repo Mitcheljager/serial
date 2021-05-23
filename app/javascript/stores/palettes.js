@@ -17,22 +17,22 @@ const palettes = readable([
     font_alt: "hsl(0, 0%, 40%)",
     font_heading: "hsl(0, 0%, 95%)"
   }},
-  { name: "Light", colors: {
-    body: "hsl(0, 0%, 100%)",
-    content: "hsl(216, 29%, 97%)",
-    border: "hsl(218, 18%, 91%)",
-    font: "hsl(0, 0%, 40%)",
-    font_alt: "hsl(0, 0%, 50%)",
-    font_heading: "hsl(0, 0%, 24%)"
-  }},
-  { name: "Sky", colors: {
-    body: "hsl(221, 60%, 98%)",
-    content: "hsl(222, 81%, 94%)",
-    border: "hsl(221, 86%, 92%)",
-    font: "hsl(222, 50%, 60%)",
-    font_alt: "hsl(222, 30%, 70%)",
-    font_heading: "hsl(222, 97%, 25%)"
-  }},
+  // { name: "Light", colors: {
+  //   body: "hsl(0, 0%, 100%)",
+  //   content: "hsl(216, 29%, 97%)",
+  //   border: "hsl(218, 18%, 91%)",
+  //   font: "hsl(0, 0%, 40%)",
+  //   font_alt: "hsl(0, 0%, 50%)",
+  //   font_heading: "hsl(0, 0%, 24%)"
+  // }},
+  // { name: "Sky", colors: {
+  //   body: "hsl(221, 60%, 98%)",
+  //   content: "hsl(222, 81%, 94%)",
+  //   border: "hsl(221, 86%, 92%)",
+  //   font: "hsl(222, 50%, 60%)",
+  //   font_alt: "hsl(222, 30%, 70%)",
+  //   font_heading: "hsl(222, 97%, 25%)"
+  // }},
   { name: "Space", colors: {
     body: "hsl(217, 35%, 20%)",
     content: "hsl(193, 50%, 20%)",

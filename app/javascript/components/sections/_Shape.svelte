@@ -20,7 +20,6 @@
     { component: RoundInverse, identifier: "round_inverse" },
   ]
 
-  $: backgroundColor = section.properties?.background_color
   $: type = section.properties?.[`shape_${ position }`]
   $: subtractive = section.properties?.[`shape_${ position }_subtractive`]
   $: size = section.properties?.[`shape_${ position }_size`] || 100
@@ -29,7 +28,7 @@
 
 
 
-{ #if type && backgroundColor }
+{ #if type }
   <div
     class="shape { `shape--${ position }` }"
     class:shape--absolute={ subtractive }

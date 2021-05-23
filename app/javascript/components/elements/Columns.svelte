@@ -1,11 +1,13 @@
 <script>
   import EditableText from "../shared/EditableText.svelte"
   import EditableButton from "../shared/EditableButton.svelte"
+  import EditableImage from "../shared/EditableImage.svelte"
 
   export let element
 
   $: enableBackground = element.properties.enable_background || false
   $: enableButtons = element.properties.enable_buttons || false
+  $: enableImages = element.properties.enable_images || false
   $: columnCount = { length: element.properties.column_count || 3 }
   $: columnSize = element.properties.column_size || 250
   $: columnGap = element.properties.column_gap == undefined ? 2 : element.properties.column_gap
@@ -16,8 +18,11 @@
 <div class="columns" class:with-background={ enableBackground } style="--column-size: { columnSize }px; --column-gap: { columnGap * 0.5 }rem">
   { #each columnCount as _, i }
     <div class="column">
-      <h3><EditableText { element } key="title_{ i }" defaultValue="Title" /></h3>
+      { #if enableImages }
+        <EditableImage { element } key="image_{ i }" width="400" height="300" />
+      { /if }
 
+      <h3><EditableText { element } key="title_{ i }" defaultValue="Title" /></h3>
       <EditableText { element } key="content_{ i }" defaultValue="Column content" />
 
       { #if enableButtons }
@@ -51,10 +56,15 @@
       border-radius: var(--border-radius);
       color: var(--palette-font);
     }
+
+    :global([data-editable-image]) {
+      margin-bottom: calc(var(--margin) / 2);
+      text-align: center;
+    }
   }
 
   h3 {
-    margin: 0 0 .75rem;
+    margin: 0 0 calc(var(--margin) / 2 - .15rem);
 
     .columns.with-background & {
       color: var(--palette-font-heading);

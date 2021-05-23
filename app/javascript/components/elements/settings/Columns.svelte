@@ -18,6 +18,11 @@
   Include buttons
 </Switch>
 
+<Switch { element } { index }
+  key="enable_images">
+  Include images
+</Switch>
+
 <Range { element } { index }
   key="column_count"
   min=1 max=10 step=1 defaultValue=3>

@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte"
   import { fly } from "svelte/transition"
 
-  import { currentEditableButton, currentEditableText } from "../../../stores/data"
+  import { currentEditable } from "../../../stores/data"
 
   let element
   let width = 0
@@ -21,8 +21,9 @@
   function clickOutside(event) {
     if (event.target.closest(".floating-settings")) return
 
-    if (!event.target.closest("[data-editable-button]")) $currentEditableButton = null
-    if (!event.target.closest("[contenteditable]")) $currentEditableText = null
+    if ($currentEditable?.type == "button" && !event.target.closest("[data-editable-button]")) $currentEditable = null
+    if ($currentEditable?.type == "text" && !event.target.closest("[contenteditable]")) $currentEditable = null
+    if ($currentEditable?.type == "image" && !event.target.closest("[data-editable-image]")) $currentEditable = null
   }
 </script>
 

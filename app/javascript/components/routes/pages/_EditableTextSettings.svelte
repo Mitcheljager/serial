@@ -1,4 +1,6 @@
 <script>
+  import FloatingSettings from "./_FloatingSettings.svelte"
+
   function action(command) {
     console.log(command)
     document.execCommand(command, false, null)
@@ -7,9 +9,11 @@
 
 
 
-<div class="toolbar">
-  <button class="button" on:click={ action("italic") }>Italic</button>
-</div>
+<FloatingSettings>
+  <div class="toolbar">
+    <button class="button" on:click={ action("italic") }>Italic</button>
+  </div>
+</FloatingSettings>
 
 
 

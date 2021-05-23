@@ -2,7 +2,7 @@
   import { onMount } from "svelte"
 
   import RailsFetch from "../../../shared/railsFetch.js"
-  import { page, currentTab, currentEditableButton, currentEditableText, currentNavigation } from "../../../stores/data.js"
+  import { page, currentTab, currentEditable } from "../../../stores/data.js"
 
   import ShowPage from "./Show.svelte"
   import PageSelect from "./_PageSelect.svelte"
@@ -12,9 +12,16 @@
   import ThemeSettings from "../../theme/settings/Theme.svelte"
   import Theme from "../../theme/Base.svelte"
   import NavigationSettings from "../../theme/settings/Navigation.svelte"
-  import FloatingSettings from "./_FloatingSettings.svelte"
+
   import EditableButtonSettings from "./_EditableButtonSettings.svelte"
-  import TextEditor from "./_TextEditor.svelte"
+  import EditableTextSettings from "./_EditableTextSettings.svelte"
+  import EditableImageSettings from "./_EditableImageSettings.svelte"
+
+  const components = [
+    { component: EditableButtonSettings, identifier: "button" },
+    { component: EditableTextSettings, identifier: "text" },
+    { component: EditableImageSettings, identifier: "image" }
+  ]
 
   export let params = {}
 
@@ -83,12 +90,8 @@
               <ShowPage />
             </Theme>
 
-            { #if $currentEditableButton }
-              <FloatingSettings><EditableButtonSettings /></FloatingSettings>
-            { /if }
-
-            { #if $currentEditableText }
-              <FloatingSettings><TextEditor /></FloatingSettings>
+            { #if $currentEditable }
+              <svelte:component this={ components.filter(i => i.identifier == $currentEditable.type)[0].component } />
             { /if }
           </div>
         </div>

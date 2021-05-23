@@ -1,5 +1,5 @@
 <script>
-  import { currentEditableButton } from "../../stores/data"
+  import { currentEditable } from "../../stores/data"
 
   export let element
   export let key
@@ -10,17 +10,16 @@
   function toggleSettings() {
     event.preventDefault()
 
-    const settingsKey = { key: key, element: element }
-    $currentEditableButton = settingsKey
+    const settingsKey = { type: "button", key, element }
+    $currentEditable = settingsKey
   }
 </script>
 
 
 
-<a 
-  data-editable-button
+<a data-editable-button
   class="button button--{ button.style } button--{ button.size }"
-  class:active={ $currentEditableButton?.key == key && $currentEditableButton?.element == element }
+  class:active={ $currentEditable?.key == key && $currentEditable?.element == element }
   href="{ button.link }"
   on:click={ toggleSettings }>
 

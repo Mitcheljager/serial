@@ -5,6 +5,7 @@
   import Range from "../shared/Range.svelte"
   import ElementsList from "../elements/settings/List.svelte"
   import ShapePicker from "../shared/ShapePicker.svelte"
+  import EditableImage from "../shared/EditableImage.svelte"
 
   $: section = $page.sections[$currentSectionIndex]
 </script>
@@ -23,11 +24,18 @@
 
 <div class="button-group">
   <Button key="background_color" value="">None</Button>
-  <Button key="background_color" value="var(--primary-color)">Primary</Button>
-  <Button key="background_color" value="var(--secondary-color)">Secondary</Button>
+  <Button key="background_color" value="primary-color">Primary</Button>
+  <Button key="background_color" value="secondary-color">Secondary</Button>
+  <Button key="background_color" value="image">Image</Button>
 </div>
 
-{ #if $page.sections[$currentSectionIndex].properties.background_color }
+{ #if section.properties.background_color == "image" }
+  <div class="clickable-label mt-1/8 mb-1/4">
+    <EditableImage { section } key="background_image" width="1920" height="800" />
+  </div>
+{ /if }
+
+{ #if section.properties.background_color }
   <div class="form-label mt-1/8">Shape</div>
 
   <ShapePicker key="shape_top">Top</ShapePicker>
@@ -41,5 +49,5 @@
 
 
 <style lang="scss">
-  
+
 </style>

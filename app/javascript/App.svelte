@@ -8,7 +8,7 @@
 	import { theme } from "./stores/theme.js"
 	import { projects, project } from "./stores/project.js"
 	import { currentUser } from "./stores/user.js"
-	import { pages } from "./stores/data.js"
+	import { directUploadUrl, pages } from "./stores/data.js"
 
 	import Header from "./components/Header.svelte"
 	import GlobalError from "./components/GlobalError.svelte"
@@ -16,6 +16,7 @@
 	export let _user
 	export let _project
 	export let _projects
+	export let _directUploadUrl
 
 	let loading = true
 
@@ -24,6 +25,7 @@
 		$project = _project
 		$projects = _projects
 		$theme = JSON.parse($project.properties)
+		$directUploadUrl = _directUploadUrl
 
 		getPages()
 

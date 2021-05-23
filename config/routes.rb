@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "application#index"
 
+  get "active_storage_blob_variant_url/:key", to: "application#active_storage_blob_variant_url"
+
   resources :sections, defaults: { format: :json }
 
   resources :users, only: [:create]

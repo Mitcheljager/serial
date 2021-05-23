@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   before_action :login_from_cookie
   around_action :set_current_user
+  helper_method :current_user
 
   def index; end
 
@@ -18,8 +19,6 @@ class ApplicationController < ActionController::Base
       session[:user_id] = token.user.id
     end
   end
-
-  helper_method :current_user
 
   def current_user
     if session[:user_id]
@@ -34,5 +33,23 @@ class ApplicationController < ActionController::Base
     yield
   ensure
     Current.user = nil
+  end
+
+  def active_storage_blob_variant_url
+    image = ActiveStorage::Blob.find_by_key(params[:key])
+    project = current_user.projects.find(params[:project_id])
+
+    project.images.attach(image)
+
+    if image.present?
+      url = ENV["CDN"] + image.variant(
+        quality: 95,
+        resize_to_limit: [ params[:width], params[:height] ]
+      ).processed.key
+
+      render json: url, layout: false
+    else
+      render json: "Something went wrong", status: "500", layout: false
+    end
   end
 end
