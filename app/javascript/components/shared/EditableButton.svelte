@@ -3,7 +3,7 @@
 
   export let element
   export let key
-  export let defaultValue = { }
+  export let defaultValue = {}
 
   $: button = element.properties[key] || defaultValue
 
@@ -29,6 +29,10 @@
 
 
 <style lang="scss">
+  .button {
+    box-shadow: var(--shadow-type);
+  }
+  
   .active {
     position: relative;
 

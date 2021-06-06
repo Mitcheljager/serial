@@ -9,7 +9,23 @@
 
   --gradient: linear-gradient(105deg, var(--primary-color) 0%, var(--secondary-color) 100%);
 
-  font-family: var(--font-body, var(--font-family));
+  --shadow-1: 0px 2px 4px rgba(0, 0, 0, .2);
+  --shadow-2: 0px 7px 30px rgba(0, 0, 0, .2);
+  --shadow-3: 0 5px 10px rgba(0, 0, 0, .1),
+              0 15px 25px rgba(0, 0, 0, .2);
+  --shadow-4: 0px 2px 1px rgba(0, 0, 0, .1),
+              0px 4px 2px rgba(0, 0, 0, .1),
+              0px 8px 4px rgba(0, 0, 0, 0.1),
+              0px 16px 8px rgba(0, 0, 0, 0.1),
+              0px 32px 16px rgba(0, 0, 0, 0.1);
+  --shadow-5: 0 3px 2px rgba(0, 0, 0, .1),
+              0 10px 5px rgba(0, 0, 0, .1),
+              0 15px 10px rgba(0, 0, 0, .1),
+              0 25px 15px rgba(0, 0, 0, .2),
+              0 40px 30px rgba(0, 0, 0, .2),
+              0 100px 75px rgba(0, 0, 0, .3);
+
+  --font-family: var(--font-body, var(--font-family));
 
   @import "*";
 }

@@ -1,21 +1,16 @@
 <script>
   import { currentEditable, currentSectionIndex } from "../../../stores/data"
-  import { getElementKey, getSectionKey, setElementKey, setSectionKey } from "../../../shared/key.js"
+  import { getTypeKey, setTypeKey } from "../../../shared/key.js"
   import Uploader from "../../../shared/uploader.js"
   import RailsFetch from "../../../shared/railsFetch.js"
   import { project } from "../../../stores/project"
 
   import FloatingSettings from "./_FloatingSettings.svelte"
 
-  $: src = getSrc($currentEditable)
+  $: image = $currentEditable?.element.properties.image || {}
 
   let uploadInProgress = false
   let progress = 0
-
-  function getSrc() {
-    if ($currentEditable?.element) return getElementKey($currentSectionIndex, $currentEditable?.element, $currentEditable?.key)
-    if ($currentEditable?.section) return getSectionKey($currentSectionIndex, $currentEditable?.key)
-  }
 
   function setImage() {
     const file = event.target.files[0]
@@ -31,11 +26,11 @@
     }
   }
 
-  function uploadImage(image) {
+  function uploadImage(file) {
     uploadInProgress = true
-    const uploader = new Uploader(image)
+    const uploader = new Uploader(file)
 
-    console.log(image)
+    console.log(file)
 
     uploader.upload().then(() => {
       const interval = setInterval(() => {
@@ -49,14 +44,25 @@
           new RailsFetch(`/active_storage_blob_variant_url/${ uploader.blob.key }?width=${ $currentEditable.width }&height=${ $currentEditable.height }&project_id=${ $project.id }`)
           .get()
           .then(data => {
-            if ($currentEditable.element) setElementKey($currentSectionIndex, $currentEditable.element, $currentEditable.key, data)
-            if ($currentEditable.section) setSectionKey($currentSectionIndex, $currentEditable.key, data)
+            setKey("src", data)
           })
           .catch(error => alert(error))
           .finally(() => uploadInProgress = false)
         }
-      }, 20)
+      }, 100)
     })
+  }
+
+  function setKey(key, value) {
+    console.log(image)
+    image[key] = value
+
+    setTypeKey(
+      $currentEditable.keyType,
+      [$currentSectionIndex, $currentEditable.element],
+      $currentEditable.key,
+      image
+    )
   }
 </script>
 
@@ -76,6 +82,13 @@
           <div class="progress__bar" style="--progress: { progress }%" />
         </div>
       { /if }
+    </div>
+
+    <div class="grid__item">
+      <label for="shadow" class="checkbox">
+        <input type="checkbox" id="shadow" on:change={ () => setKey("shadow", event.target.value) } />
+        Include shadow
+      </label>
     </div>
   </div>
 </FloatingSettings>

@@ -11,8 +11,9 @@
   export let section
   export let index
 
-  $: backgroundColor = section.properties?.background_color
-  $: backgroundImage = section.properties?.background_image
+  $: backgroundType = section.properties?.background_type
+  $: backgroundColor = backgroundType ? section.properties?.background_color || "palette-content" : null
+  $: backgroundImage = backgroundType == "image" ? section.properties?.background_image : null
 </script>
 
 
@@ -43,7 +44,7 @@
     { /each }
   </div>
 
-  { #if backgroundColor }
+  { #if backgroundType }
     <Shape position="bottom" { section } { index } />
   { /if }
 </div>
@@ -56,7 +57,8 @@
     min-height: 100px;
     background-color: var(--background-color);
     background-size: cover;
-    overflow: hidden;
+    background-position: center;
+    // overflow: hidden;
   }
 
   .wrapper {

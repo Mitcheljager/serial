@@ -55,6 +55,7 @@
       background: var(--palette-content);
       border-radius: var(--border-radius);
       color: var(--palette-font);
+      box-shadow: var(--shadow-type);
     }
 
     :global([data-editable-image]) {

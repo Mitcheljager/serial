@@ -1,74 +1,23 @@
 <script>
-  import { onMount } from "svelte"
+  import RailsFetch from "../../../shared/railsFetch"
+  import { project } from "../../../stores/project"
 
-  import EditorJS from "@editorjs/editorjs"
-  import Attaches from "@editorjs/attaches"
-  import Checklist from "@editorjs/checklist"
-  import Code from "@editorjs/code"
-  import Delimiter from "@editorjs/delimiter"
-  import Header from "@editorjs/header"
-  import Image from "@editorjs/image"
-  import InlineCode from "@editorjs/inline-code"
-  import List from "@editorjs/list"
-  import Marker from "@editorjs/marker"
-  import Quote from "@editorjs/quote"
-
-  const editor = new EditorJS({
-    autofocus: true,
-    placeholder: "Start writing...",
-    tools: {
-      attaches: {
-        class: Attaches
-      },
-      checklist: {
-        class: Checklist
-      },
-      code: {
-        class: Code
-      },
-      delimiter: {
-        class: Delimiter
-      },
-      header: {
-        class: Header
-      },
-      image: {
-        class: Image
-      },
-      "Inline code": {
-        class: InlineCode
-      },
-      List: {
-        class: List
-      },
-      marker: {
-        class: Marker
-      },
-      quote: {
-        class: Quote
-      }
-    }
-  })
+  let title
 
   function save() {
-    editor.save().then((outputData) => {
-      console.log("Article data: ", outputData)
-    }).catch((error) => {
-      console.log("Saving failed: ", error)
-    })
+    new RailsFetch("/page/create", {
+      page: { project_id: $project.id, title }
+    }).post()
+    .then(data => console.log(data))
   }
 </script>
 
-<h1>Posts</h1>
+<h1>New page</h1>
 
-<div class="block">
-  <div id="editorjs"></div>
-</div>
+<input bind:value={ title } placeholder="Title" />
 
 <button on:click={ save }>Save</button>
 
 <style lang="scss">
-  :global(.codex-editor--narrow .codex-editor__redactor) {
-    margin-right: 0;
-  }
+  
 </style>

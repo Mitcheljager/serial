@@ -66,7 +66,15 @@
   key="border_radius"
   min=0 max=4 step=1 defaultValue=1>
   Roundness
-  <span slot="help">This values determines how "round" several elements on your page are. Round elements appear more friendly.</span>
+  <span slot="help">This value determines how "round" several elements on your page are. Round elements appear more friendly.</span>
+</Range>
+
+<Range
+  setTheme=true
+  key="shadow_type"
+  min=0 max=5 step=1 defaultValue=0>
+  Shadow type
+  <span slot="help">Add a shadow to certain elements.</span>
 </Range>
 
 

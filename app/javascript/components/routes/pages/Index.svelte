@@ -2,7 +2,8 @@
   import { onMount } from "svelte"
 
   import RailsFetch from "../../../shared/railsFetch.js"
-  import { page, currentTab, currentEditable } from "../../../stores/data.js"
+  import { page, currentTab, currentEditable, currentSectionIndex } from "../../../stores/data.js"
+  import { project } from "../../../stores/project.js"
 
   import ShowPage from "./Show.svelte"
   import PageSelect from "./_PageSelect.svelte"
@@ -36,10 +37,13 @@
 
   function getCurrentPage() {
     new RailsFetch("/page", {
-      project_id: 1,
+      project_id: $project.id,
       uuid: params.uuid
     }).post()
-    .then(data => $page = JSON.parse(data))
+    .then(data => {
+      $currentSectionIndex = 0
+      $page = JSON.parse(data)
+    })
   }
 </script>
 

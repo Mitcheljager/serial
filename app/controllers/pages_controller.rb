@@ -11,6 +11,17 @@ class PagesController < ApplicationController
     render json: @page
   end
 
+  def create
+    @page = Page.new(page_params)
+    @page.uuid = SecureRandom.uuid
+
+    if @page.save!
+      render json: { message: "Saved succesfully" }, status: 200
+    else
+      render json: { message: "An error occured" }, status: 500
+    end
+  end
+
   def update
     @page = current_user.projects.find(params[:project_id]).pages.find_or_create_by(uuid: params[:data][:uuid])
     
@@ -25,6 +36,10 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def page_params
+    params.require(:page).permit(:title, :project_id)
+  end
 
   def save_sections
     @sections = params[:data][:sections]

@@ -94,6 +94,7 @@
     margin: 0 1rem 0 0;
     color: currentColor;
     text-decoration: none;
+    font-weight: bold;
 
     &:hover,
     &:active {

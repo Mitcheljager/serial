@@ -47,7 +47,7 @@
     max-height: 450px;
     background: var(--border-color);
     box-shadow: 0 0 0 2px var(--body-bg);
-    z-index: 10;
+    z-index: 100;
     border-radius: .5rem;
     overflow-y: auto;
   }

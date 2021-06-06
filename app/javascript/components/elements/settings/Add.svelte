@@ -28,6 +28,7 @@
       <span class="popup__item" on:click={ () => addElement("heading") }>Heading</span>
       <span class="popup__item" on:click={ () => addElement("columns") }>Columns</span>
       <span class="popup__item" on:click={ () => addElement("offset") }>Offset</span>
+      <span class="popup__item" on:click={ () => addElement("call_to_action") }>Call to action</span>
     </div>
   { /if }
 </div>
@@ -48,6 +49,7 @@
     background: var(--border-color);
     border-radius: 1rem;
     overflow: hidden;
+    z-index: 100;
   }
 
   .popup__item {

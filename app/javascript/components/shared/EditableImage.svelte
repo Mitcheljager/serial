@@ -8,9 +8,10 @@
   export let width = 400
   export let height = 300
 
-  $: src = getSrc(element, section)
+  $: image = getKey(element, section)
+  $: keyType = element ? "element" : "section"
 
-  function getSrc() {
+  function getKey() {
     if (element) return element.properties[key]
     if (section) return section.properties[key]
   }
@@ -18,19 +19,21 @@
   function toggleSettings() {
     event.preventDefault()
 
-    const settingsKey = { type: "image", key, width, height, element: element, section: section }
+    const settingsKey = { type: "image", keyType, key, width, height, element, section }
     $currentEditable = settingsKey
   }
 </script>
 
 
+
 <div data-editable-image
   class:active={ $currentEditable?.key == key && $currentEditable?.element == element }
+  class:with-shadow={ image?.shadow }
   on:click={ toggleSettings }>
 
-  { #if src }
+  { #if image?.src }
     <img
-      { src } { height } { width }
+      src={ image.src } { height } { width }
       loading=lazy />
   { :else }
     <svg { height } { width }>
@@ -47,6 +50,10 @@
     display: block;
     width: 100%;
     height: auto;
+
+    .with-shadow & {
+      box-shadow: var(--shadow-type);
+    }
   }
 
   svg {

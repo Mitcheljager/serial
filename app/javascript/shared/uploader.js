@@ -4,7 +4,6 @@ import { directUploadUrl } from "../stores/data.js"
 import * as ActiveStorage from "@rails/activestorage"
 ActiveStorage.start()
 
-
 export default class Uploader {
   constructor(file) {
     this.file = file

@@ -40,6 +40,18 @@ function getThemeKey(key) {
   return get(theme)[key]
 }
 
+function setTypeKey(type, typeIdentifier, key, value) {
+  if (type == "element") setElementKey(typeIdentifier[0], typeIdentifier[1], key, value)
+  if (type == "section") setSectionKey(typeIdentifier[0], key, value)
+  if (type == "theme") getThemeKey(key, value)
+}
+
+function getTypeKey(type, typeIdentifier, key) {
+  if (type == "element") getElementKey(typeIdentifier[0], typeIdentifier[1], key)
+  if (type == "section") getSectionKey(typeIdentifier[0], key)
+  if (type == "theme") getThemeKey(key)
+}
+
 export {
   getElementKey,
   setElementKey,
@@ -47,5 +59,7 @@ export {
   getSectionKey,
   setSectionKey,
   getThemeKey,
-  setThemeKey
+  setThemeKey,
+  setTypeKey,
+  getTypeKey
 }

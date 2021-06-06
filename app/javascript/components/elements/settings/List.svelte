@@ -10,11 +10,13 @@
   import Heading from "./Heading.svelte"
   import Columns from "./Columns.svelte"
   import Offset from "./Offset.svelte"
+  import CallToAction from "./CallToAction.svelte"
 
   const components = [
     { component: Heading, identifier: "heading" },
     { component: Columns, identifier: "columns" },
-    { component: Offset, identifier: "offset" }
+    { component: Offset, identifier: "offset" },
+    { component: CallToAction, identifier: "call_to_action" },
   ]
 
   let listElement
@@ -72,7 +74,7 @@
       on:mouseleave={ () => $hoveringElement = null }>
 
       <div class="section__header" on:click={ () => setCurrentElement(element.uuid) }>
-        <h4>{ element.content_type }</h4>
+        <h4>{ element.content_type.replaceAll("_", " ") }</h4>
 
         <div class="actions">
           <div class="actions__item delete" on:click={ () => removeElement(element.uuid) }>
@@ -118,8 +120,11 @@
     cursor: pointer;
 
     h4 {
-      text-transform: capitalize;
       margin: 0;
+
+      &:first-letter {
+        text-transform: capitalize;
+      }
     }
 
     .active & {

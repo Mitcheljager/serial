@@ -10,6 +10,7 @@
   $: margin = $theme.margin || 2
   $: maxWidth = $theme.max_width || 2
   $: borderRadius = $theme.border_radius != undefined ? $theme.border_radius : 2
+  $: shadowType = $theme.shadow_type || 0
   $: primaryColor = $theme.primary_color || { h: 281, s: 72, l: 54 }
   $: secondaryColor = $theme.secondary_color || { h: 32, s: 90, l: 49 }
   $: palette = $theme.palette || $palettes[0]
@@ -33,6 +34,7 @@
     --margin-multiplier: { margin };
     --max-width: { 600 + (maxWidth * 150) }px;
     --border-radius-multiplier: { borderRadius };
+    --shadow-type: var(--shadow-{ shadowType });
     --primary-color: hsl({ primaryColor.h }, { primaryColor.s }%, { primaryColor.l }%);
     --primary-color-text-offset: { primaryColor.l > 65 ? "black" : "white" };
     --secondary-color: hsl({ secondaryColor.h }, { secondaryColor.s }%, { secondaryColor.l }%);

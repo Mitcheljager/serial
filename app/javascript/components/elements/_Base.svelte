@@ -5,6 +5,7 @@
   import Heading from "./Heading.svelte"
   import Columns from "./Columns.svelte"
   import Offset from "./Offset.svelte"
+  import CallToAction from "./CallToAction.svelte"
 
   export let element
 
@@ -12,7 +13,8 @@
     { component: Paragraph, identifier: "paragraph" },
     { component: Heading, identifier: "heading" },
     { component: Columns, identifier: "columns" },
-    { component: Offset, identifier: "offset" }
+    { component: Offset, identifier: "offset" },
+    { component: CallToAction, identifier: "call_to_action" }
   ]
 </script>
 
