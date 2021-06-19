@@ -2,14 +2,16 @@ import { get } from "svelte/store"
 import { page } from "../stores/data.js"
 import { theme } from "../stores/theme.js"
 
-function getElementKey(sectionIndex, element, key) {
-  return get(page).sections[sectionIndex]?.elements[getElementIndex(sectionIndex, element)]?.properties[key]
+function getElementKey(element, key) {
+  return element.properties[key]
 }
 
-function setElementKey(sectionIndex, element, key, value) {
+function setElementKey(element, key, value) {
   const newPage = get(page)
-  newPage.sections[sectionIndex].elements[getElementIndex(sectionIndex, element)].properties[key] = value
+  const section = getSectionOfElement(element)
+  const sectionIndex = indexOfSection(section)
 
+  newPage.sections[sectionIndex].elements[getElementIndex(sectionIndex, element)].properties[key] = value
   page.set(newPage)
 }
 
@@ -18,15 +20,24 @@ function getElementIndex(sectionIndex, element) {
   return get(page).sections[sectionIndex]?.elements?.findIndex(e => e.uuid == element.uuid)
 }
 
-function getSectionKey(index, key) {
-  return get(page).sections[index].properties[key]
+function getSectionOfElement(element) {
+  return get(page).sections.filter(s => s.elements.filter(e => e.uuid == element.uuid).length)[0]
 }
 
-function setSectionKey(index, key, value) {
-  const newPage = get(page)
-  newPage.sections[index].properties[key] = value
+function getSectionKey(section, key) {
+  return section.properties[key]
+}
 
+function setSectionKey(section, key, value) {
+  const newPage = get(page)
+  const index = indexOfSection(section)
+
+  newPage.sections[index].properties[key] = value
   page.set(newPage)
+}
+
+function indexOfSection(section) {
+  return get(page).sections.findIndex(s => s.uuid == section.uuid)
 }
 
 function setThemeKey(key, value) {
@@ -41,15 +52,15 @@ function getThemeKey(key) {
 }
 
 function setTypeKey(type, typeIdentifier, key, value) {
-  if (type == "element") setElementKey(typeIdentifier[0], typeIdentifier[1], key, value)
-  if (type == "section") setSectionKey(typeIdentifier[0], key, value)
-  if (type == "theme") getThemeKey(key, value)
+  if (type == "element") setElementKey(typeIdentifier, key, value)
+  if (type == "section") setSectionKey(typeIdentifier, key, value)
+  if (type == "theme") setThemeKey(key, value)
 }
 
 function getTypeKey(type, typeIdentifier, key) {
-  if (type == "element") getElementKey(typeIdentifier[0], typeIdentifier[1], key)
-  if (type == "section") getSectionKey(typeIdentifier[0], key)
-  if (type == "theme") getThemeKey(key)
+  if (type == "element") return getElementKey(typeIdentifier, key)
+  if (type == "section") return getSectionKey(typeIdentifier, key)
+  if (type == "theme") return getThemeKey(key)
 }
 
 export {
@@ -58,6 +69,7 @@ export {
   getElementIndex,
   getSectionKey,
   setSectionKey,
+  indexOfSection,
   getThemeKey,
   setThemeKey,
   setTypeKey,

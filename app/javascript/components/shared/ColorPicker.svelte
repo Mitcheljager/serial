@@ -3,7 +3,8 @@
   import { fly } from "svelte/transition"
   import iro from "@jaames/iro"
 
-  import { theme } from "../../stores/theme.js"
+  import { theme } from "../../stores/theme"
+  import { settings } from "../../stores/user"
 
   export let key
   export let defaultValue
@@ -106,9 +107,11 @@
   <div>
     <div class="form-label"><slot /></div>
 
-    <div class="help">
-      <slot name="help" />
-    </div>
+    { #if $settings.show_help_text }
+      <div class="help">
+        <slot name="help" />
+      </div>
+    { /if }
   </div>
 </div>
 

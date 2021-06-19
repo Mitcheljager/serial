@@ -1,21 +1,22 @@
 <script>
+  export let section = null
   export let key
   export let value
 
   import { getSectionKey, setSectionKey } from "../../shared/key"
-  import { page, currentSectionIndex } from "../../stores/data.js"
+  import { page } from "../../stores/data.js"
 
-  $: keyValue = getSectionKey($currentSectionIndex, key, $page)
+  $: keyValue = getSectionKey(section, key, $page)
 
   function setKey(key, value) {
-    setSectionKey($currentSectionIndex, key, value)
+    setSectionKey(section, key, value)
   }
 </script>
 
 
 
 <button
-  class="button button--light button--small"
+  class="button button--dark button--small"
   class:active={ keyValue == value || (value == "" && keyValue == undefined) }
   on:click={ () => setKey(key, value) }>
   <slot></slot>

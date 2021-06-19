@@ -1,32 +1,27 @@
 <script>
-  import { page, currentSectionIndex } from "../../stores/data.js"
-  import { theme } from "../../stores/theme.js"
+  import { createEventDispatcher } from "svelte"
+
+  import { getTypeKey, setTypeKey } from "../../shared/key.js"
+  import { settings } from "../../stores/user"
 
   export let element = null
-  export let index = null
-  export let setTheme = false
+  export let section = null
   export let key
   export let defaultValue
   export let min
   export let max
   export let step = 1
   export let responsive = false
+  export let emit = false
 
-  $: value = setInitialValue($currentSectionIndex)
+  let type = element ? "element" : section ? "section" : "theme"
+  let value = emit ? defaultValue : (getTypeKey(type, section || element, key) || defaultValue)
 
-  function setInitialValue() {
-    if (element && element.properties?.[key]) return element.properties[key]
-    if (element == null && $page.sections[$currentSectionIndex].properties?.[key]) return $page.sections[$currentSectionIndex].properties[key]
-    if (setTheme && $theme[key]) return $theme[key]
-
-    return defaultValue
-  }
+  const dispatch = createEventDispatcher()
 
   function setValue() {
-    if (element) element.properties[key] = value
-    if (index != null) $page.sections[$currentSectionIndex].elements[index] = element
-    if (element == null && !setTheme) $page.sections[$currentSectionIndex].properties[key] = value
-    if (setTheme) $theme[key] = value
+    if (emit) dispatch("change", { value })
+    if (!emit) setTypeKey(type, section || element, key, value)
   }
 </script>
 
@@ -52,9 +47,11 @@
     <input type="text" { min } { max } bind:value on:input={ setValue } class="form-input range-input__number" />
   </div>
 
-  <div class="help">
-    <slot name="help" />
-  </div>
+  { #if $settings.show_help_text }
+    <div class="help">
+      <slot name="help" />
+    </div>
+  { /if }
 </div>
 
 
@@ -75,7 +72,15 @@
   }
 
   .range {
-    margin-bottom: 1.5rem;
+    margin: 1.5rem 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .range-input {
@@ -98,7 +103,7 @@
     }
 
     &::-moz-range-track {
-      background: var(--text-color-dark);
+      background: var(--bg-dark);
     }
 
     &::-moz-range-progress {

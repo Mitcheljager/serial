@@ -3,13 +3,13 @@
   justify-content: center;
   position: relative;
   border-radius: 100px;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1rem;
   border: 0;
   background: var(--body-bg);
   font-family: var(--font-family-titles);
 	color: var(--text-color);
   font-size: 1rem;
-  line-height: 1.5em;
+  line-height: 1em;
   text-align: center;
   font-weight: 700;
   text-transform: lowercase;
@@ -60,29 +60,39 @@
   &:hover:not([disabled]),
   &:active:not([disabled]),
   &.active {
-    background: var(--content-bg-light);
+    background: var(--content-bg);
+    color: white;
+  }
+}
+
+.button--dark {
+	background: var(--bg-dark);
+
+  &:hover:not([disabled]),
+  &:active:not([disabled]),
+  &.active {
+    background: var(--content-bg);
     color: white;
   }
 }
 
 .button--small {
-	padding: .5rem 1rem;
+	padding: .35rem .75rem;
 	font-size: 16px;
 	line-height: 1em;
 }
 
 .button-group {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  grid-gap: .25rem;
   margin-bottom: 1rem;
+  padding: .25rem;
   border-radius: 5rem;
   overflow: hidden;
+  background: var(--bg-dark);
 
-  .button {
-    border-radius: 0;
-    border-right: 2px solid var(--content-bg);
-
-    &:last-child {
-      border-right: 0;
-    }
+  &:last-child {
+    margin-bottom: 0;
   }
 }

@@ -1,68 +1,70 @@
 <script>
-  import { currentEditable, currentSectionIndex } from "../../../stores/data"
-  import { getElementKey, setElementKey } from "../../../shared/key.js"
+  import { currentEditable } from "../../../stores/data"
+  import { getTypeKey, setTypeKey } from "../../../shared/key.js"
 
   import FloatingSettings from "./_FloatingSettings.svelte"
 
-  $: button = getElementKey($currentSectionIndex, $currentEditable?.element, $currentEditable?.key) || {}
+  $: button = getTypeKey($currentEditable?.keyType, $currentEditable?.[$currentEditable?.keyType], $currentEditable?.key) || {}
 
   function setKey(key) {
     button[key] = event.target.value
 
-    setElementKey($currentSectionIndex, $currentEditable.element, $currentEditable.key, button)
+    setTypeKey($currentEditable.keyType, $currentEditable[$currentEditable.keyType], $currentEditable.key, button)
   }
 </script>
 
 
 
-<FloatingSettings>
-  <div class="grid">
-    <div class="grid__item">
-      <label for="button-label" class="form-label">Label</label>
+{ #if $currentEditable?.type == "button" && button }
+  <FloatingSettings>
+    <div class="grid">
+      <div class="grid__item">
+        <label for="button-label" class="form-label">Label</label>
 
-      <input
-        type="text"
-        class="form-input mt-1/8"
-        value={ button?.label || "Link" }
-        on:input={ () => setKey("label") } />
+        <input
+          type="text"
+          class="form-input mt-1/8"
+          value={ button?.label || "Link" }
+          on:input={ () => setKey("label") } />
+      </div>
+
+      <div class="grid__item">
+        <label for="button-label" class="form-label">Link to</label>
+
+        <input
+          type="text"
+          class="form-input mt-1/8"
+          value={ button?.link || "" }
+          placeholder="https://example.com/"
+          on:input={ () => setKey("link") } />
+      </div>
+
+      <div class="grid__item">
+        <label for="button-label" class="form-label">Style</label>
+
+        <select class="form-input mt-1/8" value={ button?.style || "" } on:change={ () => setKey("style") }>
+          <option value="">Default</option>
+          <option value="primary">Primary</option>
+          <option value="secondary">Secondary</option>
+          <option value="gradient">Gradient</option>
+          <option value="border">Border</option>
+          <option value="link">Link</option>
+        </select>
+      </div>
+
+      <div class="grid__item">
+        <label for="button-label" class="form-label">Size</label>
+
+        <select class="form-input mt-1/8" value={ button?.size || "" } on:change={ () => setKey("size") }>
+          <option value="">Default</option>
+          <option value="large">Large</option>
+          <option value="full-width">Full width</option>
+          <option value="pill">Pill</option>
+        </select>
+      </div>
     </div>
-
-    <div class="grid__item">
-      <label for="button-label" class="form-label">Link to</label>
-
-      <input
-        placeholder="https://example.com/"
-        type="text"
-        class="form-input mt-1/8"
-        value={ button?.link || "" }
-        on:input={ () => setKey("link") } />
-    </div>
-
-    <div class="grid__item">
-      <label for="button-label" class="form-label">Style</label>
-
-      <select class="form-input mt-1/8" value={ button?.style || "" } on:change={ () => setKey("style") }>
-        <option value="">Default</option>
-        <option value="primary">Primary</option>
-        <option value="secondary">Secondary</option>
-        <option value="gradient">Gradient</option>
-        <option value="border">Border</option>
-        <option value="link">Link</option>
-      </select>
-    </div>
-
-    <div class="grid__item">
-      <label for="button-label" class="form-label">Size</label>
-
-      <select class="form-input mt-1/8" value={ button?.size || "" } on:change={ () => setKey("size") }>
-        <option value="">Default</option>
-        <option value="large">Large</option>
-        <option value="full-width">Full width</option>
-        <option value="pill">Pill</option>
-      </select>
-    </div>
-  </div>
-</FloatingSettings>
+  </FloatingSettings>
+{ /if }
 
 
 

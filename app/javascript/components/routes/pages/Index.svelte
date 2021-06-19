@@ -1,5 +1,7 @@
 <script>
   import { onMount } from "svelte"
+  import { fly } from "svelte/transition"
+  import { location } from "svelte-spa-router"
 
   import RailsFetch from "../../../shared/railsFetch.js"
   import { page, currentTab, currentEditable, currentSectionIndex } from "../../../stores/data.js"
@@ -8,8 +10,9 @@
   import ShowPage from "./Show.svelte"
   import PageSelect from "./_PageSelect.svelte"
   import SaveButton from "./_SaveButton.svelte"
+  import Tabs from "./_Tabs.svelte"
   import SectionsList from "../../sections/settings/List.svelte"
-  import SectionSettings from "../../sections/Settings.svelte"
+  import SectionSettings from "../../sections/settings/Settings.svelte"
   import ThemeSettings from "../../theme/settings/Theme.svelte"
   import Theme from "../../theme/Base.svelte"
   import NavigationSettings from "../../theme/settings/Navigation.svelte"
@@ -24,16 +27,19 @@
     { component: EditableImageSettings, identifier: "image" }
   ]
 
-  export let params = {}
+  const sidebarComponents = [
+    { component: ThemeSettings, identifier: "theme" },
+    { component: SectionsList, identifier: "sections" },
+    { component: SectionSettings, identifier: "section" },
+    { component: NavigationSettings, identifier: "navigation" }
+  ]
 
-  onMount(getCurrentPage)
+  export let params = {}
 
   $: getCurrentPage(params.uuid)
   $: console.log($page)
-
-  function setTab(tab) {
-    $currentTab = tab || event.detail.tab
-  }
+  
+  onMount(getCurrentPage)  
 
   function getCurrentPage() {
     new RailsFetch("/page", {
@@ -45,6 +51,8 @@
       $page = JSON.parse(data)
     })
   }
+
+  const flyIf = (node, args) => $location.includes("/pages/") ? fly(node, args) : null
 </script>
 
 
@@ -52,41 +60,26 @@
 { #if $page }
   <div class="board">
     <aside class="sidebar">
-      <div class="tabs button-group" class:tabs--three={ $currentTab == "section" || $currentTab == "navigation" }>
-        <button on:click={ () => setTab("theme") } class="button button--light" class:active={ $currentTab == "theme" }>Theme</button>
-        <button on:click={ () => setTab("sections") } class="button button--light" class:active={ $currentTab == "sections" }>Sections</button>
 
-        { #if $currentTab == "section" }
-          <button class="button button--light active">Edit</button>
-        { /if }
+      <div class="sidebar__navigation">
+        <PageSelect />
+        <SaveButton />
 
-        { #if $currentTab == "navigation" }
-          <button class="button button--light active">Nav</button>
-        { /if }
+        <Tabs />
       </div>
 
       <div class="sidebar__content">
-        <div class="mb-1/1 mt-1/4">
-          { #if $currentTab == "theme" }
-            <ThemeSettings />
-          { :else if $currentTab == "sections" }
-            <SectionsList on:setTab={ setTab } />
-          { :else if $currentTab == "section" }
-            <SectionSettings />
-          { :else if $currentTab == "navigation" }
-            <NavigationSettings />
+        { #each sidebarComponents as item }
+          { #if $currentTab == item.identifier }
+            <div in:fly={{ x: -150, duration: 200 }} out:flyIf={{ x: 150, duration: 200 }}>
+              <svelte:component this={ item.component } />
+            </div>
           { /if }
-        </div>
+        { /each }
       </div>
     </aside>
 
     <div class="content">
-      <div class="content__actions">
-        <PageSelect />
-
-        <SaveButton />
-      </div>
-
       <div class="block-scroll" data-role="theme-container">
         <div class="block">
           <div class="overflow">
@@ -109,37 +102,47 @@
 
 
 <style lang="scss">
-  $actions-height: 40px;
-
   .board {
     display: grid;
     grid-template-columns: calc(300px + 1.5rem) auto;
-    grid-gap: clamp(1.5rem, 2vw, 3rem);
     max-width: var(--max-width);
     margin: 0 auto;
   }
 
   .sidebar {
     display: grid;
-    grid-template-rows: $actions-height auto;
-    grid-gap: 1.5rem;
+    grid-template-rows: 80px auto;
     height: calc(100vh - 60px);
-    padding: 1.5rem 0 0 1.5rem;
+    padding: 1.5rem 0 0 0;
 
     :global(h2) {
-      margin-top: 0;
+      margin-top: 1.5rem;
     }
   }
 
   .sidebar__content {
-    padding: 0 2px;
+    display: grid;
+    padding: 1.5rem 1.5rem 0;
     overflow-y: auto;
     scrollbar-width: none;
+
+    > div {
+      grid-area: 1/1;
+    }
+  }
+
+  .sidebar__navigation {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: .5rem;
+    align-items: flex-start;
+    height: 5rem;
+    padding: 0 1.5rem 0;
+    z-index: 10;
   }
 
   .content {
     display: grid;
-    grid-template-rows: $actions-height auto;
     grid-gap: .75rem;
     height: calc(100vh - 60px);
     padding: 1.5rem 1.5rem 0 0;
@@ -157,34 +160,12 @@
       min-height: 600px;
       padding: 0;
       margin-bottom: 3rem;
+      box-shadow: var(--shadow-big);
     }
-  }
-
-  .content__actions {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
   }
 
   .overflow {
     overflow: hidden;
     border-radius: 1rem;
-  }
-
-  .tabs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: .25rem;
-    margin-bottom: 0;
-
-    &--three {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .button {
-      padding-left: 1rem;
-      padding-right: 1rem;
-      border: 0;
-    }
   }
 </style>

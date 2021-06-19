@@ -3,11 +3,11 @@
   import { link, location } from "svelte-spa-router"
 
   import ProjectSelect from "./ProjectSelect.svelte"
-  import IconBell from "./icons/Bell.svelte"
+  import Dropdown from "./shared/Dropdown.svelte"
   import IconList from "./icons/List.svelte"
   import IconHome from "./icons/Home.svelte"
 
-  import { currentUser } from "../stores/user.js"
+  import { currentUser, settings } from "../stores/user.js"
 </script>
 
 
@@ -28,7 +28,14 @@
   </nav>
 
   <div class="header__user">
-    Logged in as <strong>{ $currentUser.username }</strong>
+    <Dropdown>
+      <span slot="label">Logged in as <strong>{ $currentUser.username }</strong></span>
+
+      <label>
+        Show helper text
+        <input type="checkbox" bind:checked={ $settings.show_help_text } />
+      </label>
+    </Dropdown>
   </div>
 </header>
 

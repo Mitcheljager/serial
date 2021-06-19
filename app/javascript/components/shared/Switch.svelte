@@ -1,33 +1,31 @@
 <script>
+  import { createEventDispatcher } from "svelte"
+  
+  import { getTypeKey, setTypeKey } from "../../shared/key"
+
+  export let section = null
   export let element = null
-  export let key
+  export let key = null
   export let defaultValue = false
-  export let type = "element"
+  export let emit = false
 
-  import { getElementKey, setElementKey, getSectionKey, setSectionKey } from "../../shared/key"
-  import { currentSectionIndex, page } from "../../stores/data"
+  let type = element ? "element" : section ? "section" : "theme"
+  let checked = emit ? defaultValue : (getTypeKey(type, section || element, key) || defaultValue)
+  let randomId = Math.random().toString(16).substr(2, 8)
 
-  let checked = defaultValue
-  if (type == "element") {
-    checked = getElementKey($currentSectionIndex, element, key) || defaultValue
-  } else if (type == "section") {
-    checked = getSectionKey($currentSectionIndex, key, $page) || defaultValue
-  }
+  const dispatch = createEventDispatcher()
 
   function setKey(event) {
-    if (type == "element") {
-      setElementKey($currentSectionIndex, element, key, event.target.checked)
-    } else if (type == "section") {
-      setSectionKey($currentSectionIndex, key, event.target.checked)
-    }
+    if (emit) dispatch("change", { checked: event.target.checked })
+    if (!emit) setTypeKey(type, section || element, key, event.target.checked)
   }
 </script>
 
 
 
 <div class="switch">
-  <input class="switch__input" type="checkbox" id="{ $currentSectionIndex }-{ key }" bind:checked on:input={ setKey }>
-  <label class="switch__label form-label" for="{ $currentSectionIndex }-{ key }"><slot></slot></label>
+  <input class="switch__input" type="checkbox" id="{ randomId }-{ key }" bind:checked on:input={ setKey }>
+  <label class="switch__label form-label" for="{ randomId }-{ key }"><slot></slot></label>
 </div>
 
 
@@ -35,7 +33,15 @@
 <style lang="scss">
   .switch {
     position: relative;
-    margin-bottom: 1rem;
+    margin: .75rem 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .switch__input {

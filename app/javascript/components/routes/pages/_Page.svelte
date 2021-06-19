@@ -1,9 +1,12 @@
 <script>
-  import { link } from "svelte-spa-router"
+  import { link, location } from "svelte-spa-router"
 
   export let page
-  export let active
+
+  $: active = $location == `/pages/${ page.uuid }`
 </script>
+
+
 
 <a use:link href="/pages/{ page.uuid }" class="page { active ? "page--active" : "" }">
   <div>
@@ -17,10 +20,12 @@
   </div>
 </a>
 
+
+
 <style lang="scss">
   .page {
     display: flex;
-    margin: 0;
+    margin: 0 -.75rem;
     padding: .5rem .75rem;
     color: var(--text-color);
     text-decoration: none;
@@ -28,7 +33,7 @@
     &:hover,
     &:active,
     &--active {
-      background: var(--bg-dark);
+      background: var(--content-bg);
       color: white;
     }
   }

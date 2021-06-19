@@ -2,7 +2,7 @@
   import Sortable from "sortablejs"
   import { onMount } from "svelte"
 
-  import { page, currentSectionIndex, currentElement, hoveringElement } from "../../../stores/data.js"
+  import { currentElement, hoveringElement } from "../../../stores/data.js"
 
   import TrashIcon from "../../icons/Trash.svelte"
   import AddElement from "./Add.svelte"
@@ -11,6 +11,8 @@
   import Columns from "./Columns.svelte"
   import Offset from "./Offset.svelte"
   import CallToAction from "./CallToAction.svelte"
+
+  export let section
 
   const components = [
     { component: Heading, identifier: "heading" },
@@ -39,11 +41,11 @@
     const order = Array.from(listItems).map(item => parseInt(item.dataset.index))
     const sortableOrder = sortable.toArray()
     
-    const elementsList = $page.sections[$currentSectionIndex].elements
+    const elementsList = section.elements
     const orderedList = order.map(index => elementsList[index])
     
     orderedList.map((item, index) => item.position = index)
-    $page.sections[$currentSectionIndex].elements = orderedList
+    section.elements = orderedList
 
     setTimeout(() => sortable.sort(sortableOrder, false))
   }
@@ -55,15 +57,15 @@
   function removeElement(uuid) {
     event.stopPropagation()
 
-    const filteredElements = $page.sections[$currentSectionIndex].elements.filter(s => s.uuid != uuid)
-    if (confirm("You sure?")) $page.sections[$currentSectionIndex].elements = filteredElements
+    const filteredElements = section.elements.filter(s => s.uuid != uuid)
+    if (confirm("You sure?")) section.elements = filteredElements
   }
 </script>
 
 
 
 <div bind:this={ listElement }>
-  { #each $page.sections[$currentSectionIndex].elements || {} as element, index (element.uuid) }
+  { #each section.elements || {} as element, index (element.uuid) }
     <div
       data-id={ element.uuid }
       data-index={ index }

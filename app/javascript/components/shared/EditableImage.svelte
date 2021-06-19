@@ -4,11 +4,10 @@
   export let section = null
   export let element = null
   export let key
-  export let defaultValue = { }
   export let width = 400
   export let height = 300
 
-  $: image = getKey(element, section)
+  $: image = getKey(element, section) || {}
   $: keyType = element ? "element" : "section"
 
   function getKey() {
@@ -19,6 +18,8 @@
   function toggleSettings() {
     event.preventDefault()
 
+    console.log(element)
+
     const settingsKey = { type: "image", keyType, key, width, height, element, section }
     $currentEditable = settingsKey
   }
@@ -26,12 +27,18 @@
 
 
 
-<div data-editable-image
+<div
+  data-editable-image
+  class="image-wrapper"
   class:active={ $currentEditable?.key == key && $currentEditable?.element == element }
-  class:with-shadow={ image?.shadow }
+  class:with-shadow={ image.shadow }
   on:click={ toggleSettings }>
 
-  { #if image?.src }
+  { #if image.overlay }
+    <div class="overlay" style="opacity: { image.overlay_opacity / 100 || .5 }"></div>
+  { /if }
+
+  { #if image.src }
     <img
       src={ image.src } { height } { width }
       loading=lazy />
@@ -45,20 +52,24 @@
 
 
 <style lang="scss">
+  .image-wrapper {
+    position: relative;
+    overflow: hidden;
+
+    &.with-shadow {
+      box-shadow: var(--shadow-type);
+    }
+  }
+
   img,
   svg {
     display: block;
     width: 100%;
     height: auto;
-
-    .with-shadow & {
-      box-shadow: var(--shadow-type);
-    }
+    background: var(--palette-border);
   }
 
   svg {
-    background: var(--palette-border);
-
     text {
       dominant-baseline: middle;
       text-anchor: middle;
@@ -79,5 +90,15 @@
       left: -.5rem;
       border: dashed 2px var(--palette-font-alt);
     }
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: black;
+    opacity: .5;
   }
 </style>

@@ -43,7 +43,7 @@
   class:button--light={ saving }
   class:button--success={ success && saving }
   class:button--error={ error && saving }
-  class="ml-auto button button--primary button--small save">
+  class="ml-auto button button--primary save">
 
   { #if success }
     ✔
@@ -63,12 +63,7 @@
 
   .button {
     width: 100%;
-    max-width: 5rem;
-    transition: max-width 100ms, background-color 250ms, color 250ms;
-
-    &:not(.button--primary) {
-      max-width: 2rem;
-    }
+    transition: background-color 250ms, color 250ms;
   }
 
   .button--light {

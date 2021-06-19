@@ -18,16 +18,16 @@
   on:click={ () => { $currentTab = "navigation" } }>
 
   <div class="wrapper">
-    <a href="/" class="logo">Navigation</a>
+    <a href="/" class="logo" on:click|preventDefault>Navigation</a>
 
     <div class="navigation__content">
       { #each ["Home", "Test", "Whatever"] as item }
-        <a href="://" class="navigation__item">{ item }</a>
+        <a href="://" class="navigation__item" on:click|preventDefault>{ item }</a>
       { /each }
     </div>
 
     <div class="navigation__button">
-      <EditableButton element={ { properties: "" } } />
+      <EditableButton key="navigation_button" />
     </div>
   </div>
 </nav>
@@ -39,6 +39,7 @@
     padding: calc(.25rem + (.25rem * var(--margin-multiplier))) 0;
     background: var(--palette-content);
     color: var(--palette-font);
+    z-index: 10;
 
     &--floating {
       position: absolute;
@@ -48,7 +49,7 @@
       max-width: var(--max-width);
       margin: calc(.25rem + (.25rem * var(--margin-multiplier))) auto;
       border-radius: var(--border-radius);
-      z-index: 10;
+      box-shadow: var(--shadow-type);
     }
 
     &--primary {
@@ -69,6 +70,7 @@
     &--transparent {
       background: transparent;
       color: var(--primary-color-text-offset);
+      box-shadow: none;
     }
   }
 

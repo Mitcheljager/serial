@@ -49,7 +49,7 @@
   }
 
   .image {
-    :global([data-editable-image] img) {
+    :global(.image-wrapper) {
       border-radius: var(--border-radius);
       overflow: hidden;
     }

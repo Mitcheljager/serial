@@ -1,6 +1,5 @@
 <script>
-  import { getSectionKey, setSectionKey } from "../../shared/key"
-  import { page, currentSectionIndex } from "../../stores/data.js"
+  import { setSectionKey } from "../../shared/key"
 
   import Dropdown from "./Dropdown.svelte"
   import Range from "./Range.svelte"
@@ -24,25 +23,26 @@
     { component: RoundInverse, identifier: "round_inverse" },
   ]
 
+  export let section
   export let key
   export let flipped = false
   
-  $: type = getSectionKey($currentSectionIndex, key, $page) || ""
+  $: type = section.properties[key] || ""
 
   function setKey(value) {
-    setSectionKey($currentSectionIndex, key, value)
+    setSectionKey(section, key, value)
   }
 </script>
 
 
 
 <Dropdown>
-  <div class="select-group" slot="label">
+  <div class="select-group mb-1/8" slot="label">
     <div class="form-label"><slot></slot></div>
 
     <div
       class="clickable-label label"
-      class:label--reverse={ getSectionKey($currentSectionIndex, `${ key }_reverse`, $page) }
+      class:label--reverse={ section.properties[`${ key }_reverse`] }
       class:label--flipped={ flipped }>
       { #if type }
         <svelte:component this={ components.filter(i => i.identifier == type)[0].component } />
@@ -53,19 +53,20 @@
   </div>
 
   <Range
+    { section }
     key="{ key }_size"
     min=50 max=300 step=10 defaultValue=100>
     Size
   </Range>
 
   <Switch
-    type="section"
+    { section }
     key="{ key }_subtractive">
     Subtractive
   </Switch>
 
   <Switch
-    type="section"
+    { section }
     key="{ key }_reverse">
     Reverse
   </Switch>
@@ -83,7 +84,7 @@
       <div
         class="item"
         class:item--active={ type == component.identifier }
-        class:item--reverse={ getSectionKey($currentSectionIndex, `${ key }_reverse`, $page) }
+        class:item--reverse={ section.properties[`${ key }_reverse`] }
         class:item--flipped={ flipped }
         on:click={ () => setKey(component.identifier) }>
 

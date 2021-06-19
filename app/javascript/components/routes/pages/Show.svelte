@@ -12,11 +12,13 @@
 
 <Navigation />
 
-{ #each $page.sections as section, index (section.uuid) }
-  <div animate:flip="{{ duration: 200 }}">
-    <Section { section } { index } />
-  </div>
-{ /each }
+{ #if $page.sections }
+  { #each $page.sections as section, index (section.uuid) }
+    <div animate:flip="{{ duration: 200 }}">
+      <Section { section } { index } />
+    </div>
+  { /each }
+{ /if }
 
 <Footer />
 

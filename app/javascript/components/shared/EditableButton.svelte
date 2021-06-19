@@ -1,16 +1,18 @@
 <script>
   import { currentEditable } from "../../stores/data"
+  import { theme } from "../../stores/theme"
 
-  export let element
+  export let element = null
   export let key
   export let defaultValue = {}
 
-  $: button = element.properties[key] || defaultValue
+  $: keyType = element ? "element" : "theme"
+  $: button = (element ? element?.properties[key] : $theme[key]) || defaultValue
 
   function toggleSettings() {
     event.preventDefault()
 
-    const settingsKey = { type: "button", key, element }
+    const settingsKey = { type: "button", keyType, key, element }
     $currentEditable = settingsKey
   }
 </script>

@@ -1,16 +1,16 @@
 <script>
   export let type = "element"
   export let element = null
+  export let section = null
   export let key
   export let values = []
 
   import { getTypeKey, setTypeKey } from "../../shared/key"
-  import { currentSectionIndex } from "../../stores/data"
 
-  let value = getTypeKey(type, [$currentSectionIndex, element], key)
+  $: value = getTypeKey(type, section || element, key)
 
   function setKey(event) {
-    setTypeKey(type, [$currentSectionIndex, element], key, event.target.value)
+    setTypeKey(type, section || element, key, event.target.value)
   }
 </script>
 

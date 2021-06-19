@@ -38,7 +38,6 @@
 <hr />
 
 <Range
-  setTheme=true
   key="font_size_body"
   min=15 max=18 step=1 defaultValue=16>
   Body font size
@@ -46,7 +45,6 @@
 </Range>
 
 <Range
-  setTheme=true
   key="max_width"
   min=1 max=4 step=1 defaultValue=2>
   Page width
@@ -54,7 +52,6 @@
 </Range>
 
 <Range
-  setTheme=true
   key="margin"
   min=1 max=4 step=1 defaultValue=2>
   Spacing
@@ -62,7 +59,6 @@
 </Range>
 
 <Range
-  setTheme=true
   key="border_radius"
   min=0 max=4 step=1 defaultValue=1>
   Roundness
@@ -70,7 +66,6 @@
 </Range>
 
 <Range
-  setTheme=true
   key="shadow_type"
   min=0 max=5 step=1 defaultValue=0>
   Shadow type

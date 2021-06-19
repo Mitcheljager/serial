@@ -21,12 +21,12 @@
 <div
   on:click={ () => { $currentTab = "section"; $currentSectionIndex = index } } 
   class="section"
-  class:text-primary-color-offset={ backgroundColor == "primary-color" || backgroundColor == "image"  }
+  class:text-primary-color-offset={ ["primary-color", "image", "gradient"].includes(backgroundColor)  }
   class:text-secondary-color-offset={ backgroundColor == "secondary-color" }
   style="
   --background-color: var(--{ backgroundColor });
   --spacing: { section.properties?.spacing || 0 };
-  { backgroundImage ? `background-image: url(${ backgroundImage })` : "" }">
+  { backgroundImage?.src ? `background-image: url(${ backgroundImage.src })` : "" }">
 
   { #if $theme["navigation"] == "floating" && index == 0 }
     <div class="navigation-offset"></div>
@@ -37,11 +37,13 @@
   { /if }
 
   <div class="wrapper">
-    { #each $page.sections[index].elements || {} as element (element.uuid) }
-      <div animate:flip="{{ duration: 200 }}">
-        <Element { element } />
-      </div>
-    { /each }
+    { #if section.elements }
+      { #each section.elements || {} as element (element.uuid) }
+        <div animate:flip="{{ duration: 200 }}">
+          <Element { element } />
+        </div>
+      { /each }
+    { /if }
   </div>
 
   { #if backgroundType }
@@ -52,10 +54,14 @@
 
 
 <style lang="scss">
+  @keyframes fade-in {
+    to { opacity: 1 }
+  }
+
   .section {
     position: relative;
     min-height: 100px;
-    background-color: var(--background-color);
+    background: var(--background-color);
     background-size: cover;
     background-position: center;
     // overflow: hidden;

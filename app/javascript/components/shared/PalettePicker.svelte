@@ -1,6 +1,7 @@
 <script>
-  import { theme } from "../../stores/theme.js"
-  import { palettes } from "../../stores/palettes.js"
+  import { theme } from "../../stores/theme"
+  import { palettes } from "../../stores/palettes"
+  import { settings } from "../../stores/user"
 
   import Dropdown from "./Dropdown.svelte"
 
@@ -15,12 +16,14 @@
 
 <span class="form-label">Palette</span>
 
-<p class="help mt-0">
-  The overall colors of the backgrounds, fonts, and other elements.
-</p>
+{ #if $settings.show_help_text }
+  <p class="help mt-0">
+    The overall colors of the backgrounds, fonts, and other elements.
+  </p>
+{ /if }
 
 <Dropdown>
-  <div class="clickable-label label" slot="label">
+  <div class="clickable-label label mt-1/8" slot="label">
     <div class="colors">
       { #each Object.entries(currentPalette.colors) as [name, value] }
         <div class="colors__circle" style="--color: { value }"></div>

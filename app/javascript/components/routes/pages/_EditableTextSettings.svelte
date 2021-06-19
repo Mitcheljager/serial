@@ -1,4 +1,5 @@
 <script>
+  import { currentEditable } from "../../../stores/data"
   import FloatingSettings from "./_FloatingSettings.svelte"
 
   function action(command) {
@@ -8,11 +9,13 @@
 
 
 
-<FloatingSettings>
-  <div class="toolbar">
-    <button class="button" on:click={ () => action("italic") }>Italic</button>
-  </div>
-</FloatingSettings>
+{ #if $currentEditable?.type == "text" }
+  <FloatingSettings>
+    <div class="toolbar">
+      <button class="button" on:click={ () => action("italic") }>Italic</button>
+    </div>
+  </FloatingSettings>
+{ /if }
 
 
 
