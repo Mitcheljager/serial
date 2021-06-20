@@ -9,11 +9,13 @@
   export let defaultValue = false
   export let emit = false
 
-  let type = element ? "element" : section ? "section" : "theme"
-  let checked = emit ? defaultValue : (getTypeKey(type, section || element, key) || defaultValue)
   let randomId = Math.random().toString(16).substr(2, 8)
-
+  
   const dispatch = createEventDispatcher()
+
+  $: type = element ? "element" : section ? "section" : "theme"
+  $: checked = emit ? defaultValue : (getTypeKey(type, section || element, key) || defaultValue)
+
 
   function setKey(event) {
     if (emit) dispatch("change", { checked: event.target.checked })

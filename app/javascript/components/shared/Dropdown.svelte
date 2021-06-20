@@ -2,6 +2,8 @@
   import { onMount, onDestroy } from "svelte"
   import { fly } from "svelte/transition"
 
+  export let direction = "down"
+
   let active = false
   let element
   let contentElement
@@ -39,6 +41,7 @@
     <div
       bind:this={ contentElement }
       class="dropdown__content"
+      class:dropdown__content--up={ direction == "up" }
       class:dropdown__content--align-right={ alignRight }
       in:fly={{ y: 10, duration: 150 }}>
 
@@ -73,6 +76,12 @@
     &--align-right {
       left: auto;
       right: 0;
+    }
+
+    &--up {
+      bottom: auto;
+      top: -.5rem;
+      transform: translateY(-100%);
     }
   }
 </style>

@@ -14,12 +14,14 @@
   export let responsive = false
   export let emit = false
 
-  let type = element ? "element" : section ? "section" : "theme"
-  let value = emit ? defaultValue : (getTypeKey(type, section || element, key) || defaultValue)
+  $: type = element ? "element" : section ? "section" : "theme"
+  $: value = emit ? defaultValue : (getTypeKey(type, section || element, key) || defaultValue)
 
   const dispatch = createEventDispatcher()
 
-  function setValue() {
+  function setValue(event) {
+    value = event.target.value
+    
     if (emit) dispatch("change", { value })
     if (!emit) setTypeKey(type, section || element, key, value)
   }
@@ -43,8 +45,8 @@
   </label>
 
   <div class="range-input">
-    <input type="range" { min } { max } { step } bind:value on:input={ setValue } class="range-input__range" />
-    <input type="text" { min } { max } bind:value on:input={ setValue } class="form-input range-input__number" />
+    <input type="range" { min } { max } { step } { value } on:input={ setValue } class="range-input__range" />
+    <input type="text" { min } { max } { value } on:input={ setValue } class="form-input range-input__number" />
   </div>
 
   { #if $settings.show_help_text }

@@ -3,10 +3,10 @@
 
   import { page, currentSectionIndex, currentTab } from "../../../stores/data.js"
 
+  import ShapePicker from "./ShapePicker.svelte"
   import Button from "../../shared/Button.svelte"
   import Range from "../../shared/Range.svelte"
   import ElementsList from "../../elements/settings/List.svelte"
-  import ShapePicker from "../../shared/ShapePicker.svelte"
   import EditableImage from "../../shared/EditableImage.svelte"
   import Select from "../../shared/Select.svelte"
 

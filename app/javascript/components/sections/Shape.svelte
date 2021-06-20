@@ -6,6 +6,8 @@
   import Wavy3 from "./shapes/Wavy3.svelte"
   import Round from "./shapes/Round.svelte"
   import RoundInverse from "./shapes/RoundInverse.svelte"
+  import Straight from "./shapes/Straight.svelte"
+  import Gradient from "./shapes/Gradient.svelte"
 
   export let position
   export let section
@@ -18,6 +20,8 @@
     { component: Wavy3, identifier: "wavy_3" },
     { component: Round, identifier: "round" },
     { component: RoundInverse, identifier: "round_inverse" },
+    { component: Straight, identifier: "straight" },
+    { component: Gradient, identifier: "gradient" }
   ]
 
   $: type = section.properties?.[`shape_${ position }`]
@@ -47,11 +51,11 @@
     &--absolute {
       position: absolute;
       width: 100%;
-      top: -1px;
+      top: -2px;
 
       &.shape--bottom {
         top: auto;
-        bottom: -1px;
+        bottom: -2px;
       }
     }
 

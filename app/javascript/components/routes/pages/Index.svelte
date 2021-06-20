@@ -139,6 +139,7 @@
 
     > div {
       grid-area: 1/1;
+      padding-bottom: 10rem;
     }
   }
 
@@ -172,7 +173,7 @@
   .block {
     min-height: 600px;
     padding: 0;
-    margin-bottom: 10rem;
+    margin-bottom: 20rem;
     box-shadow: var(--shadow-big);
   }
 

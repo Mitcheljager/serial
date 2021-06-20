@@ -1,17 +1,19 @@
 <script>
-  import { setSectionKey } from "../../shared/key"
+  import { setSectionKey } from "../../../shared/key"
 
-  import Dropdown from "./Dropdown.svelte"
-  import Range from "./Range.svelte"
-  import Switch from "./Switch.svelte"
+  import Dropdown from "../../shared/Dropdown.svelte"
+  import Range from "../../shared/Range.svelte"
+  import Switch from "../../shared/Switch.svelte"
 
-  import Slant from "../sections/shapes/Slant.svelte"
-  import Layered from "../sections/shapes/Layered.svelte"
-  import Wavy from "../sections/shapes/Wavy.svelte"
-  import Wavy2 from "../sections/shapes/Wavy2.svelte"
-  import Wavy3 from "../sections/shapes/Wavy3.svelte"
-  import Round from "../sections/shapes/Round.svelte"
-  import RoundInverse from "../sections/shapes/RoundInverse.svelte"
+  import Slant from "../shapes/Slant.svelte"
+  import Layered from "../shapes/Layered.svelte"
+  import Wavy from "../shapes/Wavy.svelte"
+  import Wavy2 from "../shapes/Wavy2.svelte"
+  import Wavy3 from "../shapes/Wavy3.svelte"
+  import Round from "../shapes/Round.svelte"
+  import RoundInverse from "../shapes/RoundInverse.svelte"
+  import Straight from "../shapes/Straight.svelte"
+  import Gradient from "../shapes/Gradient.svelte"
 
   const components = [
     { component: Slant, identifier: "slant" },
@@ -21,6 +23,8 @@
     { component: Wavy3, identifier: "wavy_3" },
     { component: Round, identifier: "round" },
     { component: RoundInverse, identifier: "round_inverse" },
+    { component: Straight, identifier: "straight" },
+    { component: Gradient, identifier: "gradient" }
   ]
 
   export let section
@@ -36,7 +40,7 @@
 
 
 
-<Dropdown>
+<Dropdown direction="up">
   <div class="select-group mb-1/8" slot="label">
     <div class="form-label"><slot></slot></div>
 
@@ -55,7 +59,7 @@
   <Range
     { section }
     key="{ key }_size"
-    min=50 max=300 step=10 defaultValue=100>
+    min=50 max=500 step=10 defaultValue=100>
     Size
   </Range>
 
@@ -110,7 +114,7 @@
       transform: scale(var(--scale-x, 1), var(--scale-y, 1))
 
       :global(path),
-      :global(rect) {
+      :global(rect:not([fill*=gradient])) {
         fill: var(--bg-dark);
         color: var(--bg-dark);
       }
@@ -137,7 +141,7 @@
 
     :global(svg) {
       :global(path),
-      :global(rect) {
+      :global(rect:not([fill*=gradient])) {
         fill: var(--border-color);
         color: var(--border-color);
       }
