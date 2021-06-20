@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte"
-  import { fly } from "svelte/transition"
+  import { fly, fade } from "svelte/transition"
   import { location } from "svelte-spa-router"
 
   import RailsFetch from "../../../shared/railsFetch.js"
@@ -36,12 +36,16 @@
 
   export let params = {}
 
+  let loading = false
+
   $: getCurrentPage(params.uuid)
   $: console.log($page)
   
   onMount(getCurrentPage)  
 
   function getCurrentPage() {
+    loading = true
+
     new RailsFetch("/page", {
       project_id: $project.id,
       uuid: params.uuid
@@ -49,6 +53,7 @@
     .then(data => {
       $currentSectionIndex = 0
       $page = JSON.parse(data)
+      loading= false
     })
   }
 
@@ -80,7 +85,13 @@
     </aside>
 
     <div class="content">
-      <div class="block-scroll" data-role="theme-container">
+      { #if loading }
+        <div class="loading" transition:fade={{ duration: 150 }}>
+          <div class="spinner"></div>
+        </div>
+      { /if }
+
+      <div class="block-scroll" data-role="theme-container">        
         <div class="block">
           <div class="overflow">
             <Theme>
@@ -142,30 +153,85 @@
   }
 
   .content {
+    position: relative;
     display: grid;
     grid-gap: .75rem;
     height: calc(100vh - 60px);
     padding: 1.5rem 1.5rem 0 0;
+  }
 
-    .block-scroll {
-      height: 100%;
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
-      overflow: auto;
-      scrollbar-width: none;
-      box-shadow: 0 .5rem 1.5rem hsla(0, 0, 0, .25);
-    }
+  .block-scroll {
+    height: 100%;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    overflow: auto;
+    scrollbar-width: none;
+    box-shadow: 0 .5rem 1.5rem hsla(0, 0, 0, .25);
+  }
 
-    .block {
-      min-height: 600px;
-      padding: 0;
-      margin-bottom: 3rem;
-      box-shadow: var(--shadow-big);
-    }
+  .block {
+    min-height: 600px;
+    padding: 0;
+    margin-bottom: 10rem;
+    box-shadow: var(--shadow-big);
   }
 
   .overflow {
     overflow: hidden;
     border-radius: 1rem;
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    width: calc(100% - 1.5rem);
+    height: calc(100% - 1.5rem);
+    border-radius: 1rem 1rem 0 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+  }
+
+  @keyframes spinner {
+    from {
+      width: 0;
+      height: 0;
+      opacity: 1;
+      box-shadow: inset 0 0 0 .25rem white;
+    }
+
+    to {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      box-shadow: inset 0 0 0 .75rem white;
+    }
+  }
+
+  .spinner {
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      animation: spinner 1200ms cubic-bezier(0, .25, 0.75, 1) infinite forwards;
+    }
+
+    &::after {
+      animation-delay: 600ms;
+    }
   }
 </style>

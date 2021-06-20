@@ -33,7 +33,7 @@
     class="shape { `shape--${ position }` }"
     class:shape--absolute={ subtractive }
     style="
-      --size: { size }px;
+      --size: { size };
       transform: scale({ reverse ? -1 : 1 }, { position == "top" ? 1 : -1 })">
 
     <svelte:component this={ components.filter(i => i.identifier == type)[0].component } />
@@ -47,17 +47,17 @@
     &--absolute {
       position: absolute;
       width: 100%;
-      top: 0;
+      top: -1px;
 
       &.shape--bottom {
         top: auto;
-        bottom: 0;
+        bottom: -1px;
       }
     }
 
     :global(svg) {
       display: block;
-      height: var(--size);
+      height: clamp(calc(var(--size) / 4 * 1px), calc(var(--size) * .065vw), calc(var(--size) * 1px));
       width: calc(100% + 2px);
       margin-left: -1px;
     }

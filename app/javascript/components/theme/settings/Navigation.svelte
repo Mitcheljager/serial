@@ -12,7 +12,7 @@
   <select
     class="form-input"
     value={ getThemeKey("navigation") || "default" }
-    on:change={ () => setThemeKey("navigation", event.target.value) }>
+    on:change={ event => setThemeKey("navigation", event.target.value) }>
 
     <option value="default">Default</option>
     <option value="floating">Floating</option>
@@ -25,7 +25,7 @@
   <select
     class="form-input"
     value={ getThemeKey("navigation_background") || "default" }
-    on:change={ () => setThemeKey("navigation_background", event.target.value) }>
+    on:change={ event => setThemeKey("navigation_background", event.target.value) }>
 
     <option value="default">Default</option>
     <option value="primary">Primary</option>

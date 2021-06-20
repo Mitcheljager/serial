@@ -29,6 +29,7 @@
       <span class="popup__item" on:click={ () => addElement("columns") }>Columns</span>
       <span class="popup__item" on:click={ () => addElement("offset") }>Offset</span>
       <span class="popup__item" on:click={ () => addElement("call_to_action") }>Call to action</span>
+      <span class="popup__item" on:click={ () => addElement("image") }>Image</span>
     </div>
   { /if }
 </div>

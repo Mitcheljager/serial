@@ -51,7 +51,6 @@
   .image {
     :global(.image-wrapper) {
       border-radius: var(--border-radius);
-      overflow: hidden;
     }
   }
 

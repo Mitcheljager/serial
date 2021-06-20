@@ -11,6 +11,7 @@
   import Columns from "./Columns.svelte"
   import Offset from "./Offset.svelte"
   import CallToAction from "./CallToAction.svelte"
+  import Image from "./Image.svelte"
 
   export let section
 
@@ -19,6 +20,7 @@
     { component: Columns, identifier: "columns" },
     { component: Offset, identifier: "offset" },
     { component: CallToAction, identifier: "call_to_action" },
+    { component: Image, identifier: "image" }
   ]
 
   let listElement
@@ -135,7 +137,7 @@
   }
 
   .section__content {
-    padding: 1rem 1rem 0;
+    padding: 1rem;
     border-top: 0;
   }
 

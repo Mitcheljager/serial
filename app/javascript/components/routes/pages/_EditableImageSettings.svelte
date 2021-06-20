@@ -76,8 +76,8 @@
     <div class="grid">
       <div class="grid__item">
         {#if !uploadInProgress}
-          <label>
-            Label
+          <label class="button upload-button">
+            { image?.src ? "Replace image" : "Upload image" }
             <input type="file" on:change={ setImage } />
           </label>
         {:else}
@@ -86,6 +86,19 @@
             <div class="progress__bar" style="--progress: { progress }%" />
           </div>
         {/if}
+
+        <div class="mt-1/4">
+          <label class="form-label">Alt text</label>
+          <div class="help">
+            Alt text helps people using accessibility tools better understand your images. It may also help with SEO.
+          </div>
+
+          <input
+            class="form-input mt-1/4"
+            value={ image.alt || "" }
+            placeholder="Describe your image in as few words as possible"
+            on:change={ event => setKey("alt", event.target.value) } />
+        </div>
       </div>
 
       <div class="grid__item">
@@ -111,12 +124,29 @@
           <Range
             emit=true
             key="overlay_opacity"
-            responsive=true
             min=20 max=80 step=10 defaultValue={ image.overlay_opacity || 50 }
             on:change={ event => setKey("overlay_opacity", event.detail.value) }>
             Overlay opacity
           </Range>
         { /if }
+      </div>
+
+      <div class="grid__item">
+        <Range
+          emit=true
+          key="blur"
+          min=0 max=50 step=5 defaultValue={ image.blur || 0 }
+          on:change={ event => setKey("blur", event.detail.value) }>
+          Blur image
+        </Range>
+
+        <Switch
+          emit=true
+          key="grayscale"
+          defaultValue={ image.grayscale || false }
+          on:change={ event => setKey("grayscale", event.detail.checked) }>
+          Black and white
+        </Switch>
       </div>
     </div>
   </FloatingSettings>
@@ -127,7 +157,7 @@
 <style lang="scss">
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: 2fr 1fr 1fr;
     width: 100%;
     border-radius: 1rem;
     overflow: hidden;
@@ -144,16 +174,24 @@
     }
   }
 
-  input {
-    background: var(--content-bg);
-    height: 2rem;
+  .upload-button {
+    cursor: pointer;
+
+    input {
+      appearance: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
   }
 
   .progress {
     position: relative;
     background: var(--bg-dark);
     width: 100%;
-    max-width: 20rem;
     height: 2rem;
     padding: 0.25rem;
     border-radius: 99px;

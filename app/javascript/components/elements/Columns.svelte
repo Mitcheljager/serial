@@ -5,8 +5,6 @@
 
   export let element
 
-  $: console.log([">>>>>>>>>>>>>>>", element])
-
   $: enableBackground = element.properties.enable_background || false
   $: enableButtons = element.properties.enable_buttons || false
   $: enableImages = element.properties.enable_images || false

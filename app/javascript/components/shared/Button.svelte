@@ -1,15 +1,16 @@
 <script>
+  export let element = null
   export let section = null
   export let key
   export let value
 
-  import { getSectionKey, setSectionKey } from "../../shared/key"
-  import { page } from "../../stores/data.js"
+  import { getTypeKey, setTypeKey } from "../../shared/key"
 
-  $: keyValue = getSectionKey(section, key, $page)
+  let type = element ? "element" : section ? "section" : "theme"
+  $: keyValue = getTypeKey(type, section || element, key)
 
   function setKey(key, value) {
-    setSectionKey(section, key, value)
+    setTypeKey(type, section || element, key, value)
   }
 </script>
 

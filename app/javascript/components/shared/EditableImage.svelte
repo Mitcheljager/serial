@@ -6,6 +6,7 @@
   export let key
   export let width = 400
   export let height = 300
+  export let clickable = true
 
   $: image = getKey(element, section) || {}
   $: keyType = element ? "element" : "section"
@@ -16,9 +17,9 @@
   }
 
   function toggleSettings() {
-    event.preventDefault()
+    if (!clickable) return
 
-    console.log(element)
+    event.preventDefault()
 
     const settingsKey = { type: "image", keyType, key, width, height, element, section }
     $currentEditable = settingsKey
@@ -27,26 +28,28 @@
 
 
 
-<div
-  data-editable-image
-  class="image-wrapper"
-  class:active={ $currentEditable?.key == key && $currentEditable?.element == element }
-  class:with-shadow={ image.shadow }
-  on:click={ toggleSettings }>
+<div class:active={ $currentEditable?.key == key && $currentEditable?.element == element }>
+  <div
+    data-editable-image
+    class="image-wrapper"
+    class:with-shadow={ image.shadow }
+    on:click={ toggleSettings }>
 
-  { #if image.overlay }
-    <div class="overlay" style="opacity: { image.overlay_opacity / 100 || .5 }"></div>
-  { /if }
+    { #if image.overlay }
+      <div class="overlay" style="opacity: { image.overlay_opacity / 100 || .5 }"></div>
+    { /if }
 
-  { #if image.src }
-    <img
-      src={ image.src } { height } { width }
-      loading=lazy />
-  { :else }
-    <svg { height } { width }>
-      <text x=50% y=50%>no image</text> 
-    </svg>
-  { /if }
+    { #if image.src }
+      <img
+        style="filter: blur({ image.blur || 0 }px) grayscale({ image.grayscale ? 100 : 0 }%)"
+        src={ image.src } { height } { width }
+        loading=lazy />
+    { :else }
+      <svg { height } { width }>
+        <text x=50% y=50%>no image</text> 
+      </svg>
+    { /if }
+  </div>
 </div>
 
 
@@ -54,6 +57,7 @@
 <style lang="scss">
   .image-wrapper {
     position: relative;
+    background: var(--palette-content, var(--content-bg));
     overflow: hidden;
 
     &.with-shadow {
@@ -66,10 +70,11 @@
     display: block;
     width: 100%;
     height: auto;
-    background: var(--palette-border);
   }
 
   svg {
+    border: 1px solid var(--palette-font-alt, var(--border-color));
+
     text {
       dominant-baseline: middle;
       text-anchor: middle;
@@ -88,7 +93,7 @@
       right: -.5rem;
       bottom: -.5rem;
       left: -.5rem;
-      border: dashed 2px var(--palette-font-alt);
+      border: dashed 2px var(--palette-font-alt, var(--text-color-dark));
     }
   }
 
@@ -99,6 +104,6 @@
     bottom: 0;
     left: 0;
     background: black;
-    opacity: .5;
+    z-index: 1;
   }
 </style>

@@ -1,18 +1,19 @@
 <script>
-  import Shape from "./_Shape.svelte"
 
   import { flip } from "svelte/animate"
-
-  import { page, currentSectionIndex, currentTab } from "../../stores/data.js"
+  
+  import { currentSectionIndex, currentTab } from "../../stores/data.js"
   import { theme } from "../../stores/theme.js"
-
+  
+  import Shape from "./Shape.svelte"
+  import EditableImage from "../shared/EditableImage.svelte"
   import Element from "../elements/_Base.svelte"
 
   export let section
   export let index
 
   $: backgroundType = section.properties?.background_type
-  $: backgroundColor = backgroundType ? section.properties?.background_color || "palette-content" : null
+  $: backgroundColor = backgroundType == "color" ? section.properties?.background_color || "palette-content" : null
   $: backgroundImage = backgroundType == "image" ? section.properties?.background_image : null
 </script>
 
@@ -21,19 +22,24 @@
 <div
   on:click={ () => { $currentTab = "section"; $currentSectionIndex = index } } 
   class="section"
-  class:text-primary-color-offset={ ["primary-color", "image", "gradient"].includes(backgroundColor)  }
+  class:text-primary-color-offset={ ["primary-color", "gradient"].includes(backgroundColor) || backgroundType == "image"  }
   class:text-secondary-color-offset={ backgroundColor == "secondary-color" }
   style="
-  --background-color: var(--{ backgroundColor });
   --spacing: { section.properties?.spacing || 0 };
-  { backgroundImage?.src ? `background-image: url(${ backgroundImage.src })` : "" }">
+  background: var(--{ backgroundImage ? "palette-content" : backgroundColor });">
+
+  { #if backgroundType == "image" }
+    <div class="background-image">
+      <EditableImage { section } key="background_image" width="1920" height="800" clickable={ false } />
+    </div>
+  { /if }
+
+  { #if backgroundType }
+    <Shape position="top" { section } { index } />
+  { /if }
 
   { #if $theme["navigation"] == "floating" && index == 0 }
     <div class="navigation-offset"></div>
-  { /if }
-
-  { #if backgroundColor }
-    <Shape position="top" { section } { index } />
   { /if }
 
   <div class="wrapper">
@@ -54,17 +60,11 @@
 
 
 <style lang="scss">
-  @keyframes fade-in {
-    to { opacity: 1 }
-  }
-
   .section {
     position: relative;
     min-height: 100px;
-    background: var(--background-color);
     background-size: cover;
     background-position: center;
-    // overflow: hidden;
   }
 
   .wrapper {
@@ -76,5 +76,26 @@
   .navigation-offset {
     // Calculation of the navigation height, based on the font size, padding, and margin
     height: calc(((.5rem + (.4rem * var(--margin-multiplier))) * 2) + (var(--font-size-body) * 1.35));
+  }
+
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: 0;
+
+    :global(img),
+    :global(svg) {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    :global(div) {
+      height: 100%;
+    }
   }
 </style>
