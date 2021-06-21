@@ -9,6 +9,7 @@
   import ElementsList from "../../elements/settings/List.svelte"
   import EditableImage from "../../shared/EditableImage.svelte"
   import Select from "../../shared/Select.svelte"
+  import Alignment from "../../shared/Alignment.svelte"
 
   const flyIf = (node, args) => $currentTab == "section" ? fly(node, args) : null
 </script>
@@ -23,7 +24,7 @@
 
         <div class="section">
           <Range
-            { section } { sectionIndex }
+            { section }
             key="spacing"
             min=0 max=4 defaultValue=0>
             Section Spacing
@@ -56,6 +57,10 @@
             <div class="clickable-label mt-1/8 mb-1/4">
               <EditableImage { section } key="background_image" width="1920" height="800" />
             </div>
+
+            <Alignment { section } key="background_alignment">
+              Alignment
+            </Alignment>
           { /if }
 
           { #if section.properties.background_type }

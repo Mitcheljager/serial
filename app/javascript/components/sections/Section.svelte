@@ -14,6 +14,7 @@
   $: backgroundType = section.properties?.background_type
   $: backgroundColor = backgroundType == "color" ? section.properties?.background_color || "palette-content" : null
   $: backgroundImage = backgroundType == "image" ? section.properties?.background_image : null
+  $: backgroundAlignment = backgroundType == "image" ? section.properties?.background_alignment || ["center", "center"] : null
 </script>
 
 
@@ -28,7 +29,7 @@
   background: var(--{ backgroundImage ? "palette-content" : backgroundColor });">
 
   { #if backgroundType == "image" }
-    <div class="background-image">
+    <div class="background-image" style="--position: { backgroundAlignment[0] } { backgroundAlignment[1] }">
       <EditableImage { section } key="background_image" width="1920" height="800" clickable={ false } />
     </div>
   { /if }
@@ -89,6 +90,7 @@
     :global(img),
     :global(svg) {
       object-fit: cover;
+      object-position: var(--position);
       height: 100%;
       width: 100%;
     }

@@ -62,14 +62,16 @@
 
 <style lang="scss">
   .shape {
+    box-shadow: inset 0 2px 0 var(--palette-body);
+
     &--absolute {
       position: absolute;
       width: 100%;
-      top: -2px;
+      top: 0;
 
       &.shape--bottom {
         top: auto;
-        bottom: -2px;
+        bottom: 0;
       }
     }
 
