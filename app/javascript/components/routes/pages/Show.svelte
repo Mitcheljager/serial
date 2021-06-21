@@ -15,15 +15,14 @@
 
   export let params = {}
 
-  let loading = true
+  let loading = false
 
-  $: getCurrentPage(params)
+  $: if (!params.page) getCurrentPage(params)
 
   onMount(() => {
-    getCurrentPage()
+    if (params.page) $page = JSON.parse(params.page)
     if (params.theme) $theme = JSON.parse(params.theme)
   })
-
 
   function getCurrentPage() {
     loading = true

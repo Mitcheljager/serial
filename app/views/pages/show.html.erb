@@ -1,1 +1,8 @@
-<%= svelte_component("Show", { params: { project_id: params[:project_id], uuid: params[:uuid], theme: @project.properties } }) %>
+<%= svelte_component("Show", {
+  params: {
+    project_id: params[:project_id],
+    uuid: params[:uuid],
+    page: PageSerializer.new(@page).to_json,
+    theme: @project.properties
+  }
+}) %>
