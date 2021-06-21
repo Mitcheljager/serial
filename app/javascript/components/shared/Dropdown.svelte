@@ -32,7 +32,7 @@
 
 
 
-<div bind:this={ element } class="dropdown">
+<div bind:this={ element } class="dropdown" class:active>
   <div on:click={ () => active = !active }>
     <slot name="label"></slot>
   </div>

@@ -1,5 +1,1 @@
-<%= svelte_component("Section", { index: 0, sections: {
-  id: 1,
-  type: "columns",
-  properties: { title: "Test title", content_column_1: "Test column 1 content", content_column_2: "Abc" }
-}}) %>
+<%= svelte_component("Show", { params: { project_id: params[:project_id], uuid: params[:uuid], theme: @project.properties } }) %>

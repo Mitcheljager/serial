@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get "active_storage_blob_variant_url/:key", to: "application#active_storage_blob_variant_url"
 
+  get ":project_id/pages/:uuid", to: "pages#show"
+
   resources :sections, defaults: { format: :json }
 
   resources :users, only: [:create]

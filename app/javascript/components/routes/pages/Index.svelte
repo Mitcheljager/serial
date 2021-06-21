@@ -1,11 +1,8 @@
 <script>
-  import { onMount } from "svelte"
-  import { fly, fade } from "svelte/transition"
+  import { fly } from "svelte/transition"
   import { location } from "svelte-spa-router"
 
-  import RailsFetch from "../../../shared/railsFetch.js"
-  import { page, currentTab, currentEditable, currentSectionIndex } from "../../../stores/data.js"
-  import { project } from "../../../stores/project.js"
+  import { page, currentTab, currentEditable } from "../../../stores/data.js"
 
   import ShowPage from "./Show.svelte"
   import PageSelect from "./_PageSelect.svelte"
@@ -14,7 +11,6 @@
   import SectionsList from "../../sections/settings/List.svelte"
   import SectionSettings from "../../sections/settings/Settings.svelte"
   import ThemeSettings from "../../theme/settings/Theme.svelte"
-  import Theme from "../../theme/Base.svelte"
   import NavigationSettings from "../../theme/settings/Navigation.svelte"
 
   import EditableButtonSettings from "./_EditableButtonSettings.svelte"
@@ -36,79 +32,47 @@
 
   export let params = {}
 
-  let loading = false
-
-  $: getCurrentPage(params.uuid)
-  $: console.log($page)
-  
-  onMount(getCurrentPage)  
-
-  function getCurrentPage() {
-    loading = true
-
-    new RailsFetch("/page", {
-      project_id: $project.id,
-      uuid: params.uuid
-    }).post()
-    .then(data => {
-      $currentSectionIndex = 0
-      $page = JSON.parse(data)
-      loading= false
-    })
-  }
-
   const flyIf = (node, args) => $location.includes("/pages/") ? fly(node, args) : null
 </script>
 
 
 
-{ #if $page }
-  <div class="board">
-    <aside class="sidebar">
+<div class="board">
+  <aside class="sidebar">
+    { #if $page }
+    <div class="sidebar__navigation">
+      <PageSelect />
+      <SaveButton />
 
-      <div class="sidebar__navigation">
-        <PageSelect />
-        <SaveButton />
+      <Tabs />
+    </div>
 
-        <Tabs />
-      </div>
-
-      <div class="sidebar__content">
-        { #each sidebarComponents as item }
-          { #if $currentTab == item.identifier }
-            <div in:fly={{ x: -150, duration: 200 }} out:flyIf={{ x: 150, duration: 200 }}>
-              <svelte:component this={ item.component } />
-            </div>
-          { /if }
-        { /each }
-      </div>
-    </aside>
-
-    <div class="content">
-      { #if loading }
-        <div class="loading" transition:fade={{ duration: 150 }}>
-          <div class="spinner"></div>
-        </div>
-      { /if }
-
-      <div class="block-scroll" data-role="theme-container">        
-        <div class="block">
-          <div class="overflow">
-            <Theme>
-              <ShowPage />
-            </Theme>
-
-            { #if $currentEditable }
-              <svelte:component this={ components.filter(i => i.identifier == $currentEditable.type)[0].component } />
-            { /if }
+    <div class="sidebar__content">
+      { #each sidebarComponents as item }
+        { #if $currentTab == item.identifier }
+          <div class="sidebar__tab" in:fly={{ x: -150, duration: 200 }} out:flyIf={{ x: 150, duration: 200 }}>
+            <svelte:component this={ item.component } />
           </div>
+        { /if }
+      { /each }
+    </div>
+    { /if }
+  </aside>
+
+  <div class="content">
+    <div class="content-scroll" data-role="theme-container">        
+      <div class="content-inner">
+        <div class="overflow">
+          <ShowPage { params } />
         </div>
       </div>
     </div>
+
+    { #if $currentEditable }
+      <svelte:component this={ components.filter(i => i.identifier == $currentEditable.type)[0].component } />
+    { /if }
   </div>
-{ :else }
-  <em>Loading pages</em>
-{ /if }
+</div>
 
 
 
@@ -133,14 +97,30 @@
 
   .sidebar__content {
     display: grid;
-    padding: 1.5rem 1.5rem 0;
+    padding: 1.5rem 1rem 0 1.5rem;
+    margin: 0 .5rem 0 0;
     overflow-y: auto;
+    overflow-y: overlay;
     scrollbar-width: none;
 
-    > div {
-      grid-area: 1/1;
-      padding-bottom: 10rem;
+    &::-webkit-scrollbar {
+      width: .5em;
     }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--border-color);
+      border-radius: 99px;
+
+      &:hover,
+      &:active {
+        background-color: var(--text-color-dark);
+      }
+    }
+  }
+
+  .sidebar__tab {
+    grid-area: 1/1;
+    padding-bottom: 20rem;
   }
 
   .sidebar__navigation {
@@ -161,78 +141,43 @@
     padding: 1.5rem 1.5rem 0 0;
   }
 
-  .block-scroll {
+  .content-scroll {
     height: 100%;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     overflow: auto;
+    overflow-y: overlay;
     scrollbar-width: none;
-    box-shadow: 0 .5rem 1.5rem hsla(0, 0, 0, .25);
+    filter: drop-shadow(0 3px 2px rgba(0, 0, 0, .1))
+						drop-shadow(0 10px 5px rgba(0, 0, 0, .1))
+						drop-shadow(0 15px 10px rgba(0, 0, 0, .1))
+						drop-shadow(0 25px 15px rgba(0, 0, 0, .2))
+						drop-shadow(0 40px 30px rgba(0, 0, 0, .2))
+						drop-shadow(0 100px 75px rgba(0, 0, 0, .2));
+
+    &::-webkit-scrollbar {
+      width: .5em;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--border-color);
+      border-radius: 99px;
+
+      &:hover,
+      &:active {
+        background-color: var(--text-color-dark);
+      }
+    }
   }
 
-  .block {
+  .content-inner {
     min-height: 600px;
     padding: 0;
     margin-bottom: 20rem;
-    box-shadow: var(--shadow-big);
   }
 
   .overflow {
     overflow: hidden;
     border-radius: 1rem;
-  }
-
-  .loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 1.5rem;
-    left: 0;
-    width: calc(100% - 1.5rem);
-    height: calc(100% - 1.5rem);
-    border-radius: 1rem 1rem 0 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 100;
-  }
-
-  @keyframes spinner {
-    from {
-      width: 0;
-      height: 0;
-      opacity: 1;
-      box-shadow: inset 0 0 0 .25rem white;
-    }
-
-    to {
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      box-shadow: inset 0 0 0 .75rem white;
-    }
-  }
-
-  .spinner {
-    position: relative;
-    width: 10rem;
-    height: 10rem;
-
-    &::before,
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      animation: spinner 1200ms cubic-bezier(0, .25, 0.75, 1) infinite forwards;
-    }
-
-    &::after {
-      animation-delay: 600ms;
-    }
   }
 </style>

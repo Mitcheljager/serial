@@ -1,31 +1,126 @@
 <script>
+  import { onMount } from "svelte"
+  import { fade } from "svelte/transition"
   import { flip } from "svelte/animate"
   
+  import RailsFetch from "../../../shared/railsFetch.js"
   import { page } from "../../../stores/data.js"
+  import { project } from "../../../stores/project.js"
+  import { theme } from "../../../stores/theme.js"
 
+  import Theme from "../../theme/Base.svelte"
   import Section from "../../sections/Section.svelte"
   import Navigation from "../../theme/Navigation.svelte"
   import Footer from "../../theme/Footer.svelte"
+
+  export let params = {}
+
+  let loading = true
+
+  $: getCurrentPage(params)
+
+  onMount(() => {
+    getCurrentPage()
+    if (params.theme) $theme = JSON.parse(params.theme)
+  })
+
+
+  function getCurrentPage() {
+    loading = true
+
+    new RailsFetch("/page", {
+      project_id: params.project_id || $project.id,
+      uuid: params.uuid
+    }).post()
+    .then(data => {
+      loading = false
+      $page = JSON.parse(data)
+    })
+  }
 </script>
 
 
 
-<Navigation />
+{ #if $page }
+  <Theme>
+    <Navigation />
 
-{ #if $page.sections }
-  { #each $page.sections as section, index (section.uuid) }
-    <div animate:flip="{{ duration: 200 }}">
-      <Section { section } { index } />
+    { #if $page?.sections }
+      { #each $page.sections as section, index (section.uuid) }
+        <div class="section" animate:flip="{{ duration: 200 }}">
+          <Section { section } { index } />
+        </div>
+      { /each }
+    { /if }
+
+    <Footer />
+  </Theme>
+
+  { #if loading }
+    <div class="loading" transition:fade={{ duration: 150 }}>
+      <div class="spinner"></div>
     </div>
-  { /each }
+  { /if }
 { /if }
-
-<Footer />
 
 
 
 <style lang="scss">
-  div {
+  .section {
     position: relative;
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 1.5rem);
+    height: calc(100% - 1.5rem);
+    border-radius: 1rem 1rem 0 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+  }
+
+  @keyframes spinner {
+    from {
+      width: 0;
+      height: 0;
+      opacity: 1;
+      box-shadow: inset 0 0 0 .25rem white;
+    }
+
+    to {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      box-shadow: inset 0 0 0 .75rem white;
+    }
+  }
+
+  .spinner {
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      animation: spinner 1200ms cubic-bezier(0, .25, 0.75, 1) infinite forwards;
+    }
+
+    &::after {
+      animation-delay: 600ms;
+    }
   }
 </style>

@@ -14,6 +14,6 @@ ActiveStorage.start()
 
 import WebpackerSvelte from "webpacker-svelte"
 import App from "../App.svelte"
-import Section from "../components/sections/Section.svelte"
+import Show from "../components/routes/pages/Show.svelte"
 
-WebpackerSvelte.setup({ App, Section })
+WebpackerSvelte.setup({ App, Show })

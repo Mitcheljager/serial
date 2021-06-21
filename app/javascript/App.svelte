@@ -7,7 +7,7 @@
 	import RailsFetch from "./shared/railsFetch.js"
 	import { theme } from "./stores/theme.js"
 	import { projects, project } from "./stores/project.js"
-	import { currentUser } from "./stores/user.js"
+	import { currentUser, editMode } from "./stores/user.js"
 	import { directUploadUrl, pages } from "./stores/data.js"
 
 	import Header from "./components/Header.svelte"
@@ -21,6 +21,7 @@
 	let loading = true
 
 	onMount(() => {
+		$editMode = true
 		$currentUser = _user
 		$project = _project
 		$projects = _projects
