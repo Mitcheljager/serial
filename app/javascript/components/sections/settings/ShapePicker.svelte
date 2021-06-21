@@ -10,6 +10,13 @@
   import Wavy from "../shapes/Wavy.svelte"
   import Wavy2 from "../shapes/Wavy2.svelte"
   import Wavy3 from "../shapes/Wavy3.svelte"
+  import Wavy4 from "../shapes/Wavy4.svelte"
+  import WavyLayered from "../shapes/WavyLayered.svelte"
+  import WavyLayered2 from "../shapes/WavyLayered2.svelte"
+  import WavyLayered3 from "../shapes/WavyLayered3.svelte"
+  import Blocky from "../shapes/Blocky.svelte"
+  import Blocky2 from "../shapes/Blocky2.svelte"
+  import Blocky3 from "../shapes/Blocky3.svelte"
   import Round from "../shapes/Round.svelte"
   import RoundInverse from "../shapes/RoundInverse.svelte"
   import Straight from "../shapes/Straight.svelte"
@@ -21,6 +28,13 @@
     { component: Wavy, identifier: "wavy" },
     { component: Wavy2, identifier: "wavy_2" },
     { component: Wavy3, identifier: "wavy_3" },
+    { component: Wavy4, identifier: "wavy_4" },
+    { component: WavyLayered, identifier: "wavy_layered" },
+    { component: WavyLayered2, identifier: "wavy_layered_2" },
+    { component: WavyLayered3, identifier: "wavy_layered_3" },
+    { component: Blocky, identifier: "blocky" },
+    { component: Blocky2, identifier: "blocky_2" },
+    { component: Blocky3, identifier: "blocky_3" },
     { component: Round, identifier: "round" },
     { component: RoundInverse, identifier: "round_inverse" },
     { component: Straight, identifier: "straight" },

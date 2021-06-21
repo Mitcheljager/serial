@@ -65,7 +65,7 @@
     width: 100%;
     min-width: 200px;
     max-width: 300px;
-    max-height: 450px;
+    max-height: 350px;
     transform: translateY(100%);
     background: var(--border-color);
     box-shadow: var(--shadow-medium);

@@ -59,13 +59,20 @@
     }
 
     :global([data-editable-image]) {
-      margin-bottom: calc(var(--margin) / 2);
       text-align: center;
+    }
+
+    :global(h3) {
+      margin-top: calc(var(--margin) / 2);
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
   }
 
   h3 {
-    margin: 0 0 calc(var(--margin) / 2 - .15rem);
+    margin-bottom: calc(var(--margin) / 2 - .15rem);
 
     .columns.with-background & {
       color: var(--palette-font-heading);
