@@ -4,10 +4,13 @@
   import { getThemeKey } from "../../shared/key.js"
 
   import EditableButton from "../shared/EditableButton.svelte"
+  import { editMode } from "../../stores/user.js"
 
   $: navigation = getThemeKey("navigation", $theme) || "default"
   $: background = getThemeKey("navigation_background", $theme) || "default"
 </script>
+
+
 
 { #if navigation == "floating" }
   <div class="push"></div>
@@ -15,7 +18,7 @@
 
 <nav
   class="navigation navigation--{ navigation } navigation--{ background }"
-  on:click={ () => { $currentTab = "navigation" } }>
+  on:click={ () => { if ($editMode) $currentTab = "navigation" } }>
 
   <div class="wrapper">
     <a href="/" class="logo" on:click|preventDefault>Navigation</a>

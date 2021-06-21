@@ -1,6 +1,7 @@
 <script>
   import { currentEditable } from "../../stores/data"
   import { theme } from "../../stores/theme"
+  import { editMode } from "../../stores/user"
 
   export let element = null
   export let key
@@ -10,6 +11,8 @@
   $: button = (element ? element?.properties[key] : $theme[key]) || defaultValue
 
   function toggleSettings() {
+    if (!$editMode) return
+    
     event.preventDefault()
 
     const settingsKey = { type: "button", keyType, key, element }
@@ -21,7 +24,7 @@
 
 <a data-editable-button
   class="button button--{ button.style } button--{ button.size }"
-  class:active={ $currentEditable?.key == key && $currentEditable?.element == element }
+  class:active={ $editMode && $currentEditable?.key == key && $currentEditable?.element == element }
   href="{ button.link }"
   on:click={ toggleSettings }>
 

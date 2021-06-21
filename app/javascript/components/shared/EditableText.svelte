@@ -1,5 +1,6 @@
 <script>
   import { currentEditable } from "../../stores/data"
+  import { editMode } from "../../stores/user"
 
   export let element
   export let key
@@ -12,6 +13,8 @@
   }
 
   function showSettings() {
+    if (!$editMode) return
+
     $currentEditable = null
 
     const settingsKey = { type: "text", key, element }
@@ -21,12 +24,16 @@
 
 
 
-<span
-  contenteditable
-  spellcheck=false
-  bind:innerHTML={ content }
-  on:input={ change }
-  on:focus={ showSettings } />
+{ #if $editMode }
+  <span
+    contenteditable
+    spellcheck=false
+    bind:innerHTML={ content }
+    on:input={ change }
+    on:focus={ showSettings } />
+{ :else }
+  <span>{ @html content }</span>
+{ /if }
 
 
 

@@ -1,5 +1,6 @@
 <script>
   import { currentEditable } from "../../stores/data"
+  import { editMode } from "../../stores/user"
 
   export let section = null
   export let element = null
@@ -17,6 +18,7 @@
   }
 
   function toggleSettings() {
+    if (!$editMode) return
     if (!clickable) return
 
     event.preventDefault()
