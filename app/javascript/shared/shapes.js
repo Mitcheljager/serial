@@ -16,7 +16,7 @@ import Straight from "../components/sections/shapes/Straight.svelte"
 import Gradient from "../components/sections/shapes/Gradient.svelte"
 
 const shapes = [
-  { component: Slant, identifier: "slant" },,
+  { component: Slant, identifier: "slant" },
   { component: Layered, identifier: "layered" },
   { component: Wavy, identifier: "wavy" },
   { component: Wavy2, identifier: "wavy_2" },
@@ -35,21 +35,5 @@ const shapes = [
 ]
 
 export {
-  shapes,
-  Slant,
-  Layered,
-  Wavy,
-  Wavy2,
-  Wavy3,
-  Wavy4,
-  WavyLayered,
-  WavyLayered2,
-  WavyLayered3,
-  Blocky,
-  Blocky2,
-  Blocky3,
-  Round,
-  RoundInverse,
-  Straight,
-  Gradient
+  shapes
 }

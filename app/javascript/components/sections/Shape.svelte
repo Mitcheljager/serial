@@ -28,6 +28,8 @@
 
 <style lang="scss">
   .shape {
+    display: flex;
+    justify-content: center;
     box-shadow: inset 0 2px 0 var(--palette-body);
 
     &--absolute {
@@ -45,6 +47,7 @@
       display: block;
       height: clamp(calc(var(--size) / 4 * 1px), calc(var(--size) * .065vw), calc(var(--size) * 1px));
       width: calc(100% + 2px);
+      min-width: 600px;
       margin-left: -1px;
     }
   }

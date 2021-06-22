@@ -63,15 +63,15 @@
       None
     </div>
 
-    { #each components as component }
+    { #each shapes as shape }
       <div
         class="item"
-        class:item--active={ type == component.identifier }
+        class:item--active={ type == shape.identifier }
         class:item--reverse={ section.properties[`${ key }_reverse`] }
         class:item--flipped={ flipped }
-        on:click={ () => setKey(component.identifier) }>
+        on:click={ () => setKey(shape.identifier) }>
 
-        <svelte:component this={ component.component } />
+        <svelte:component this={ shape.component } />
       </div>
     { /each }
   </div>
