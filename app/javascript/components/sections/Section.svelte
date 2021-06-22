@@ -53,7 +53,7 @@
   </div>
 
   { #if backgroundType }
-    <Shape position="bottom" { section } { index } />
+    <Shape position="bottom" { section } />
   { /if }
 </div>
 
