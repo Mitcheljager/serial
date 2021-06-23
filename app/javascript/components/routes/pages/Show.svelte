@@ -44,12 +44,16 @@
   <Theme>
     <Navigation />
 
-    { #if $page?.sections }
+    { #if $page?.sections?.length }
       { #each $page.sections as section, index (section.uuid) }
         <div class="section" animate:flip="{{ duration: 200 }}">
           <Section { section } { index } />
         </div>
       { /each }
+    { :else }
+      <div class="section empty">
+        <div class="wrapper">This page is empty</div>
+      </div>
     { /if }
 
     <Footer />
@@ -67,6 +71,12 @@
 <style lang="scss">
   .section {
     position: relative;
+    min-width: 100%;
+  }
+
+  .empty {
+    padding: 10rem 0;
+    font-style: italic;
   }
 
   .loading {

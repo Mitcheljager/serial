@@ -13,7 +13,7 @@
 <div class="columns">
   <div>
     <h2>
-      <EditableText { element } key="content" defaultValue="Large heading that tries to get attention" />
+      <EditableText { element } key="title" defaultValue="Large heading that tries to get attention" />
     </h2>
 
     <big>
@@ -46,12 +46,6 @@
 
   h2 {
     margin: 0 0 var(--margin);
-  }
-
-  .image {
-    :global(.image-wrapper) {
-      border-radius: var(--border-radius);
-    }
   }
 
   .buttons {

@@ -17,7 +17,6 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
-    @page.uuid = SecureRandom.uuid
 
     if @page.save!
       render json: { message: "Saved succesfully" }, status: 200
@@ -42,7 +41,7 @@ class PagesController < ApplicationController
   private
 
   def page_params
-    params.require(:page).permit(:title, :project_id)
+    params.require(:page).permit(:title, :project_id, :uuid)
   end
 
   def save_sections

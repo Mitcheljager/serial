@@ -57,16 +57,21 @@
     border-radius: 1rem;
     background: var(--bg-dark);
     cursor: pointer;
+    transition: box-shadow 150ms, background-color 150ms;
 
     &:hover,
     &:active {
       background: var(--text-color-dark);
+      box-shadow: inset 0 0 0 1px var(--text-color-dark), inset 0 0 0 5px var(--bg-dark);
+      transition: background-color 150ms;
     }
 
     &--active,
     &--active:hover,
     &--active:active {
       background: var(--text-color);
+      box-shadow: inset 0 0 0 1px var(--text-color-dark), inset 0 0 0 5px var(--bg-dark);
+      transition: background-color 150ms;
     }
   }
 

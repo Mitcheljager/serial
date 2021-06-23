@@ -52,8 +52,15 @@
 
 <style lang="scss">
   .theme {
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
     background: var(--palette-body);
     font-size: var(--font-size-body);
     color: var(--palette-font);
+
+    :global(footer) {
+      margin-top: auto;
+    }
   }
 </style>

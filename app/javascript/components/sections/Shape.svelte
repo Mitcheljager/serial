@@ -18,7 +18,7 @@
     class:shape--absolute={ subtractive }
     style="
       --size: { size };
-      transform: scale({ reverse ? -1 : 1 }, { position == "top" ? 1 : -1 })">
+      transform: scale({ reverse ? -1 : 1 }, { position == "top" ? 1 : -1 }) translateY({ position == "top" ? 0 : -1 }px)">
 
     <svelte:component this={ shapes.filter(i => i.identifier == type)[0].component } />
   </div>

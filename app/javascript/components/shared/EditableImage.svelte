@@ -35,22 +35,25 @@
     data-editable-image
     class="image-wrapper"
     class:with-shadow={ image.shadow }
+    class:rounded={ image.rounded }
     on:click={ toggleSettings }>
 
-    { #if image.overlay }
-      <div class="overlay" style="opacity: { image.overlay_opacity / 100 || .5 }"></div>
-    { /if }
+    <a href={ image.include_link && image.link ? image.link : null }>
+      { #if image.overlay > 0 }
+        <div class="overlay" style="opacity: { image.overlay / 100 }"></div>
+      { /if }
 
-    { #if image.src }
-      <img
-        style="filter: blur({ image.blur || 0 }px) grayscale({ image.grayscale ? 100 : 0 }%)"
-        src={ image.src } { height } { width }
-        loading=lazy />
-    { :else }
-      <svg { height } { width }>
-        <text x=50% y=50%>no image</text> 
-      </svg>
-    { /if }
+      { #if image.src }
+        <img
+          style="filter: blur({ image.blur || 0 }px) grayscale({ image.grayscale ? 100 : 0 }%)"
+          src={ image.src } { height } { width }
+          loading=lazy />
+      { :else }
+        <svg { height } { width }>
+          <text x=50% y=50%>no image</text> 
+        </svg>
+      { /if }
+    </a>
   </div>
 </div>
 
@@ -64,6 +67,19 @@
 
     &.with-shadow {
       box-shadow: var(--shadow-type);
+    }
+
+    &.rounded {
+      border-radius: var(--border-radius);
+    }
+
+    a[href] {
+      cursor: pointer;
+
+      &:hover,
+      &:active {
+        filter: brightness(1.15);
+      }
     }
   }
 

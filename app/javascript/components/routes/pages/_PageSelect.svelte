@@ -12,16 +12,26 @@
   <div class="page-select">
     <Dropdown>
       <div class="page-title" slot="label">
-        { $page.title }
+        { #if $page }
+          { $page.title }
+        { :else }
+          Loading...
+        { /if }
       </div>
     
+      <a href="/new/page" class="button button--dark" use:link><strong>+ New page</strong></a>
+
+      <hr />
+
       { #each $pages as page }
         <Page { page } />
       { /each }
     </Dropdown>
   </div>
-
-  <a href="/new/page" class="button button--dark" use:link><strong>+</strong></a>
+  
+  { #if $page }
+    <a href="/edit/page/{ $page.uuid }" class="button button--dark" use:link><strong>⚙</strong></a>
+  { /if }
 </span>
 
 
@@ -37,10 +47,26 @@
     background: var(--border-color);
   }
 
+  hr {
+    margin: .75rem -.75rem;
+    height: 1px;
+    border: 0;
+    background: var(--text-color-dark);
+  }
+
   .page-select {
     width: 100%;
     height: 100%;
     cursor: pointer;
+  }
+
+  .page-title {
+    padding: 0 .75rem;
+    max-width: 9rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover,
     &:active {
@@ -48,13 +74,8 @@
     }
   }
 
-  .page-title {
-    padding: 0 .75rem;
-    font-weight: bold;
-  }
-
   .button {
-    padding: .25rem .5rem;
+    padding: .25rem .4rem;
     line-height: 1rem;
     font-size: 14px;
   }

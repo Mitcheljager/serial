@@ -2,7 +2,8 @@
   import Sortable from "sortablejs"
   import { onMount } from "svelte"
 
-  import { currentElement, hoveringElement } from "../../../stores/data.js"
+  import { currentElement, hoveringElement, page } from "../../../stores/data.js"
+  import { indexOfSection } from "../../../shared/key.js"
 
   import TrashIcon from "../../icons/Trash.svelte"
   import AddElement from "./Add.svelte"
@@ -47,7 +48,7 @@
     const orderedList = order.map(index => elementsList[index])
     
     orderedList.map((item, index) => item.position = index)
-    section.elements = orderedList
+    $page.sections[indexOfSection(section)].elements = orderedList
 
     setTimeout(() => sortable.sort(sortableOrder, false))
   }
@@ -60,7 +61,7 @@
     event.stopPropagation()
 
     const filteredElements = section.elements.filter(s => s.uuid != uuid)
-    if (confirm("You sure?")) section.elements = filteredElements
+    if (confirm("You sure?")) $page.sections[indexOfSection(section)].elements = filteredElements
   }
 </script>
 

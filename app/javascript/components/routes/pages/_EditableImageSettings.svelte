@@ -102,7 +102,25 @@
       </div>
 
       <div class="grid__item">
-        { #if $theme.shadow_type }
+        <Switch
+          emit=true
+          key="include_link"
+          defaultValue={ image.include_link || false }
+          on:change={ event => setKey("include_link", event.detail.checked) }>
+          Link when image is clicked
+        </Switch>
+
+        { #if image.include_link }
+          <input
+            class="form-input mt-1/8"
+            value={ image.link || "" }
+            placeholder="https://example.com/"
+            on:change={ event => setKey("link", event.target.value) } />
+        { /if }
+      </div>
+
+      <div class="grid__item">
+        { #if $theme.shadow_type > 0 }
           <Switch
             emit=true
             key="shadow"
@@ -112,26 +130,26 @@
           </Switch>
         { /if }
 
-        <Switch
-          emit=true
-          key="overlay"
-          defaultValue={ image.overlay || false }
-          on:change={ event => setKey("overlay", event.detail.checked) }>
-          Include overlay
-        </Switch>
-
-        { #if image.overlay }
-          <Range
+        { #if $theme.border_radius > 0 }
+          <Switch
             emit=true
-            key="overlay_opacity"
-            min=20 max=80 step=10 defaultValue={ image.overlay_opacity || 50 }
-            on:change={ event => setKey("overlay_opacity", event.detail.value) }>
-            Overlay opacity
-          </Range>
+            key="rounded"
+            defaultValue={ image.rounded || false }
+            on:change={ event => setKey("rounded", event.detail.checked) }>
+            Rounded edges
+          </Switch>
         { /if }
       </div>
 
       <div class="grid__item">
+        <Switch
+          emit=true
+          key="grayscale"
+          defaultValue={ image.grayscale || false }
+          on:change={ event => setKey("grayscale", event.detail.checked) }>
+          Black and white
+        </Switch>
+
         <Range
           emit=true
           key="blur"
@@ -140,13 +158,13 @@
           Blur image
         </Range>
 
-        <Switch
+        <Range
           emit=true
-          key="grayscale"
-          defaultValue={ image.grayscale || false }
-          on:change={ event => setKey("grayscale", event.detail.checked) }>
-          Black and white
-        </Switch>
+          key="overlay"
+          min=0 max=80 step=10 defaultValue={ image.overlay || 0 }
+          on:change={ event => setKey("overlay", event.detail.value) }>
+          Darken
+        </Range>
       </div>
     </div>
   </FloatingSettings>
@@ -155,13 +173,21 @@
 
 
 <style lang="scss">
+  h3 {
+    margin-top: 0;
+  }
+
   .grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     width: 100%;
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 0.5rem 1.5rem hsla(0, 0, 0, 0.25);
+
+    :global(.range) {
+      margin: .5rem 0;
+    }
   }
 
   .grid__item {

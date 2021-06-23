@@ -12,6 +12,18 @@
     outline: none;
     box-shadow: 0 0 0 2px var(--text-color-dark);
   }
+
+  &::placeholder {
+    color: var(--text-color-dark);
+    font-style: italic;
+    font-size: .85rem;
+  }
+
+  &--large {
+    font-size: 1.5rem;
+    padding: .75rem 1.5rem;
+    border-radius: 5rem;
+  }
 }
 
 .form-label {

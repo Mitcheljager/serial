@@ -39,7 +39,6 @@
 
 <div class="board">
   <aside class="sidebar">
-    { #if $page }
     <div class="sidebar__navigation">
       <PageSelect />
       <SaveButton />
@@ -56,7 +55,6 @@
         { /if }
       { /each }
     </div>
-    { /if }
   </aside>
 
   <div class="content">
