@@ -72,6 +72,8 @@
     z-index: 100;
     border-radius: .5rem;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-color-dark) rgba(0, 0, 0, .25);
 
     &--align-right {
       left: auto;

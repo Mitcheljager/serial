@@ -86,8 +86,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100% - 1.5rem);
-    height: calc(100% - 1.5rem);
+    width: 100%;
+    height: 100%;
     border-radius: 1rem 1rem 0 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 100;

@@ -99,20 +99,24 @@
     margin: 0 .5rem 0 0;
     overflow-y: auto;
     overflow-y: overlay;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &:hover {
+      scrollbar-color: var(--border-color) transparent;
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--border-color);
+      }
+    }
 
     &::-webkit-scrollbar {
       width: .5em;
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: var(--border-color);
+      background-color: transparent;
       border-radius: 99px;
-
-      &:hover,
-      &:active {
-        background-color: var(--text-color-dark);
-      }
     }
   }
 
@@ -153,18 +157,21 @@
 						drop-shadow(0 40px 30px rgba(0, 0, 0, .2))
 						drop-shadow(0 100px 75px rgba(0, 0, 0, .2));
 
+    &:hover {
+      scrollbar-color: var(--border-color) transparent;
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--border-color);
+      }
+    }
+
     &::-webkit-scrollbar {
       width: .5em;
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: var(--border-color);
+      background-color: transparent;
       border-radius: 99px;
-
-      &:hover,
-      &:active {
-        background-color: var(--text-color-dark);
-      }
     }
   }
 
