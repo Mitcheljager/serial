@@ -8,6 +8,7 @@
   import Offset from "./Offset.svelte"
   import CallToAction from "./CallToAction.svelte"
   import Image from "./Image.svelte"
+  import Sponsors from "./Sponsors.svelte"
 
   export let element
 
@@ -17,20 +18,23 @@
     { component: Columns, identifier: "columns" },
     { component: Offset, identifier: "offset" },
     { component: CallToAction, identifier: "call_to_action" },
-    { component: Image, identifier: "image" }
+    { component: Image, identifier: "image" },
+    { component: Sponsors, identifier: "sponsors" },
   ]
 </script>
 
 
 
-<div
-  class="element"
-  class:element--hovering={ $hoveringElement == element.uuid }
-  on:mouseenter={ () => { if ($editMode) $hoveringElement = element.uuid } }
-  on:mouseleave={ () => { if ($editMode) $hoveringElement = null } }
-  on:click={ () => $currentElement = element.uuid }>
+<div class="wrapper" class:full-width={ element.properties.full_width }>
+  <div
+    class="element"
+    class:element--hovering={ $hoveringElement == element.uuid }
+    on:mouseenter={ () => { if ($editMode) $hoveringElement = element.uuid } }
+    on:mouseleave={ () => { if ($editMode) $hoveringElement = null } }
+    on:click={ () => $currentElement = element.uuid }>
 
-  <svelte:component this={ components.filter(i => i.identifier == element.content_type)[0].component } { element } />
+    <svelte:component this={ components.filter(i => i.identifier == element.content_type)[0].component } { element } />
+  </div>
 </div>
 
 
@@ -53,5 +57,9 @@
       pointer-events: none;
       z-index: 10;
     }
+  }
+
+  .full-width {
+    max-width: 100%;
   }
 </style>

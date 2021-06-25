@@ -160,10 +160,10 @@
 
         <Range
           emit=true
-          key="overlay"
-          min=0 max=80 step=10 defaultValue={ image.overlay || 0 }
-          on:change={ event => setKey("overlay", event.detail.value) }>
-          Darken
+          key="brightness"
+          min=20 max=100 step=10 defaultValue={ image.brightness || 100 }
+          on:change={ event => setKey("brightness", event.detail.value) }>
+          Brightness
         </Range>
       </div>
     </div>
@@ -173,10 +173,6 @@
 
 
 <style lang="scss">
-  h3 {
-    margin-top: 0;
-  }
-
   .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

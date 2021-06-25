@@ -42,7 +42,7 @@
     <div class="navigation-offset"></div>
   { /if }
 
-  <div class="wrapper">
+  <div class="section-padding">
     { #if section.elements }
       { #each section.elements || {} as element (element.uuid) }
         <div animate:flip="{{ duration: 200 }}">
@@ -67,9 +67,9 @@
     background-position: center;
   }
 
-  .wrapper {
+  .section-padding {
     position: relative;
-    padding: calc(1px + (var(--margin) * .5 * var(--spacing))) 1.5rem;
+    padding: calc(1px + (var(--margin) * .5 * var(--spacing))) 0;
     z-index: 1;
   }
 

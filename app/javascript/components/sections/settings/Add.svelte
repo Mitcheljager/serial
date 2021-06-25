@@ -5,9 +5,9 @@
 
   function addSection() {
     const listLength = $page.sections.length
-    const newElement = { uuid: uuid(), name: "Unnamed section", position: listLength, properties: {} }
+    const newSection = { uuid: uuid(), name: "Unnamed section", position: listLength, properties: {}, elements: [] }
 
-    $page.sections = [...$page.sections || [], newElement]
+    $page.sections = [...$page.sections || [], newSection]
   }
 </script>
 

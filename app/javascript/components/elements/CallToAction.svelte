@@ -39,9 +39,10 @@
 <style lang="scss">
   .columns {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
     grid-gap: var(--margin);
     align-items: center;
+    margin: 0 auto;
   }
 
   h2 {

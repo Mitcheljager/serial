@@ -13,6 +13,7 @@
   import Offset from "./Offset.svelte"
   import CallToAction from "./CallToAction.svelte"
   import Image from "./Image.svelte"
+  import Sponsors from "./Sponsors.svelte"
 
   export let section
 
@@ -21,7 +22,8 @@
     { component: Columns, identifier: "columns" },
     { component: Offset, identifier: "offset" },
     { component: CallToAction, identifier: "call_to_action" },
-    { component: Image, identifier: "image" }
+    { component: Image, identifier: "image" },
+    { component: Sponsors, identifier: "sponsors" }
   ]
 
   let listElement

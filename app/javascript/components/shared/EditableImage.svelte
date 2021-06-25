@@ -39,13 +39,9 @@
     on:click={ toggleSettings }>
 
     <a href={ image.include_link && image.link ? image.link : null }>
-      { #if image.overlay > 0 }
-        <div class="overlay" style="opacity: { image.overlay / 100 }"></div>
-      { /if }
-
       { #if image.src }
         <img
-          style="filter: blur({ image.blur || 0 }px) grayscale({ image.grayscale ? 100 : 0 }%)"
+          style="filter: blur({ image.blur || 0 }px) grayscale({ image.grayscale ? 100 : 0 }%) brightness({ image.brightness || 100 }%)"
           src={ image.src } { height } { width }
           loading=lazy />
       { :else }
@@ -62,7 +58,6 @@
 <style lang="scss">
   .image-wrapper {
     position: relative;
-    background: var(--palette-content, var(--content-bg));
     overflow: hidden;
 
     &.with-shadow {
@@ -91,7 +86,8 @@
   }
 
   svg {
-    border: 1px solid var(--palette-font-alt, var(--border-color));
+    box-shadow: inset 0 0 0 1px var(--palette-font-alt, var(--border-color));
+    background: var(--palette-content, var(--content-bg));
 
     text {
       dominant-baseline: middle;
@@ -113,15 +109,5 @@
       left: -.5rem;
       border: dashed 2px var(--palette-font-alt, var(--text-color-dark));
     }
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: black;
-    z-index: 1;
   }
 </style>
