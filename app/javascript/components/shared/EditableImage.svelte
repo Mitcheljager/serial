@@ -1,5 +1,6 @@
 <script>
-  import { currentEditable } from "../../stores/data"
+  import { currentEditable, imageUrl } from "../../stores/data"
+  import { theme } from "../../stores/theme"
   import { editMode } from "../../stores/user"
 
   export let section = null
@@ -9,13 +10,8 @@
   export let height = 300
   export let clickable = true
 
-  $: image = getKey(element, section) || {}
-  $: keyType = element ? "element" : "section"
-
-  function getKey() {
-    if (element) return element.properties[key]
-    if (section) return section.properties[key]
-  }
+  $: keyType = element ? "element" : section ? "section" : "theme"
+  $: image = (element?.properties[key] || section?.properties[key] || $theme[key] ) || {}
 
   function toggleSettings() {
     if (!$editMode) return
@@ -39,10 +35,10 @@
     on:click={ toggleSettings }>
 
     <a href={ image.include_link && image.link ? image.link : null }>
-      { #if image.src }
+      { #if image.variant }
         <img
           style="filter: blur({ image.blur || 0 }px) grayscale({ image.grayscale ? 100 : 0 }%) brightness({ image.brightness || 100 }%)"
-          src={ image.src } { height } { width }
+          src={ $imageUrl + image.variant.key } { height } { width }
           loading=lazy />
       { :else }
         <svg { height } { width }>

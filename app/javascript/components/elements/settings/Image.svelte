@@ -6,7 +6,7 @@
 
 
 
-<div class="form-label mb-1/4">Background</div>
+<div class="form-label mb-1/4">Size</div>
 
 <div class="button-group">
   <Button { element } key="size" value="0.5">Small</Button>

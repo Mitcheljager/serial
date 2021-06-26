@@ -51,15 +51,13 @@
           new RailsFetch(
             `/active_storage_blob_variant_url/${ uploader.blob.key }?width=${ $currentEditable.width }&height=${ $currentEditable.height }&project_id=${ $project.id }`
           )
-            .get()
-            .then((data) => {
-              setKey("src", data)
-            })
-            .catch((error) => alert(error))
-            .finally(() => (uploadInProgress = false))
+          .get()
+          .then(data => setKey("variant", JSON.parse(data)))
+          .catch((error) => alert(error))
+          .finally(() => uploadInProgress = false)
         }
-      }, 100);
-    });
+      }, 100)
+    })
   }
 
   function setKey(key, value) {

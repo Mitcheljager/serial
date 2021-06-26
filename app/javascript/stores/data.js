@@ -9,6 +9,7 @@ const currentEditable = writable(null)
 const currentElement = writable(null)
 const hoveringElement = writable(null)
 const directUploadUrl = writable("")
+const imageUrl = writable("https://cdn.workshop.codes/")
 
 export {
   pages,
@@ -18,5 +19,6 @@ export {
   currentEditable,
   hoveringElement,
   currentTab,
-  directUploadUrl
+  directUploadUrl,
+  imageUrl
 }

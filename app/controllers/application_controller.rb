@@ -42,12 +42,15 @@ class ApplicationController < ActionController::Base
     project.images.attach(image)
 
     if image.present?
-      url = ENV["CDN"] + image.variant(
+      blob = image.variant(
         quality: 95,
-        resize_to_limit: [ params[:width], params[:height] ]
-      ).processed.key
+        resize_to_limit: [ params[:width], params[:height] ],
+        format: :webp
+      ).processed
 
-      render json: url, layout: false
+      key = blob.key
+
+      render json: { attachment: blob, key: key }.to_json, layout: false
     else
       render json: "Something went wrong", status: "500", layout: false
     end
