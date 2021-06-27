@@ -90,7 +90,7 @@
       width: 100%;
       height: 40px;
       background: var(--text-color-dark);
-      transform: scale(var(--scale-x, 1), var(--scale-y, 1))
+      transform: scale(var(--scale-x, 1), var(--scale-y, 1));
 
       :global(path),
       :global(rect:not([fill*=gradient])) {

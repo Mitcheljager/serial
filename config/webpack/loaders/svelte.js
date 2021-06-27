@@ -1,4 +1,4 @@
-const { sass } = require("svelte-preprocess-sass")
+const sveltePreprocess = require('svelte-preprocess')
 
 module.exports = {
   test: /\.svelte(\.erb)?$/,
@@ -6,9 +6,7 @@ module.exports = {
     loader: 'svelte-loader',
     options: {
       hotReload: false,
-      preprocess: {
-        style: sass()
-      },
+      preprocess: sveltePreprocess(),
       emitCss: true
     }
   }],

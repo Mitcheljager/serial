@@ -37,6 +37,42 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/svelte": "^3.0.3",
+    "babel-jest": "^27.0.5",
+    "jest": "^27.0.5",
+    "jsdom": "^16.6.0",
+    "jsdom-global": "^3.0.2",
+    "svelte-jester": "^1.7.0",
     "webpack-dev-server": "^3.11.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "yarn test -- --watch"
+  },
+  "jest": {
+    "roots": [
+      "spec/javascript"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.svelte$": ["svelte-jester", { "preprocess": true }]
+    },
+    "moduleFileExtensions": [
+      "js",
+      "svelte"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/javascript"
+    ],
+    "moduleNameMapper": {
+      "^@stores(.*)$": "<rootDir>/app/javascript/stores$1",
+      "^@shared(.*)$": "<rootDir>/app/javascript/shared$1",
+      "^@components(.*)$": "<rootDir>/app/javascript/components$1"
+    },
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
   }
 }

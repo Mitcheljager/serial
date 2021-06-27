@@ -1,7 +1,7 @@
 import { writable } from "svelte/store"
 import RailsFetch from "../shared/railsFetch"
 
-const page = writable(null)
+const page = writable()
 const pages = writable(null)
 
 function fetchPage() {
