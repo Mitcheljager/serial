@@ -1,10 +1,10 @@
 <script>
-  import { setSectionKey } from "../../../shared/key"
-  import { shapes } from "../../../shared/shapes"
+  import { setSectionKey } from "@shared/key"
+  import { shapes } from "@shared/shapes"
 
-  import Dropdown from "../../shared/Dropdown.svelte"
-  import Range from "../../shared/Range.svelte"
-  import Switch from "../../shared/Switch.svelte"
+  import Dropdown from "@components/shared/Dropdown.svelte"
+  import Range from "@components/shared/Range.svelte"
+  import Switch from "@components/shared/Switch.svelte"
 
   export let section
   export let key

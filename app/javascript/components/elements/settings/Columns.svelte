@@ -1,6 +1,6 @@
 <script>
-  import Range from "../../shared/Range.svelte"
-  import Switch from "../../shared/Switch.svelte"
+  import Range from "@components/shared/Range.svelte"
+  import Switch from "@components/shared/Switch.svelte"
 
   export let element
 </script>

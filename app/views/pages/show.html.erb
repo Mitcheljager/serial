@@ -3,6 +3,7 @@
     project_id: params[:project_id],
     uuid: params[:uuid],
     page: PageSerializer.new(@page).to_json,
-    theme: @project.properties
+    pages: @project.pages.select(:uuid, :title).to_json,
+    theme: @project.properties,
   }
 }) %>

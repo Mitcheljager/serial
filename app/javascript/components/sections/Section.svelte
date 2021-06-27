@@ -1,12 +1,12 @@
 <script>
   import { flip } from "svelte/animate"
   
-  import { currentSectionIndex, currentTab } from "../../stores/data.js"
-  import { theme } from "../../stores/theme.js"
+  import { currentSectionIndex, currentTab } from "@stores/data.js"
+  import { theme } from "@stores/theme.js"
   
   import Shape from "./Shape.svelte"
-  import EditableImage from "../shared/EditableImage.svelte"
-  import Element from "../elements/_Base.svelte"
+  import EditableImage from "@components/shared/EditableImage.svelte"
+  import Element from "@components/elements/_Base.svelte"
 
   export let section
   export let index
@@ -38,7 +38,7 @@
     <Shape position="top" { section } { index } />
   { /if }
 
-  { #if $theme["navigation"] == "floating" && index == 0 }
+  { #if $theme.navigation.style == "floating" && index == 0 }
     <div class="navigation-offset"></div>
   { /if }
 
@@ -75,7 +75,7 @@
 
   .navigation-offset {
     // Calculation of the navigation height, based on the font size, padding, and margin
-    height: calc(((.5rem + (.4rem * var(--margin-multiplier))) * 2) + (var(--font-size-body) * 1.35));
+    height: calc(((1.5rem + (.4rem * var(--margin-multiplier))) * 2) + (var(--font-size-body) * 1.35));
   }
 
   .background-image {

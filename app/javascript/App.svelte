@@ -4,21 +4,23 @@
 	import Router from "svelte-spa-router"
 	import routes from "./routes"
 
-	import RailsFetch from "./shared/railsFetch.js"
-	import { theme } from "./stores/theme.js"
-	import { projects, project } from "./stores/project.js"
-	import { currentUser, editMode } from "./stores/user.js"
-	import { directUploadUrl, pages } from "./stores/data.js"
+	import { theme } from "./stores/theme"
+	import { projects, project } from "./stores/project"
+	import { currentUser, editMode } from "./stores/user"
+	import { directUploadUrl } from "./stores/data"
+	import { fetchPages } from "./stores/pages"
+	import { globalError } from "./stores/error"
 
 	import Header from "./components/Header.svelte"
 	import GlobalError from "./components/GlobalError.svelte"
+
+	const [loading, error] = fetchPages()
+	$: if ($error) $globalError = "Something went wrong when fetching your pages"
 
 	export let _user
 	export let _project
 	export let _projects
 	export let _directUploadUrl
-
-	let loading = true
 
 	onMount(() => {
 		$editMode = true
@@ -27,26 +29,15 @@
 		$projects = _projects
 		$theme = JSON.parse($project.properties)
 		$directUploadUrl = _directUploadUrl
-
-		getPages()
-
-		window.addEventListener("load", () => {
-			loading = false
-		})
 	})
-
-	function getPages() {
-    new RailsFetch("/pages", {
-      project_id: 1
-    }).post()
-    .then(data => $pages = JSON.parse(data))
-  }
 </script>
 
 
 
 { #if $currentUser }
-	{ #if !loading }
+	{ #if $loading }
+		Loading...
+	{ :else }
 		<div class="container">
 			<Header />
 

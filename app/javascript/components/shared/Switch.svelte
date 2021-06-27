@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte"
   
-  import { getTypeKey, setTypeKey } from "../../shared/key"
+  import { getTypeKey, setTypeKey } from "@shared/key"
 
   export let section = null
   export let element = null

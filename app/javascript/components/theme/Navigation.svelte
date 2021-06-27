@@ -1,32 +1,43 @@
 <script>
-  import { currentTab } from "../../stores/data.js"
-  import { theme } from "../../stores/theme.js"
-  import { getThemeKey } from "../../shared/key.js"
+  import { link } from "svelte-spa-router"
 
-  import EditableButton from "../shared/EditableButton.svelte"
-  import { editMode } from "../../stores/user.js"
+  import { getPageByUUID } from "@shared/pages"
+  import { currentTab } from "@stores/data"
+  import { theme } from "@stores/theme"
+  import { editMode } from "@stores/user"
 
-  $: navigation = getThemeKey("navigation", $theme) || "default"
-  $: background = getThemeKey("navigation_background", $theme) || "default"
+  import EditableButton from "@components/shared/EditableButton.svelte"
+  import EditableImage from "@components/shared/EditableImage.svelte"
+
+  let element
+  
+  $: navigation = $theme.navigation || {}
 </script>
 
 
 
-{ #if navigation == "floating" }
+{ #if navigation.style == "floating" }
   <div class="push"></div>
 { /if }
 
 <nav
-  class="navigation navigation--{ navigation } navigation--{ background }"
-  on:click={ () => { if ($editMode) $currentTab = "navigation" } }>
+  bind:this={ element }
+  class="navigation navigation--{ navigation.style } navigation--{ navigation.background }"
+  class:navigation--with-shadow={ navigation.shadow && $theme.navigation.background != "transparent" }
+  class:navigation--full-width={ navigation.full_width }
+  on:click={ () => { if ($editMode) $currentTab = "navigation" } }> 
 
-  <div class="wrapper">
-    <a href="/" class="logo" on:click|preventDefault>Navigation</a>
+  <div class:wrapper={ !navigation.full_width } class="container">
+    <div class="logo" style="--width: { $theme.logo.variant.attachment.variation.resize_to_limit }">
+      <EditableImage key="logo" width="150" height="60" />
+    </div>
 
     <div class="navigation__content">
-      { #each ["Home", "Test", "Whatever"] as item }
-        <a href="://" class="navigation__item" on:click|preventDefault>{ item }</a>
-      { /each }
+      { #if navigation.pages && navigation.pages.length }
+        { #each navigation.pages as page }
+          <a href="/pages/{ page }" use:link class="navigation__item">{ getPageByUUID(page).title }</a> 
+        { /each }
+      { /if }
     </div>
 
     <div class="navigation__button">
@@ -50,9 +61,21 @@
       transform: translateX(-50%);
       width: 100%;
       max-width: var(--max-width);
-      margin: calc(.25rem + (.25rem * var(--margin-multiplier))) auto;
+      margin: 1.5rem auto;
       border-radius: var(--border-radius);
-      box-shadow: var(--shadow-type);
+    }
+
+    &--full-width {
+      width: 100%;
+      max-width: 100%;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+
+      &.navigation--floating {
+        max-width: calc(100% - 3rem);
+        left: 1.5rem;
+        transform: none;
+      }
     }
 
     &--primary {
@@ -73,18 +96,26 @@
     &--transparent {
       background: transparent;
       color: var(--primary-color-text-offset);
-      box-shadow: none;
+      margin-top: 0;
+
+      &.navigation--floating {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    &--with-shadow {
+      box-shadow: var(--shadow-type);
     }
   }
 
   .logo {
     margin-right: 1.5rem;
-    color: var(--palette-font-heading);
     text-decoration: none;
-    font-weight: bold;
+    height: 60px;
   }
 
-  .wrapper {
+  .container {
     display: flex;
     align-items: center;
   }
@@ -100,6 +131,7 @@
     color: currentColor;
     text-decoration: none;
     font-weight: bold;
+    white-space: nowrap;
 
     &:hover,
     &:active {

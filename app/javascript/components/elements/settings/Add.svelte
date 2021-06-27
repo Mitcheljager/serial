@@ -1,7 +1,8 @@
 <script>
   import { v4 as uuid } from "uuid"
 
-  import { page, currentSectionIndex, currentElement } from "../../../stores/data.js"
+  import { currentSectionIndex, currentElement } from "@stores/data.js"
+  import { page } from "@stores/pages"
 
   let active = false
 

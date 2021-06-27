@@ -2,12 +2,12 @@
   import active from "svelte-spa-router/active"
   import { link, location } from "svelte-spa-router"
 
+  import { currentUser, settings } from "@stores/user.js"
+
   import ProjectSelect from "./ProjectSelect.svelte"
   import Dropdown from "./shared/Dropdown.svelte"
   import IconList from "./icons/List.svelte"
   import IconHome from "./icons/Home.svelte"
-
-  import { currentUser, settings } from "../stores/user.js"
 </script>
 
 

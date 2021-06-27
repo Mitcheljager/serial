@@ -1,5 +1,5 @@
 <script>
-  import { shapes } from "../../shared/shapes"
+  import { shapes } from "@shared/shapes"
 
   export let position
   export let section  

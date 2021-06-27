@@ -1,6 +1,6 @@
 <script>
-  import { currentEditable } from "../../stores/data"
-  import { editMode } from "../../stores/user"
+  import { currentEditable } from "@stores/data"
+  import { editMode } from "@stores/user"
 
   export let element
   export let key

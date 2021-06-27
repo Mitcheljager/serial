@@ -1,5 +1,5 @@
 <script>
-  import { currentEditable } from "../../../stores/data"
+  import { currentEditable } from "@stores/data"
   import FloatingSettings from "./_FloatingSettings.svelte"
 
   function action(command) {

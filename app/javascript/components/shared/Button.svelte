@@ -1,10 +1,10 @@
 <script>
+  import { getTypeKey, setTypeKey } from "@shared/key"
+
   export let element = null
   export let section = null
   export let key
   export let value
-
-  import { getTypeKey, setTypeKey } from "../../shared/key"
 
   let type = element ? "element" : section ? "section" : "theme"
   $: keyValue = getTypeKey(type, section || element, key)

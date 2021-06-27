@@ -1,5 +1,5 @@
 <script>
-  import Range from "../../shared/Range.svelte"
+  import Range from "@components/shared/Range.svelte"
 
   export let element
 </script>

@@ -1,8 +1,5 @@
 import { writable } from "svelte/store"
 
-const pages = writable(null)
-const page = writable(null)
-
 const currentTab = writable("theme")
 const currentSectionIndex = writable(0)
 const currentEditable = writable(null)
@@ -12,8 +9,6 @@ const directUploadUrl = writable("")
 const imageUrl = writable("https://cdn.workshop.codes/")
 
 export {
-  pages,
-  page,
   currentSectionIndex,
   currentElement,
   currentEditable,

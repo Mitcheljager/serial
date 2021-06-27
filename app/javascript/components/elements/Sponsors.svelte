@@ -1,5 +1,5 @@
 <script>
-  import EditableImage from "../shared/EditableImage.svelte"
+  import EditableImage from "@components/shared/EditableImage.svelte"
 
   export let element
 

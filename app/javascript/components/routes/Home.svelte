@@ -1,7 +1,7 @@
 <script>
   import { link } from "svelte-spa-router"
 
-  import { pages } from "../../stores/data.js"
+  import { pages } from "@stores/pages"
 
   import Page from "./pages/_Page.svelte"
 </script>

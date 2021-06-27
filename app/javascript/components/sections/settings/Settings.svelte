@@ -1,15 +1,16 @@
 <script>  
   import { fly } from "svelte/transition"
 
-  import { page, currentSectionIndex, currentTab } from "../../../stores/data.js"
+  import { currentSectionIndex, currentTab } from "@stores/data.js"
+  import { page } from "@stores/pages"
 
   import ShapePicker from "./ShapePicker.svelte"
-  import Button from "../../shared/Button.svelte"
-  import Range from "../../shared/Range.svelte"
-  import ElementsList from "../../elements/settings/List.svelte"
-  import EditableImage from "../../shared/EditableImage.svelte"
-  import Select from "../../shared/Select.svelte"
-  import Alignment from "../../shared/Alignment.svelte"
+  import Button from "@components/shared/Button.svelte"
+  import Range from "@components/shared/Range.svelte"
+  import ElementsList from "@components/elements/settings/List.svelte"
+  import EditableImage from "@components/shared/EditableImage.svelte"
+  import Select from "@components/shared/Select.svelte"
+  import Alignment from "@components/shared/Alignment.svelte"
 
   const flyIf = (node, args) => $currentTab == "section" ? fly(node, args) : null
 </script>

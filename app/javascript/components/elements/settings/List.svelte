@@ -2,10 +2,11 @@
   import Sortable from "sortablejs"
   import { onMount } from "svelte"
 
-  import { currentElement, hoveringElement, page } from "../../../stores/data.js"
-  import { indexOfSection } from "../../../shared/key.js"
+  import { currentElement, hoveringElement } from "@stores/data"
+  import { page } from "@stores/pages"
+  import { indexOfSection } from "@shared/key"
 
-  import TrashIcon from "../../icons/Trash.svelte"
+  import TrashIcon from "@components/icons/Trash.svelte"
   import AddElement from "./Add.svelte"
 
   import Heading from "./Heading.svelte"

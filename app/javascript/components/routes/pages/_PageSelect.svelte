@@ -1,9 +1,9 @@
 <script>  
   import { link } from "svelte-spa-router"
 
-  import { pages, page } from "../../../stores/data.js"
+  import { pages, page } from "@stores/pages.js"
 
-  import Dropdown from "../../shared/Dropdown.svelte"
+  import Dropdown from "@components/shared/Dropdown.svelte"
   import Page from "./_Page.svelte"
 </script>
 

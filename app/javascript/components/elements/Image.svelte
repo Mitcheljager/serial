@@ -1,7 +1,7 @@
 <script>
-  import { theme } from "../../stores/theme"
+  import { theme } from "@stores/theme"
 
-  import EditableImage from "../shared/EditableImage.svelte"
+  import EditableImage from "@components/shared/EditableImage.svelte"
 
   export let element
 

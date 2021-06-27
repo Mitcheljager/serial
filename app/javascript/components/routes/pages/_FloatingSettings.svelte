@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte"
   import { fly } from "svelte/transition"
 
-  import { currentEditable } from "../../../stores/data"
+  import { currentEditable } from "@stores/data"
 
   let element
   let width = 0

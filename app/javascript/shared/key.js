@@ -1,5 +1,5 @@
 import { get } from "svelte/store"
-import { page } from "../stores/data.js"
+import { page } from "../stores/pages.js"
 import { theme } from "../stores/theme.js"
 
 function getElementKey(element, key) {

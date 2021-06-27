@@ -1,7 +1,7 @@
 <script>
-  import { currentEditable, imageUrl } from "../../stores/data"
-  import { theme } from "../../stores/theme"
-  import { editMode } from "../../stores/user"
+  import { currentEditable, imageUrl } from "@stores/data"
+  import { theme } from "@stores/theme"
+  import { editMode } from "@stores/user"
 
   export let section = null
   export let element = null
@@ -42,7 +42,10 @@
           loading=lazy />
       { :else }
         <svg { height } { width }>
-          <text x=50% y=50%>no image</text> 
+          <line x1=0 y1=0 x2=100% y2=100% stroke="var(--palette-font-alt, var(--border-color))" />
+          <line x1=100% y1=0 x2=0 y2=100% stroke="var(--palette-font-alt, var(--border-color))" />
+          <rect x="25%" y="35%" width="50%" height="30%" fill="var(--palette-content, var(--content-bg)" />
+          <text x=50% y=50% fill="var(--palette-font-alt, white)" font-size=".85rem">no image</text>
         </svg>
       { /if }
     </a>
@@ -84,11 +87,10 @@
   svg {
     box-shadow: inset 0 0 0 1px var(--palette-font-alt, var(--border-color));
     background: var(--palette-content, var(--content-bg));
-
+    
     text {
       dominant-baseline: middle;
       text-anchor: middle;
-      fill: var(--palette-font-alt, white);
     }
   }
 

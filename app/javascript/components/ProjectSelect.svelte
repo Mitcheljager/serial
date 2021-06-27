@@ -1,7 +1,7 @@
 <script>
+  import { projects, project } from "@stores/project.js"
+  
   import Dropdown from "./shared/Dropdown.svelte"
-
-  import { projects, project } from "../stores/project.js"
 </script>
 
 

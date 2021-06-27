@@ -3,39 +3,28 @@
   import { fade } from "svelte/transition"
   import { flip } from "svelte/animate"
   
-  import RailsFetch from "../../../shared/railsFetch.js"
-  import { page } from "../../../stores/data.js"
-  import { project } from "../../../stores/project.js"
-  import { theme } from "../../../stores/theme.js"
+  import { page, pages, fetchPage } from "@stores/pages"
+  import { project } from "@stores/project"
+  import { theme } from "@stores/theme"
+  import { globalError } from "@stores/error"
 
-  import Theme from "../../theme/Base.svelte"
-  import Section from "../../sections/Section.svelte"
-  import Navigation from "../../theme/Navigation.svelte"
-  import Footer from "../../theme/Footer.svelte"
+  import Theme from "@components/theme/Base.svelte"
+  import Section from "@components/sections/Section.svelte"
+  import Navigation from "@components/theme/Navigation.svelte"
+  import Footer from "@components/theme/Footer.svelte"
 
   export let params = {}
 
-  let loading = false
+  const [loading, error, get] = fetchPage()
 
-  $: if (!params.page) getCurrentPage(params)
+  $: if (!params.page) get(params.project_id || $project.id, params.uuid)
+  $: if ($error) $globalError = "Something went wrong when fetching this page"
 
   onMount(() => {
     if (params.page) $page = JSON.parse(params.page)
+    if (params.pages) $pages = JSON.parse(params.pages)
     if (params.theme) $theme = JSON.parse(params.theme)
   })
-
-  function getCurrentPage() {
-    loading = true
-
-    new RailsFetch("/page", {
-      project_id: params.project_id || $project.id,
-      uuid: params.uuid
-    }).post()
-    .then(data => {
-      loading = false
-      $page = JSON.parse(data)
-    })
-  }
 </script>
 
 
@@ -59,7 +48,7 @@
     <Footer />
   </Theme>
 
-  { #if loading }
+  { #if $loading }
     <div class="loading" transition:fade={{ duration: 150 }}>
       <div class="spinner"></div>
     </div>

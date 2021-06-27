@@ -1,14 +1,14 @@
 <script>
-  import { getTypeKey, setTypeKey } from "../../../shared/key.js"
-  import Uploader from "../../../shared/uploader.js"
-  import RailsFetch from "../../../shared/railsFetch.js"
-  import { currentEditable } from "../../../stores/data"
-  import { project } from "../../../stores/project"
-  import { theme } from "../../../stores/theme"
+  import { getTypeKey, setTypeKey } from "@shared/key.js"
+  import Uploader from "@shared/uploader.js"
+  import RailsFetch from "@shared/railsFetch.js"
+  import { currentEditable } from "@stores/data"
+  import { project } from "@stores/project"
+  import { theme } from "@stores/theme"
 
   import FloatingSettings from "./_FloatingSettings.svelte"
-  import Switch from "../../shared/Switch.svelte"
-  import Range from "../../shared/Range.svelte"
+  import Switch from "@components/shared/Switch.svelte"
+  import Range from "@components/shared/Range.svelte"
 
   $: image = getTypeKey($currentEditable?.keyType, $currentEditable?.[$currentEditable?.keyType], $currentEditable?.key) || {}
 

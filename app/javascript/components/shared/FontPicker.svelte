@@ -1,6 +1,6 @@
 <script>
-  import { theme } from "../../stores/theme.js"
-  import { fonts } from "../../stores/fonts.js"
+  import { theme } from "@stores/theme"
+  import { fonts } from "@stores/fonts"
 
   export let key
 

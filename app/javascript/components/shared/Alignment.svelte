@@ -1,5 +1,5 @@
 <script>
-  import { getTypeKey, setTypeKey } from "../../shared/key"
+  import { getTypeKey, setTypeKey } from "@shared/key"
 
   export let element = null
   export let section = null

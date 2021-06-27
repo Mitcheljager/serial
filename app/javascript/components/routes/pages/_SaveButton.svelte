@@ -1,8 +1,8 @@
 <script>
-  import RailsFetch from "../../../shared/railsFetch.js"
-  import { theme } from "../../../stores/theme.js"
-  import { page } from "../../../stores/data.js"
-  import { globalError } from "../../../stores/error.js"
+  import RailsFetch from "@shared/railsFetch"
+  import { theme } from "@stores/theme"
+  import { page } from "@stores/pages"
+  import { globalError } from "@stores/error"
 
   let saving = false
   let success = false

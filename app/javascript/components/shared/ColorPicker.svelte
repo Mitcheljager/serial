@@ -3,8 +3,8 @@
   import { fly } from "svelte/transition"
   import iro from "@jaames/iro"
 
-  import { theme } from "../../stores/theme"
-  import { settings } from "../../stores/user"
+  import { theme } from "@stores/theme"
+  import { settings } from "@stores/user"
 
   export let key
   export let defaultValue

@@ -1,6 +1,6 @@
 <script>
-  import { hoveringElement, currentElement } from "../../stores/data.js"
-  import { editMode } from "../../stores/user.js"
+  import { hoveringElement, currentElement } from "@stores/data.js"
+  import { editMode } from "@stores/user.js"
 
   import Paragraph from "./Paragraph.svelte"
   import Heading from "./Heading.svelte"

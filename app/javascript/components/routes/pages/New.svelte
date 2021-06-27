@@ -2,8 +2,8 @@
   import { push } from "svelte-spa-router"
   import { v4 as uuid } from "uuid"
 
-  import RailsFetch from "../../../shared/railsFetch"
-  import { project } from "../../../stores/project"
+  import RailsFetch from "@shared/railsFetch"
+  import { project } from "@stores/project"
 
   let title
 

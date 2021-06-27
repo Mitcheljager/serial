@@ -1,6 +1,6 @@
 <script>
-  import { theme } from "../../stores/theme.js"
-  import { palettes } from "../../stores/palettes.js"
+  import { theme } from "@stores/theme"
+  import { palettes } from "@stores/palettes"
 
   $: console.log($theme)
 
@@ -54,10 +54,14 @@
   .theme {
     display: flex;
     flex-direction: column;
-    min-height: 600px;
+    min-height: 100vh;
     background: var(--palette-body);
     font-size: var(--font-size-body);
     color: var(--palette-font);
+
+    :global(.board &) {
+      min-height: 600px;
+    }
 
     :global(footer) {
       margin-top: auto;

@@ -1,11 +1,11 @@
 <script>
   import { fade } from "svelte/transition"
 
-  import { globalError } from "../stores/error.js"
+  import { globalError } from "@stores/error.js"
 
   $: {
     if ($globalError) {
-      setTimeout(remove, 5000)
+      setTimeout(remove, 10000)
     }
   }
 

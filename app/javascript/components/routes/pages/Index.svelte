@@ -2,16 +2,16 @@
   import { fly } from "svelte/transition"
   import { location } from "svelte-spa-router"
 
-  import { page, currentTab, currentEditable } from "../../../stores/data.js"
+  import { currentTab, currentEditable } from "@stores/data.js"
 
   import ShowPage from "./Show.svelte"
   import PageSelect from "./_PageSelect.svelte"
   import SaveButton from "./_SaveButton.svelte"
   import Tabs from "./_Tabs.svelte"
-  import SectionsList from "../../sections/settings/List.svelte"
-  import SectionSettings from "../../sections/settings/Settings.svelte"
-  import ThemeSettings from "../../theme/settings/Theme.svelte"
-  import NavigationSettings from "../../theme/settings/Navigation.svelte"
+  import SectionsList from "@components/sections/settings/List.svelte"
+  import SectionSettings from "@components/sections/settings/Settings.svelte"
+  import ThemeSettings from "@components/theme/settings/Theme.svelte"
+  import NavigationSettings from "@components/theme/settings/Navigation.svelte"
 
   import EditableButtonSettings from "./_EditableButtonSettings.svelte"
   import EditableTextSettings from "./_EditableTextSettings.svelte"

@@ -1,7 +1,7 @@
 <script>
-  import { currentEditable } from "../../stores/data"
-  import { theme } from "../../stores/theme"
-  import { editMode } from "../../stores/user"
+  import { currentEditable } from "@stores/data"
+  import { theme } from "@stores/theme"
+  import { editMode } from "@stores/user"
 
   export let element = null
   export let key

@@ -1,6 +1,6 @@
 <script>
-  import { currentEditable } from "../../../stores/data"
-  import { getTypeKey, setTypeKey } from "../../../shared/key.js"
+  import { currentEditable } from "@stores/data"
+  import { getTypeKey, setTypeKey } from "@shared/key.js"
 
   import FloatingSettings from "./_FloatingSettings.svelte"
 

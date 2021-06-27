@@ -1,5 +1,5 @@
 <script>
-  import { currentTab } from "../../../stores/data.js"
+  import { currentTab } from "@stores/data.js"
 
   let tabsElement
   let tabsIndicatorLeft = 0

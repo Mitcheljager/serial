@@ -3,9 +3,10 @@
   import { onMount } from "svelte"
   import { flip } from "svelte/animate"
 
-  import { page, currentSectionIndex, currentTab } from "../../../stores/data.js"
+  import { currentSectionIndex, currentTab } from "@stores/data"
+  import { page } from "@stores/pages"
 
-  import TrashIcon from "../../icons/Trash.svelte"
+  import TrashIcon from "@components/icons/Trash.svelte"
   import AddSection from "./Add.svelte"
 
   let listElement

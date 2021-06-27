@@ -1,7 +1,7 @@
 <script>
   import { v4 as uuid } from "uuid"
 
-  import { page } from "../../../stores/data.js"
+  import { page } from "@stores/pages"
 
   function addSection() {
     const listLength = $page.sections.length

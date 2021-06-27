@@ -1,7 +1,7 @@
 <script>
-  import { theme } from "../../stores/theme"
-  import { palettes } from "../../stores/palettes"
-  import { settings } from "../../stores/user"
+  import { theme } from "@stores/theme"
+  import { palettes } from "@stores/palettes"
+  import { settings } from "@stores/user"
 
   import Dropdown from "./Dropdown.svelte"
 

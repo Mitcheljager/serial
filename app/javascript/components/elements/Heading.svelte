@@ -1,5 +1,5 @@
 <script>
-  import EditableText from "../shared/EditableText.svelte"
+  import EditableText from "@components/shared/EditableText.svelte"
 
   export let element
 

@@ -1,7 +1,7 @@
 <script>
-  import EditableText from "../shared/EditableText.svelte"
-  import EditableButton from "../shared/EditableButton.svelte"
-  import EditableImage from "../shared/EditableImage.svelte"
+  import EditableText from "@components/shared/EditableText.svelte"
+  import EditableButton from "@components/shared/EditableButton.svelte"
+  import EditableImage from "@components/shared/EditableImage.svelte"
 
   export let element
 
