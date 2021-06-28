@@ -10,6 +10,7 @@
   import AddElement from "./Add.svelte"
 
   import Heading from "./Heading.svelte"
+  import Paragraph from "./Paragraph.svelte"
   import Columns from "./Columns.svelte"
   import Offset from "./Offset.svelte"
   import CallToAction from "./CallToAction.svelte"
@@ -20,6 +21,7 @@
 
   const components = [
     { component: Heading, identifier: "heading" },
+    { component: Paragraph, identifier: "paragraph" },
     { component: Columns, identifier: "columns" },
     { component: Offset, identifier: "offset" },
     { component: CallToAction, identifier: "call_to_action" },

@@ -2,8 +2,8 @@
   import { hoveringElement, currentElement } from "@stores/data.js"
   import { editMode } from "@stores/user.js"
 
-  import Paragraph from "./Paragraph.svelte"
   import Heading from "./Heading.svelte"
+  import Paragraph from "./Paragraph.svelte"
   import Columns from "./Columns.svelte"
   import Offset from "./Offset.svelte"
   import CallToAction from "./CallToAction.svelte"
@@ -13,8 +13,8 @@
   export let element
 
   const components = [
-    { component: Paragraph, identifier: "paragraph" },
     { component: Heading, identifier: "heading" },
+    { component: Paragraph, identifier: "paragraph" },
     { component: Columns, identifier: "columns" },
     { component: Offset, identifier: "offset" },
     { component: CallToAction, identifier: "call_to_action" },

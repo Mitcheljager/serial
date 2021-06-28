@@ -32,6 +32,7 @@
     --font-heading: { fontHeading.property || "" };
     --font-size-body: { fontSizeBody }px;
     --margin-multiplier: { margin };
+    --max-width-modifier: { maxWidth };
     --max-width: { 600 + (maxWidth * 150) }px;
     --border-radius-multiplier: { borderRadius };
     --shadow-type: var(--shadow-{ shadowType });
