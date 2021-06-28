@@ -1,8 +1,9 @@
 <script>
   import { flip } from "svelte/animate"
   
-  import { currentSectionIndex, currentTab } from "@stores/data.js"
+  import { currentSectionIndex, currentTab, hoveringSection } from "@stores/data"
   import { theme } from "@stores/theme.js"
+  import { editMode } from "@stores/user.js"
   
   import Shape from "./Shape.svelte"
   import EditableImage from "@components/shared/EditableImage.svelte"
@@ -20,8 +21,11 @@
 
 
 <div
-  on:click={ () => { $currentTab = "section"; $currentSectionIndex = index } } 
+  on:click={ () => { $currentTab = "section"; $currentSectionIndex = index } }
+  on:mouseenter={ () => { if ($editMode) $hoveringSection = section.uuid } }
+  on:mouseleave={ () => { if ($editMode) $hoveringSection = null } }
   class="section"
+  class:section--hovering={ $hoveringSection == section.uuid }
   class:text-primary-color-offset={ ["primary-color", "gradient"].includes(backgroundColor) || backgroundType == "image"  }
   class:text-secondary-color-offset={ backgroundColor == "secondary-color" }
   style="
@@ -65,6 +69,20 @@
     min-height: 100px;
     background-size: cover;
     background-position: center;
+
+    &--hovering::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: .5rem;
+      left: .5rem;
+      width: calc(100% - 1rem);
+      height: calc(100% - 1rem);
+      box-shadow: inset 0 0 0 2px var(--border-color);
+      border-radius: .5rem;
+      pointer-events: none;
+      z-index: 0;
+    }
   }
 
   .section-padding {

@@ -4,11 +4,16 @@
   export let element
 
   $: size = element.properties.size || 3
+  $: alignment = element.properties.alignment || "left"
 </script>
 
-<h2 style="--size: { 1 + (size * .5) }rem">
+
+
+<h2 style="--size: { 1 + (size * .5) }rem; text-align: { alignment }">
   <EditableText { element } key="content" defaultValue="Heading" />
 </h2>
+
+
 
 <style>
   h2 {

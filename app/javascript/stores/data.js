@@ -5,6 +5,7 @@ const currentSectionIndex = writable(0)
 const currentEditable = writable(null)
 const currentElement = writable(null)
 const hoveringElement = writable(null)
+const hoveringSection = writable(null)
 const directUploadUrl = writable("")
 const imageUrl = writable("https://cdn.workshop.codes/")
 
@@ -13,6 +14,7 @@ export {
   currentElement,
   currentEditable,
   hoveringElement,
+  hoveringSection,
   currentTab,
   directUploadUrl,
   imageUrl

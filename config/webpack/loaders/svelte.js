@@ -9,5 +9,5 @@ module.exports = {
       preprocess: sveltePreprocess(),
       emitCss: true
     }
-  }],
+  }]
 }

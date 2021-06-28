@@ -3,7 +3,7 @@
   import { onMount } from "svelte"
   import { flip } from "svelte/animate"
 
-  import { currentSectionIndex, currentTab } from "@stores/data"
+  import { currentSectionIndex, currentTab, hoveringSection } from "@stores/data"
   import { page } from "@stores/pages"
 
   import TrashIcon from "@components/icons/Trash.svelte"
@@ -53,9 +53,12 @@
     <div
       data-id={ section.uuid }
       data-index={ index }
+      class="section"
+      class:hovering={ $hoveringSection == section.uuid }
       on:click={ () => { $currentTab = "section"; $currentSectionIndex = index } }
-      animate:flip={{ duration: 200 }}
-      class="section">
+      on:mouseenter={ () => $hoveringSection = section.uuid }
+      on:mouseleave={ () => $hoveringSection = null }
+      animate:flip={{ duration: 200 }}>
 
       <h4>{ section.name }</h4>
 
@@ -88,6 +91,10 @@
       h4 {
         color: var(--text-color-light);
       }
+    }
+    
+    &.hovering {
+      box-shadow: 0 0 0 2px var(--border-color);
     }
 
     h4 {
