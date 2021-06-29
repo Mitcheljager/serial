@@ -30,6 +30,7 @@
   <span class="dropdown__item" on:click={ () => addElement("call_to_action") }>Call to action</span>
   <span class="dropdown__item" on:click={ () => addElement("image") }>Image</span>
   <span class="dropdown__item" on:click={ () => addElement("sponsors") }>Sponsors</span>
+  <span class="dropdown__item" on:click={ () => addElement("custom_html") }>Custom HTML</span>
 </Dropdown>
 
 

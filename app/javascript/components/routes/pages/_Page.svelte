@@ -33,7 +33,7 @@
     &:hover,
     &:active,
     &--active {
-      background: var(--content-bg);
+      background: var(--content-bg-light);
       color: white;
     }
   }

@@ -16,6 +16,7 @@
   import CallToAction from "./CallToAction.svelte"
   import Image from "./Image.svelte"
   import Sponsors from "./Sponsors.svelte"
+  import CustomHTML from "./CustomHTML.svelte"
 
   export let section
 
@@ -26,6 +27,7 @@
     { component: Offset, identifier: "offset" },
     { component: CallToAction, identifier: "call_to_action" },
     { component: Image, identifier: "image" },
+    { component: CustomHTML, identifier: "custom_html" },
     { component: Sponsors, identifier: "sponsors" }
   ]
 

@@ -17,6 +17,8 @@
 
   const [loading, error, get] = fetchPage()
 
+  $: console.log($page)
+
   $: if (!params.page) get(params.project_id || $project.id, params.uuid)
   $: if ($error) $globalError = "Something went wrong when fetching this page"
 

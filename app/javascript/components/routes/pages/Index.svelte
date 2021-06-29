@@ -150,12 +150,19 @@
     overflow: auto;
     overflow-y: overlay;
     scrollbar-width: none;
-    filter: drop-shadow(0 3px 2px rgba(0, 0, 0, .1))
-						drop-shadow(0 10px 5px rgba(0, 0, 0, .1))
-						drop-shadow(0 15px 10px rgba(0, 0, 0, .1))
-						drop-shadow(0 25px 15px rgba(0, 0, 0, .2))
-						drop-shadow(0 40px 30px rgba(0, 0, 0, .2))
-						drop-shadow(0 100px 75px rgba(0, 0, 0, .2));
+    box-shadow: 0 3px 2px rgba(0, 0, 0, .1),
+                0 10px 5px rgba(0, 0, 0, .1),
+                0 15px 10px rgba(0, 0, 0, .1),
+                0 25px 15px rgba(0, 0, 0, .2),
+                0 40px 30px rgba(0, 0, 0, .2),
+                0 100px 75px rgba(0, 0, 0, .2);
+    
+    // Filter is laggy, disabled for now
+    // filter: drop-shadow(0 3px 2px rgba(0, 0, 0, .1))
+		// 				drop-shadow(0 10px 5px rgba(0, 0, 0, .1))
+		// 				drop-shadow(0 15px 10px rgba(0, 0, 0, .1))
+		// 				drop-shadow(0 25px 15px rgba(0, 0, 0, .2))
+		// 				drop-shadow(0 40px 30px rgba(0, 0, 0, .2));
 
     &:hover {
       scrollbar-color: var(--border-color) transparent;

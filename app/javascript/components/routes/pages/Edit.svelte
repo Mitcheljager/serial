@@ -9,7 +9,7 @@
 
   const [loading, error, get] = fetchPage()
 
-  $: if (!params.page) get(params.project_id || $project.id, params.uuid)
+  $: if (params.uuid != $page?.uuid) get(params.project_id || $project.id, params.uuid)
 
   function save() {
     new RailsFetch("/page/save", {
