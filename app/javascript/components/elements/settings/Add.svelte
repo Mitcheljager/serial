@@ -23,19 +23,40 @@
     <span>Add element</span>
   </button>
 
+  <h4>General</h4>
   <span class="dropdown__item" on:click={ () => addElement("heading") }>Heading</span>
   <span class="dropdown__item" on:click={ () => addElement("paragraph") }>Paragraph</span>
-  <span class="dropdown__item" on:click={ () => addElement("columns") }>Columns</span>
-  <span class="dropdown__item" on:click={ () => addElement("offset") }>Offset</span>
-  <span class="dropdown__item" on:click={ () => addElement("call_to_action") }>Call to action</span>
   <span class="dropdown__item" on:click={ () => addElement("image") }>Image</span>
+  <span class="dropdown__item" on:click={ () => addElement("buttons") }>Buttons</span>
+  <span class="dropdown__item" on:click={ () => addElement("offset") }>Offset</span>
+
+  <hr />
+  <h4>Marketing</h4>
+  <span class="dropdown__item" on:click={ () => addElement("columns") }>Columns</span>
+  <span class="dropdown__item" on:click={ () => addElement("call_to_action") }>Call to action</span>
   <span class="dropdown__item" on:click={ () => addElement("sponsors") }>Sponsors</span>
+
+  <hr />
+  <h4>Advanced</h4>
   <span class="dropdown__item" on:click={ () => addElement("custom_html") }>Custom HTML</span>
 </Dropdown>
 
 
 
 <style lang="scss">
+  h4 {
+    margin: 0 0 .5rem;
+    color: var(--text-color-light);
+  }
+
+  hr {
+    margin: .75rem -.75rem 1.5rem;
+    width: calc(100% + 1.5rem);
+    height: 1px;
+    border: 0;
+    background: var(--body-bg);
+  }
+
   .button {
     position: relative;
   }

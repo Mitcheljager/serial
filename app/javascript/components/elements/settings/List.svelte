@@ -17,6 +17,7 @@
   import Image from "./Image.svelte"
   import Sponsors from "./Sponsors.svelte"
   import CustomHTML from "./CustomHTML.svelte"
+  import Buttons from "./Buttons.svelte"
 
   export let section
 
@@ -28,7 +29,8 @@
     { component: CallToAction, identifier: "call_to_action" },
     { component: Image, identifier: "image" },
     { component: CustomHTML, identifier: "custom_html" },
-    { component: Sponsors, identifier: "sponsors" }
+    { component: Sponsors, identifier: "sponsors" },
+    { component: Buttons, identifier: "buttons" }
   ]
 
   let listElement
