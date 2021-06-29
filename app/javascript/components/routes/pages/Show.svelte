@@ -37,12 +37,12 @@
 
     { #if $page?.sections?.length }
       { #each $page.sections as section, index (section.uuid) }
-        <div class="section" animate:flip="{{ duration: 200 }}">
+        <div class="item" animate:flip="{{ duration: 200 }}">
           <Section { section } { index } />
         </div>
       { /each }
     { :else }
-      <div class="section empty">
+      <div class="item empty">
         <div class="wrapper">This page is empty</div>
       </div>
     { /if }
@@ -60,7 +60,7 @@
 
 
 <style lang="scss">
-  .section {
+  .item {
     position: relative;
     min-width: 100%;
   }

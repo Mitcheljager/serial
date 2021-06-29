@@ -61,6 +61,11 @@
     padding-right: 3rem;
     text-align: left;
     cursor: pointer;
+    color: var(--text-color);
+
+    .switch__input:checked + & {
+      color: var(--text-color-light);
+    }
 
     &:hover {
       &::before {

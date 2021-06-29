@@ -13,6 +13,7 @@
   export let index
 
   $: backgroundType = section.properties?.background_type
+  $: backgroundBlock = section.properties?.background_block || false
   $: backgroundColor = backgroundType == "color" ? section.properties?.background_color || "palette-content" : null
   $: backgroundImage = backgroundType == "image" ? section.properties?.background_image : null
   $: backgroundAlignment = backgroundType == "image" ? section.properties?.background_alignment || ["center", "center"] : null
@@ -28,6 +29,7 @@
   class:section--hovering={ $hoveringSection == section.uuid }
   class:text-primary-color-offset={ ["primary-color", "gradient"].includes(backgroundColor) || backgroundType == "image"  }
   class:text-secondary-color-offset={ backgroundColor == "secondary-color" }
+  class:section--block={ backgroundType && backgroundBlock }
   style="
   --spacing: { section.properties?.spacing || 0 };
   background: var(--{ backgroundImage ? "palette-content" : backgroundColor });">
@@ -70,6 +72,14 @@
     background-size: cover;
     background-position: center;
 
+    &--block {
+      max-width: calc(min(var(--max-width), 100%) - 3rem);
+      margin: 0 auto;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-type);
+      overflow: hidden;
+    }
+
     &--hovering::after {
       content: "";
       display: block;
@@ -78,7 +88,7 @@
       left: .5rem;
       width: calc(100% - 1rem);
       height: calc(100% - 1rem);
-      box-shadow: inset 0 0 0 2px var(--border-color);
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.15);
       border-radius: .5rem;
       pointer-events: none;
       z-index: 0;

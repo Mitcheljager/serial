@@ -10,6 +10,7 @@
   import Image from "./Image.svelte"
   import Sponsors from "./Sponsors.svelte"
   import CustomHTML from "./CustomHTML.svelte"
+  import Buttons from "./Buttons.svelte"
 
   export let element
 
@@ -21,7 +22,8 @@
     { component: CallToAction, identifier: "call_to_action" },
     { component: Image, identifier: "image" },
     { component: Sponsors, identifier: "sponsors" },
-    { component: CustomHTML, identifier: "custom_html" }
+    { component: CustomHTML, identifier: "custom_html" },
+    { component: Buttons, identifier: "buttons" }
   ]
 </script>
 

@@ -11,6 +11,7 @@
   import EditableImage from "@components/shared/EditableImage.svelte"
   import Select from "@components/shared/Select.svelte"
   import Alignment from "@components/shared/Alignment.svelte"
+  import Switch from "@components/shared/Switch.svelte"
 
   const flyIf = (node, args) => $currentTab == "section" ? fly(node, args) : null
 </script>
@@ -69,6 +70,14 @@
 
             <ShapePicker { section } key="shape_top">Top</ShapePicker>
             <ShapePicker { section } key="shape_bottom" flipped=true>Bottom</ShapePicker>
+
+            <div class="mt-1/2">
+              <Switch
+                { section }
+                key="background_block">
+                Contain by page width
+              </Switch>
+            </div>
           { /if }
         </div>
 

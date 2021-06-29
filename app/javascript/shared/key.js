@@ -67,6 +67,7 @@ export {
   getElementKey,
   setElementKey,
   getElementIndex,
+  getSectionOfElement,
   getSectionKey,
   setSectionKey,
   indexOfSection,

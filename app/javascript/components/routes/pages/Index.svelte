@@ -60,9 +60,7 @@
   <div class="content">
     <div class="content-scroll" data-role="theme-container">        
       <div class="content-inner">
-        <div class="overflow">
-          <ShowPage { params } />
-        </div>
+        <ShowPage { params } />
       </div>
     </div>
 
@@ -186,10 +184,8 @@
     min-height: 600px;
     padding: 0;
     margin-bottom: 20rem;
-  }
-
-  .overflow {
-    overflow: hidden;
+    background: var(--bg-dark);
     border-radius: 1rem;
+    overflow: hidden;
   }
 </style>
