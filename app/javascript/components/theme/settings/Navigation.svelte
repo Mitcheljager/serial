@@ -28,10 +28,10 @@
 
   function updateOrder() {
     const listItems = listElement.querySelectorAll("[data-uuid]")
-    const order = Array.from(listItems).map(item => parseInt(item.dataset.uuid))
+    const order = Array.from(listItems).map(item => item.dataset.uuid)
     const sortableOrder = sortable.toArray()
     
-    console.log(listItems)
+    setKey("pages", order)
 
     setTimeout(() => sortable.sort(sortableOrder, false))
   }
@@ -46,6 +46,10 @@
     setKey("pages", [...navigation.pages || [], uuid])
     console.log(navigation.pages)
   }
+
+  function removePage(uuid) {
+    setKey("pages", navigation.pages.filter(p => p != uuid))
+  }
 </script>
 
 
@@ -55,6 +59,7 @@
 <div class="select-group">
   <div class="form-label">Style</div>
 
+  <!-- svelte-ignore a11y-no-onchange -->
   <select
     class="form-input"
     value={ navigation.style || "default" }
@@ -68,6 +73,7 @@
 <div class="select-group mt-1/8">
   <div class="form-label">Background</div>
 
+  <!-- svelte-ignore a11y-no-onchange -->
   <select
     class="form-input"
     value={ navigation.background || "default" }
@@ -101,10 +107,22 @@
 
 <h3 class="mt-1/1">Pages in navigation</h3>
 
-<div bind:this={ listElement }>
+{ #if navigation.pages?.length > 1}
+  <div class="mb-1/4 text-dark">
+    <em>Reorder pages by dragging them</em>
+  </div>
+{ /if }
+
+<div class="list" bind:this={ listElement }>
   { #if navigation.pages }
     { #each navigation.pages as page }
-      <div class="page" data-uuid={ page }>{ getPageByUUID(page).title }</div>
+      <div class="page" data-uuid={ page }>
+        { getPageByUUID(page).title }
+
+        <div class="page__actions">
+          <span on:click={ removePage(page) }>-</span>
+        </div>
+      </div>
     { /each }
   { :else }
     <em>You have not yet added any pages to your navigation</em>
@@ -112,7 +130,7 @@
 </div>
 
 <Dropdown>
-  <button class="button button--dark w-100" slot="label">+ Add page to navigation</button>
+  <button class="button button--dark w-100 mt-1/4" slot="label">+ Add page to navigation</button>
 
   <em>Select a page to add to the main navigation. You can re-position it later.</em>
 
@@ -141,5 +159,41 @@
       background: var(--bg-dark);
       color: white;
     }
+  }
+
+  .list {
+    counter-reset: pages-list;
+  }
+
+  .page {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: .5rem .75rem;
+    margin-bottom: 4px;
+    border-radius: .5rem;
+    background: var(--content-bg);
+    box-shadow: 0 0 0 4px var(--body-bg);
+    counter-increment: pages-list;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      box-shadow: 0 0 0 2px var(--border-color), 0 0 0 4px var(--body-bg);
+      color: var(--text-color-light);
+      z-index: 2;
+    }
+
+    &::before {
+      content: counter(pages-list) ". ";
+      margin-right: .5rem;
+      color: var(--text-color-dark);
+    }
+  }
+
+  .page__actions {
+    margin-left: auto;
+    font-size: 1.15rem;
+    font-weight: bold;
   }
 </style>

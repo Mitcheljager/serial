@@ -1,0 +1,10 @@
+<%= svelte_component("App", { 
+    _user: { id: current_user.id, username: current_user.username },
+    _project: @project,
+    _projects: current_user.projects,
+    _directUploadUrl: rails_direct_uploads_url
+  }) if current_user %>
+
+<% if !current_user %>
+  <h1>Not logged in</h1>
+<% end %>

@@ -1,10 +1,7 @@
-<%= svelte_component("App", { 
-    _user: { id: current_user.id, username: current_user.username },
-    _project: current_user.projects.first,
-    _projects: current_user.projects,
-    _directUploadUrl: rails_direct_uploads_url
-  }) if current_user %>
+<h1>Home</h1>
 
-<% if !current_user %>
-  <h1>Not logged in</h1>
+<% if current_user %>
+  <% current_user.projects.each do |project| %>
+    <%= link_to project.name, project_path(project) %>
+  <% end %>
 <% end %>

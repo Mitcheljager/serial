@@ -19,7 +19,7 @@
   If you don't know what you're doing it might be best to stay away from this Element.
 </p>
 
-<textarea on:change={ setKey } value={ content } />
+<textarea spellcheck=false on:change={ setKey } value={ content } />
 
 
 

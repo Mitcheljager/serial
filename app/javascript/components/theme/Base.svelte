@@ -46,6 +46,7 @@
     --palette-font: { palette.colors.font };
     --palette-font-alt: { palette.colors.font_alt };
     --palette-font-heading: { palette.colors.font_heading };">
+    
   <slot></slot>
 </div>
 

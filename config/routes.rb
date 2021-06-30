@@ -3,8 +3,6 @@ Rails.application.routes.draw do
 
   get "active_storage_blob_variant_url/:key", to: "application#active_storage_blob_variant_url"
 
-  get ":project_id/pages/:uuid", to: "pages#show"
-
   resources :sections, defaults: { format: :json }
 
   resources :users, only: [:create]
@@ -13,6 +11,9 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
   get "login", to: "sessions#new", as: "login"
   get "logout", to: "sessions#destroy", as: "logout"
+
+  get ":project_id", to: "projects#show", as: "project"
+  get ":project_id/pages/:uuid", to: "pages#show"
 
   defaults format: :json do
     post "project/save", to: "projects#update"
