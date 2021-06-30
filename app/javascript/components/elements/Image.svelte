@@ -21,8 +21,7 @@
 
     :global(svg),
     :global(img) {
-      width: calc((600px + (var(--max-width-modifier) * 150px)) * var(--size));
-      max-width: 100%;
+      max-width: calc((600px + (var(--max-width-modifier) * 150px)) * var(--size));
     }
   }
 </style>

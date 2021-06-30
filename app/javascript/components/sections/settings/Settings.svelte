@@ -28,7 +28,7 @@
           <Range
             { section }
             key="spacing"
-            min=0 max=4 defaultValue=0>
+            min=0 max=10 defaultValue=0>
             Section Spacing
           </Range>
 
@@ -66,6 +66,13 @@
           { /if }
 
           { #if section.properties.background_type }
+            <Range
+              { section }
+              key="padding"
+              min=0 max=6 defaultValue=0>
+              Padding
+            </Range>
+
             <div class="form-label mt-1/8">Shape</div>
 
             <ShapePicker { section } key="shape_top">Top</ShapePicker>
@@ -77,6 +84,14 @@
                 key="background_block">
                 Contain by page width
               </Switch>
+
+              { #if section.properties.background_block }
+                <Switch
+                  { section }
+                  key="background_shadow">
+                  Include shadow
+                </Switch>
+              { /if }
             </div>
           { /if }
         </div>
