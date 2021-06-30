@@ -3,7 +3,7 @@
 
   export let element
 
-  let content = element.properties.content
+  let content = element.properties.content || ""
 
   function setKey(event) {
     content = event.target.value

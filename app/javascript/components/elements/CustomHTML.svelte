@@ -1,7 +1,7 @@
 <script>
   export let element
 
-  $: content = element.properties.content
+  $: content = element.properties.content || ""
 </script>
 
 

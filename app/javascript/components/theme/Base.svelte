@@ -59,6 +59,7 @@
     min-height: 100vh;
     background: var(--palette-body);
     font-size: var(--font-size-body);
+    font-family: var(--font-body, var(--font-family));
     color: var(--palette-font);
 
     :global(.board &) {
