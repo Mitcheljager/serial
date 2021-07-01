@@ -1,5 +1,4 @@
 <script>
-  import { onMount, onDestroy } from "svelte"
   import { fly } from "svelte/transition"
   import iro from "@jaames/iro"
 
@@ -22,9 +21,6 @@
 
   $: renderPicker(active)
   $: saveKey(h, s, l)
-
-  onMount(() => document.addEventListener("click", clickOutside))
-  onDestroy(() => document.removeEventListener("click", clickOutside))
 
   function renderPicker() {
     if (!active) return
@@ -85,6 +81,8 @@
 </script>
 
 
+
+<svelte:body on:click={ clickOutside } />
 
 <div class="label">
   <div class="color-picker" bind:this={ wrapper } style="--h: { h }; --s: { s }; --l: { l }">

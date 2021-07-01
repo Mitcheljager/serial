@@ -29,7 +29,8 @@
 
   .sponsor {
     display: flex;
-    place-items: center;
+    align-items: center;
+    justify-content: center;
     margin: .75rem;
     flex: var(--size) 0 1;
 

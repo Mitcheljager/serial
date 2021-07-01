@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy } from "svelte"
+  import { onMount } from "svelte"
   import { fly } from "svelte/transition"
 
   import { currentEditable } from "@stores/data"
@@ -7,11 +7,7 @@
   let element
   let width = 0
 
-  onMount(() => {
-    getWidth()
-    document.addEventListener("click", clickOutside)
-  })
-  onDestroy(() => document.removeEventListener("click", clickOutside))
+  onMount(getWidth)
 
   function getWidth() {
     const container = document.querySelector("[data-role='theme-container']")
@@ -28,6 +24,8 @@
 </script>
 
 
+
+<svelte:body on:click={ clickOutside } />
 
 <div
   bind:this={ element }

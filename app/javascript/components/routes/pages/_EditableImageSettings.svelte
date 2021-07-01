@@ -88,7 +88,7 @@
         <div class="mt-1/4">
           <label class="form-label">Alt text</label>
           <div class="help">
-            Alt text helps people using accessibility tools better understand your images. It may also help with SEO.
+            Alt text helps people using accessibility tools better understand your images.
           </div>
 
           <input

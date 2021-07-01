@@ -1,5 +1,4 @@
 <script>
-  import { onMount, onDestroy } from "svelte"
   import { fly } from "svelte/transition"
 
   export let direction = "down"
@@ -10,9 +9,6 @@
   let alignRight = false
 
   $: if (active) setTimeout(() => { position() })
-
-  onMount(() => document.addEventListener("click", clickOutside))
-  onDestroy(() => document.removeEventListener("click", clickOutside))
 
   function clickOutside(event) {
     if (event.target.closest(".dropdown") == element) return
@@ -31,6 +27,8 @@
 </script>
 
 
+
+<svelte:body on:click={ clickOutside } />
 
 <div bind:this={ element } class="dropdown" class:active>
   <div on:click={ () => active = !active }>

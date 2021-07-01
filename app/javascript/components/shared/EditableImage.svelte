@@ -39,6 +39,7 @@
         <img
           style="filter: blur({ image.blur || 0 }px) grayscale({ image.grayscale ? 100 : 0 }%) brightness({ image.brightness || 100 }%)"
           src={ $imageUrl + image.variant.key } { height } { width }
+          alt={ image.alt }
           loading=lazy />
       { :else }
         <svg { height } { width }>

@@ -48,6 +48,8 @@
 
 
 
+<svelte:window on:resize={ setShadow } />
+
 <div class="board">
   <aside class="sidebar">
     <div class="sidebar__navigation">
@@ -210,7 +212,6 @@
                 0 10px 5px rgba(0, 0, 0, .1),
                 0 15px 10px rgba(0, 0, 0, .1),
                 0 25px 15px rgba(0, 0, 0, .2),
-                0 40px 30px rgba(0, 0, 0, .2),
-                0 100px 75px rgba(0, 0, 0, .2);
+                0 40px 30px rgba(0, 0, 0, .2);
   }
 </style>
