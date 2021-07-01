@@ -45,7 +45,6 @@
 
   function addPage(uuid) {
     setKey("pages", [...navigation.pages || [], uuid])
-    console.log(navigation.pages)
   }
 
   function removePage(uuid) {

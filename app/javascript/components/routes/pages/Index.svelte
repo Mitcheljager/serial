@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte"
   import { fly } from "svelte/transition"
   import { location } from "svelte-spa-router"
 
@@ -32,7 +33,17 @@
 
   export let params = {}
 
+  let shadowElement, scrollElement, innerElement = null
+
   const flyIf = (node, args) => $location.includes("/pages/") ? fly(node, args) : null
+
+  $: if (scrollElement) scrollElement.scroll(0, 0)
+
+  function setShadow() {
+    const bottomOffset = innerElement.getBoundingClientRect().bottom - window.innerHeight
+
+    shadowElement.style.height = bottomOffset < 0 ? scrollElement.offsetHeight + bottomOffset + "px" : "100%"
+  }
 </script>
 
 
@@ -58,11 +69,13 @@
   </aside>
 
   <div class="content">
-    <div class="content-scroll" data-role="theme-container">        
-      <div class="content-inner">
+    <div class="content__scroll" on:scroll={ setShadow } bind:this={ scrollElement } data-role="theme-container">        
+      <div class="content__inner" bind:this={ innerElement }>
         <ShowPage { params } />
       </div>
     </div>
+
+    <div class="content__shadow" bind:this={ shadowElement } />
 
     { #if $currentEditable }
       <svelte:component this={ components.filter(i => i.identifier == $currentEditable.type)[0].component } />
@@ -141,20 +154,15 @@
     padding: 1.5rem 1.5rem 0 0;
   }
 
-  .content-scroll {
+  .content__scroll {
+    position: relative;
     height: 100%;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     overflow: auto;
     overflow-y: overlay;
     scrollbar-width: none;
-    box-shadow: 0 3px 2px rgba(0, 0, 0, .1),
-                0 10px 5px rgba(0, 0, 0, .1),
-                0 15px 10px rgba(0, 0, 0, .1),
-                0 25px 15px rgba(0, 0, 0, .2),
-                0 40px 30px rgba(0, 0, 0, .2),
-                0 100px 75px rgba(0, 0, 0, .2);
-    
+      
     // Filter is laggy, disabled for now
     // filter: drop-shadow(0 3px 2px rgba(0, 0, 0, .1))
 		// 				drop-shadow(0 10px 5px rgba(0, 0, 0, .1))
@@ -180,12 +188,29 @@
     }
   }
 
-  .content-inner {
-    min-height: 600px;
+  .content__inner {
+    min-height: 100%;
     padding: 0;
     margin-bottom: 20rem;
     background: var(--bg-dark);
     border-radius: 1rem;
     overflow: hidden;
+  }
+
+  .content__shadow {
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    height: 100%;
+    width: calc(100% - 1.5rem);
+    border-radius: 1rem;
+    pointer-events: none;
+    z-index: -1;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, .1),
+                0 10px 5px rgba(0, 0, 0, .1),
+                0 15px 10px rgba(0, 0, 0, .1),
+                0 25px 15px rgba(0, 0, 0, .2),
+                0 40px 30px rgba(0, 0, 0, .2),
+                0 100px 75px rgba(0, 0, 0, .2);
   }
 </style>
