@@ -1,41 +1,38 @@
 <script>
   import { theme } from "@stores/theme"
   import { fonts } from "@stores/fonts"
+  import { setThemeKey } from "@shared/key"
+
+  import Select from "@components/shared/Select.svelte"
 
   export let key
 
-  let custom = false
+  let values = { 
+    "Default": "",
+    "Custom": "custom",
+    ...Object.entries($fonts).reduce((object, f) => ({...object, [f[0]]: JSON.stringify(f[1]) }), {})
+  }
 
-  function setKey() {
-    const value = event.target.value
-
-    if (value == "custom") {
-      custom = true
-    } else {
-      custom = false
-      $theme[key] = event.target.value ? JSON.parse(event.target.value) : ""
-    }
+  function setKey(value) {
+    value = value == "custom" || value == "" ? value : JSON.parse(value)
+    setThemeKey(key, value)
   }
 </script>
 
 
 
-<div class="select-group mt-1/8">
-  <div class="form-label"><slot></slot></div>
+<Select
+  { key } { values }
+  defaultValue={ $theme[key] || "" }
+  emit=true
+  on:change={ event => setKey(event.detail.value) }
+  custom={ $theme[key] == "custom" }>
+  <slot></slot>
 
-  <select class="form-input" on:change={ setKey }>
-    <option value="">Default</option>
-    <option value="custom">Custom...</option>
-
-    { #each Object.entries($fonts) as [label, value] }
-      <option value={ JSON.stringify(value) }>{ label }</option>
-    { /each }
-  </select>
-</div>
-
-{ #if custom }
-  Custom
-{ /if }
+  <span slot="custom">
+    Custom
+  </span>
+</Select>
 
 
 

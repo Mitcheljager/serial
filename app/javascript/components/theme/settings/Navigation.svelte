@@ -8,6 +8,7 @@
 
   import Dropdown from "@components/shared/Dropdown.svelte"
   import Switch from "@components/shared/Switch.svelte"
+  import Select from "@components/shared/Select.svelte"
 
   $: navigation = $theme.navigation || {}
 
@@ -56,36 +57,32 @@
 
 <h2>Navigation Settings</h2>
 
-<div class="select-group">
-  <div class="form-label">Style</div>
+<Select
+  on:change={ event => setKey("style", event.detail.value) }
+  key="background_color"
+  emit=true
+  defaultValue={ navigation.style }
+  values={{
+    "Default": "",
+    "Floating": "floating"
+  }}>
+  Style
+</Select>
 
-  <!-- svelte-ignore a11y-no-onchange -->
-  <select
-    class="form-input"
-    value={ navigation.style || "default" }
-    on:change={ event => setKey("style", event.target.value) }>
-
-    <option value="default">Default</option>
-    <option value="floating">Floating</option>
-  </select>
-</div>
-
-<div class="select-group mt-1/8">
-  <div class="form-label">Background</div>
-
-  <!-- svelte-ignore a11y-no-onchange -->
-  <select
-    class="form-input"
-    value={ navigation.background || "default" }
-    on:change={ event => setKey("background", event.target.value) }>
-
-    <option value="default">Default</option>
-    <option value="primary">Primary</option>
-    <option value="secondary">Secondary</option>
-    <option value="gradient">Gradient</option>
-    <option value="transparent">Transparent</option>
-  </select>
-</div>
+<Select
+  on:change={ event => setKey("background", event.detail.value) }
+  key="background_color"
+  emit=true
+  defaultValue={ navigation.background }
+  values={{
+    "Default": "",
+    "Transparent": "transparent",
+    "Primary": "primary",
+    "Secondary": "secondary",
+    "Gradient": "gradient"
+  }}>
+  Style
+</Select>
 
 { #if $theme.shadow_type > 0 && $theme.navigation.background != "transparent" }
   <Switch

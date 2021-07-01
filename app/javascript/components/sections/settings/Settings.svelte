@@ -43,7 +43,6 @@
           { #if section.properties.background_type == "color" }
             <Select
               { section }
-              type="section"
               key="background_color"
               values={{
                 "Default": "palette-content",

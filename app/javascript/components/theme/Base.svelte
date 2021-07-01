@@ -18,10 +18,10 @@
 
 
 
-{ #if fontBody }
+{ #if fontBody && fontBody != "custom" }
   <link href="https://fonts.googleapis.com/css2?family={ fontBody.name }:wght@400;700&display=swap" rel="stylesheet">
 { /if }
-{ #if fontHeading }
+{ #if fontHeading && fontHeading != "custom" }
   <link href="https://fonts.googleapis.com/css2?family={ fontHeading.name }:wght@400;700&display=swap" rel="stylesheet">
 { /if }
 
@@ -46,7 +46,7 @@
     --palette-font: { palette.colors.font };
     --palette-font-alt: { palette.colors.font_alt };
     --palette-font-heading: { palette.colors.font_heading };">
-    
+
   <slot></slot>
 </div>
 

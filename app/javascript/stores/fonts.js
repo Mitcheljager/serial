@@ -1,7 +1,7 @@
 import { readable } from "svelte/store"
 
 const fonts = readable({
-  "Alegreya Sans": { name: "Alegreya+Sans", property: "'Alegreya Sans', sans-serif" },
+  "Alegreya Sans": { name: "Alegreya Sans", property: "'Alegreya Sans', sans-serif" },
   "Alegreya": { name: "Alegreya", property: "'Alegreya', serif" },
   "Anonymous Pro": { name: "Anonymous Pro", property: "'Anonymous Pro', serif" },
   "Archivo Narrow": { name: "Archivo Narrow", property: "'Archivo Narrow', sans-serif" },

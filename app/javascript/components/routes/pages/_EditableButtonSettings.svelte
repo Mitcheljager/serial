@@ -2,12 +2,13 @@
   import { currentEditable } from "@stores/data"
   import { getTypeKey, setTypeKey } from "@shared/key.js"
 
+  import Select from "@components/shared/Select.svelte"
   import FloatingSettings from "./_FloatingSettings.svelte"
 
   $: button = getTypeKey($currentEditable?.keyType, $currentEditable?.[$currentEditable?.keyType], $currentEditable?.key) || {}
 
-  function setKey(key) {
-    button[key] = event.target.value
+  function setKey(key, value = event.target.value) {
+    button[key] = value
 
     setTypeKey($currentEditable.keyType, $currentEditable[$currentEditable.keyType], $currentEditable.key, button)
   }
@@ -40,27 +41,37 @@
       </div>
 
       <div class="grid__item">
-        <label for="button-label" class="form-label">Style</label>
+        <Select
+          on:change={ event => setKey("style", event.detail.value) }
+          emit=true
+          defaultValue={ button?.style || "" }
+          values={{
+            "Default": "",
+            "Primary": "primary",
+            "Secondary": "secondary",
+            "Gradient": "gradient",
+            "Border": "border",
+            "Link": "link"
+          }}>
 
-        <select class="form-input mt-1/8" value={ button?.style || "" } on:change={ () => setKey("style") }>
-          <option value="">Default</option>
-          <option value="primary">Primary</option>
-          <option value="secondary">Secondary</option>
-          <option value="gradient">Gradient</option>
-          <option value="border">Border</option>
-          <option value="link">Link</option>
-        </select>
+          Style
+        </Select>
       </div>
 
       <div class="grid__item">
-        <label for="button-label" class="form-label">Size</label>
+        <Select
+          on:change={ event => setKey("size", event.detail.value) }
+          emit=true
+          defaultValue={ button?.size || "" }
+          values={{
+            "Default": "",
+            "Large": "large",
+            "Full width": "full-width",
+            "Pill": "pill"
+          }}>
 
-        <select class="form-input mt-1/8" value={ button?.size || "" } on:change={ () => setKey("size") }>
-          <option value="">Default</option>
-          <option value="large">Large</option>
-          <option value="full-width">Full width</option>
-          <option value="pill">Pill</option>
-        </select>
+          Size
+        </Select>
       </div>
     </div>
   </FloatingSettings>
@@ -76,6 +87,19 @@
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 .5rem 1.5rem hsla(0, 0, 0, .25);
+
+    :global {
+      .select-group {
+        display: block;
+        margin-top: 0;
+      }
+
+      input,
+      select {
+        margin-top: .25rem;
+        background-color: var(--content-bg);
+      }
+    }
   }
 
   .grid__item {
@@ -86,10 +110,5 @@
     &:last-child {
       border-right: 0;
     }
-  }
-
-  input,
-  select {
-    background: var(--content-bg);
   }
 </style>

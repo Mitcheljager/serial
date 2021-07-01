@@ -116,13 +116,16 @@
 
 <style lang="scss">
   .section {
+    position: relative;
     margin-bottom: .25rem;
     border-radius: .5rem;
     background: var(--content-bg);
     overflow: hidden;
+    box-shadow: 0 0 0 4px var(--body-bg);
 
     &.hovering {
-      box-shadow: 0 0 0 2px var(--primary);
+      box-shadow: 0 0 0 2px var(--primary), 0 0 0 4px var(--body-bg);
+      z-index: 2;
     }
   }
 

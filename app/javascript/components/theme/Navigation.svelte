@@ -35,7 +35,11 @@
     <div class="navigation__content">
       { #if navigation.pages && navigation.pages.length }
         { #each navigation.pages as page }
-          <a href="/pages/{ page }" use:link class="navigation__item">{ getPageByUUID(page).title }</a> 
+          { #if $editMode }
+            <a href="/pages/{ page }" use:link class="navigation__item">{ getPageByUUID(page).title }</a>
+          { :else }
+            <a href="/1/pages/{ page }" class="navigation__item">{ getPageByUUID(page).title }</a>
+          { /if }
         { /each }
       { /if }
     </div>
@@ -110,7 +114,7 @@
   }
 
   .logo {
-    margin-right: 1.5rem;
+    margin-right: 3rem;
     text-decoration: none;
     height: 60px;
   }
@@ -127,7 +131,7 @@
 
   .navigation__item {
     display: block;
-    margin: 0 1rem 0 0;
+    margin: 0 1.5rem 0 0;
     color: currentColor;
     text-decoration: none;
     font-weight: bold;
