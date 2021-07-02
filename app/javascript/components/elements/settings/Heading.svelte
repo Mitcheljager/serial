@@ -1,6 +1,7 @@
 <script>
   import Range from "@components/shared/Range.svelte"
   import Button from "@components/shared/Button.svelte"
+  import Select from "@components/shared/Select.svelte"
 
   export let element
 </script>
@@ -20,3 +21,15 @@
   <Button { element } key="alignment" value="">Left</Button>
   <Button { element } key="alignment" value="center">Center</Button>
 </div>
+
+<Select { element }
+  key="color"
+  values={{
+    "Default": "",
+    "Text": "palette-font",
+    "Primary": "primary",
+    "Secondary": "secondary",
+    "Gradient": "gradient"
+  }}>
+  Color
+</Select>
