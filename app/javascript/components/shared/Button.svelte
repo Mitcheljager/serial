@@ -28,5 +28,5 @@
   class="button button--dark button--small"
   class:active={ keyValue == value || (value == "" && keyValue == undefined) }
   on:click={ () => setKey() }>
-  <slot>Button</slot>
+  <slot>{ value }</slot>
 </button>
