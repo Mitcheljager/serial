@@ -9,16 +9,17 @@
   import Dropdown from "@components/shared/Dropdown.svelte"
   import Switch from "@components/shared/Switch.svelte"
   import Select from "@components/shared/Select.svelte"
+  import Button from "@components/shared/Button.svelte"
 
-  $: navigation = $theme.navigation || {}
+  $: navigation = $theme.navigation || []
 
   let listElement
   let sortable
 
-  onMount(createSortable)
+  onMount(() => createSortable(listElement))
 
-  function createSortable() {
-    sortable = new Sortable(listElement, {
+  function createSortable(element) {
+    sortable = new Sortable(element, {
       handle: ".page",
       animation: 100,
       store: {
@@ -29,10 +30,14 @@
 
   function updateOrder() {
     const listItems = listElement.querySelectorAll("[data-uuid]")
-    const order = Array.from(listItems).map(item => item.dataset.uuid)
     const sortableOrder = sortable.toArray()
+    const order = Array.from(listItems).map(element => {
+      return navigation.pages.filter(i => i.uuid == element.dataset.uuid)[0]
+    })
     
     setKey("pages", order)
+
+    console.log(navigation.pages)
 
     setTimeout(() => sortable.sort(sortableOrder, false))
   }
@@ -43,12 +48,14 @@
     $theme.navigation = navigation
   }
 
-  function addPage(uuid) {
-    setKey("pages", [...navigation.pages || [], uuid])
+  function addPage(type, uuid) {
+    setKey("pages", [...navigation.pages || [], { type, uuid }])
+
+    createSortable(listElement)
   }
 
   function removePage(uuid) {
-    setKey("pages", navigation.pages.filter(p => p != uuid))
+    setKey("pages", navigation.pages.filter(p => p.uuid != uuid))
   }
 </script>
 
@@ -80,8 +87,30 @@
     "Secondary": "secondary",
     "Gradient": "gradient"
   }}>
-  Style
+  Background
 </Select>
+
+<div class="form-label mt-1/4 mb-1/4">Logo position</div>
+
+<div class="button-group">
+  <Button
+    key="layout"
+    value=""
+    emit="true"
+    valueForEmit={ navigation.layout }
+    on:change={ event => setKey("layout", event.detail.value) }>  
+    Left
+  </Button>
+
+  <Button
+    key="layout"
+    value="logo-centered"
+    emit="true"
+    valueForEmit={ navigation.layout }
+    on:change={ event => setKey("layout", event.detail.value) }>
+    Center
+  </Button>
+</div>
 
 { #if $theme.shadow_type > 0 && $theme.navigation.background != "transparent" }
   <Switch
@@ -111,13 +140,17 @@
 
 <div class="list" bind:this={ listElement }>
   { #if navigation.pages }
-    { #each navigation.pages as page }
-      <div class="page" data-uuid={ page }>
-        { getPageByUUID(page).title }
+    { #each navigation.pages as page (page.uuid) }
+      <div class="page">
+        <div class="page__content" data-uuid={ page.uuid }>
+          { getPageByUUID(page.uuid).title }
 
-        <div class="page__actions">
-          <span on:click={ removePage(page) }>-</span>
+          <div class="page__actions">
+            <span on:click={ removePage(page.uuid) }>-</span>
+          </div>
         </div>
+
+        <div class="page__children" data-sortable></div>
       </div>
     { /each }
   { :else }
@@ -125,13 +158,18 @@
   { /if }
 </div>
 
-<Dropdown>
+<Dropdown direction=up closeOnClick={ true }>
   <button class="button button--dark w-100 mt-1/4" slot="label">+ Add page to navigation</button>
+
+  { #if navigation.pages.length > 4 }
+    <div class="warning"><strong>Heads up! You've already added 5 main pages to your navigation.</strong> You can add more if you like, but you should try to keep it simple and compact. Try to use Dropdowns where possible.</div>
+  { /if }
 
   <em>Select a page to add to the main navigation. You can re-position it later.</em>
 
-  { #each $pages as page }
-    <div class="dropdown__item" on:click={ () => addPage(page.uuid) }>{ page.title }</div>
+  <!-- Filter pages already in the navigation -->
+  { #each $pages.filter(p => !navigation.pages.some(n => n.uuid == p.uuid)) as page }
+    <div class="dropdown__item" on:click={ () => addPage("internal", page.uuid) }>{ page.title }</div>
   { /each }
 </Dropdown>
 
@@ -163,8 +201,6 @@
 
   .page {
     position: relative;
-    display: flex;
-    align-items: center;
     padding: .5rem .75rem;
     margin-bottom: 4px;
     border-radius: .5rem;
@@ -178,7 +214,12 @@
       box-shadow: 0 0 0 2px var(--border-color), 0 0 0 4px var(--body-bg);
       color: var(--text-color-light);
       z-index: 2;
-    }
+    }    
+  }
+
+  .page__content {
+    display: flex;
+    align-items: center;
 
     &::before {
       content: counter(pages-list) ". ";
@@ -187,9 +228,41 @@
     }
   }
 
+  .page__children {
+    padding-left: 1rem;
+    border-left: 4px solid var(--body-bg);
+    counter-reset: pages-list;
+
+    &:not(:empty) {
+      margin-top: .5rem;
+    }
+
+    .dragging & {
+      min-height: 2rem;
+      margin-top: .5rem;
+    }
+
+    :global(.page__children) {
+      display: none;
+    }
+  }
+
   .page__actions {
     margin-left: auto;
     font-size: 1.15rem;
     font-weight: bold;
+  }
+
+  .warning {
+    font-size: .85rem;
+    background: var(--body-bg);
+    padding: .5rem;
+    margin-bottom: .5rem;
+    border-radius: .5rem;
+
+    strong {
+      color: orange;
+      font-weight: normal;
+    }
   }
 </style>

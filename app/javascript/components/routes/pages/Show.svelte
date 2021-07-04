@@ -37,7 +37,7 @@
 
     { #if $page?.sections?.length }
       { #each $page.sections as section, index (section.uuid) }
-        <div class="item" animate:flip="{{ duration: 200 }}">
+        <div class="item" animate:flip={{ duration: 200 }}>
           <Section { section } { index } />
         </div>
       { /each }

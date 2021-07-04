@@ -6,12 +6,17 @@ class PagesController < ApplicationController
   end
 
   def show
-    @project = current_user.projects.find(params[:project_id])
-    @page = @project.pages.find_by_uuid(params[:uuid])
-
     respond_to do |format|
-      format.html
-      format.json { render json: @page }
+      format.html {
+        @project = Project.find(params[:project_id])
+        @page = @project.pages.find_by_uuid(params[:uuid])
+      }
+      format.json {
+        @project = current_user.projects.find(params[:project_id])
+        @page = @project.pages.find_by_uuid(params[:uuid])
+
+        render json: @page
+      }
     end
   end
 

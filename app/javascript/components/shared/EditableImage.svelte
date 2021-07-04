@@ -83,6 +83,7 @@
     display: block;
     width: 100%;
     height: auto;
+    min-height: 20px;
   }
 
   svg {

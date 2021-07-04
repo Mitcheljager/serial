@@ -2,6 +2,7 @@
   import { fly } from "svelte/transition"
 
   export let direction = "down"
+  export let closeOnClick = false
 
   let active = false
   let element
@@ -38,6 +39,7 @@
   { #if active }
     <div
       bind:this={ contentElement }
+      on:click={ () => { if (closeOnClick) active = false } }
       class="dropdown__content"
       class:dropdown__content--up={ direction == "up" }
       class:dropdown__content--align-right={ alignRight }
