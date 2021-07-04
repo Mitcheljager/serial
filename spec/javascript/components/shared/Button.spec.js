@@ -4,18 +4,17 @@ import "@testing-library/jest-dom/extend-expect"
 import { render, screen } from "@testing-library/svelte"
 
 import { get, set } from "svelte/store"
-import Button from "components/shared/Button.svelte"
 import { theme } from "stores/theme"
 import { page } from "stores/pages"
+import { data } from "../../data"
+
+import Button from "components/shared/Button.svelte"
 
 const key = "test"
 const value = "Hello"
 
 beforeEach(() => {
-  page.set({
-    uuid: "1",
-    sections: [{ uuid: "2", properties: {}, elements: [{ uuid: "3", properties: {} }] }]
-  })
+  page.set(data)
 
   theme.set({})
 })
