@@ -1,21 +1,15 @@
 import "jsdom-global/register"
 import "@testing-library/jest-dom/extend-expect"
 
-import { render, screen } from "@testing-library/svelte"
+import { render, fireEvent } from "@testing-library/svelte"
 
 import Dropdown from "components/shared/Dropdown.svelte"
 
-it("Should open when clicked", () => {
-  render(Dropdown)
+it("Should open when clicked", async () => {
+  const { getByText } = render(Dropdown)
 
+  await fireEvent.click(getByText("Label"))
+  
   const element = document.querySelector(".dropdown")
-  const label = screen.getByText("Label")
-
-  label.click()
-
-  setTimeout(() => {
-    expect(element.classList.contains("active")).toBe(true)
-
-    label.click()
-  })
+  expect(element.classList.contains("active")).toBe(true)
 })
