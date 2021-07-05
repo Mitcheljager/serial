@@ -1,15 +1,18 @@
 <script>
   import { currentEditable } from "@stores/data"
+  import { theme } from "@stores/theme"
   import { editMode } from "@stores/user"
+  import { setTypeKey } from "@shared/key"
 
-  export let element
   export let key
+  export let element = null
   export let defaultValue = ""
 
-  $: content = element.properties?.[key] || defaultValue
+  $: keyType = element ? "element" : "theme"
+  $: content = (element ? element?.properties[key] : $theme[key]) || defaultValue
 
   function change() {
-    element.properties[key] = content
+    setTypeKey(keyType, element, key, content)
   }
 
   function showSettings() {
@@ -17,7 +20,7 @@
 
     $currentEditable = null
 
-    const settingsKey = { type: "text", key, element }
+    const settingsKey = { type: "text", keyType, key, element }
     $currentEditable = settingsKey
   }
 </script>
