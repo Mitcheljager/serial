@@ -44,7 +44,7 @@
     class:navigation__container--active={ active }
     class:wrapper={ !navigation.full_width }>
 
-    <div class="navigation__logo" style="--width: { $theme.logo.variant.attachment.variation.resize_to_limit }">
+    <div class="navigation__logo" style="--width: { $theme.logo?.variant.attachment.variation.resize_to_limit }">
       <EditableImage key="logo" width="140" height="60" />
     </div>
 

@@ -1,7 +1,5 @@
 <%= svelte_component("Show", {
-  params: {
-    project_id: params[:project_id],
-    uuid: params[:uuid],
+  data: {
     page: PageSerializer.new(@page).to_json,
     pages: @project.pages.select(:uuid, :title).to_json,
     theme: @project.properties,

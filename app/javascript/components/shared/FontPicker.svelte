@@ -9,7 +9,7 @@
 
   let values = { 
     "Default": "",
-    "Custom": "custom",
+    "Custom...": "custom",
     ...Object.entries($fonts).reduce((object, f) => ({...object, [f[0]]: JSON.stringify(f[1]) }), {})
   }
 

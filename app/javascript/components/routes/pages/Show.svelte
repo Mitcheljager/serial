@@ -14,19 +14,18 @@
   import Footer from "@components/theme/Footer.svelte"
 
   export let params = {}
+  export let data = {}
 
   const [loading, error, get] = fetchPage()
 
-  $: console.log($page)
+  $: if (!data.page) console.log($page)
 
-  $: if (!params.page) get(params.project_id || $project.id, params.uuid)
+  $: if (!data.page) get(params.project_id || $project.id, params.uuid)
   $: if ($error) $globalError = "Something went wrong when fetching this page"
 
-  onMount(() => {
-    if (params.page) $page = JSON.parse(params.page)
-    if (params.pages) $pages = JSON.parse(params.pages)
-    if (params.theme) $theme = JSON.parse(params.theme)
-  })
+  if (data.page) $page = JSON.parse(data.page)
+  if (data.pages) $pages = JSON.parse(data.pages)
+  if (data.theme) $theme = JSON.parse(data.theme)
 </script>
 
 
