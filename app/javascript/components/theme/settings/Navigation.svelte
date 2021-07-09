@@ -61,7 +61,7 @@
 
 
 
-<h2>Navigation Settings</h2>
+<h2>Navigation</h2>
 
 <Select
   on:change={ event => setKey("style", event.detail.value) }
@@ -82,10 +82,12 @@
   defaultValue={ navigation.background }
   values={{
     "Default": "",
+    "Light": "light",
+    "Body": "body",
     "Transparent": "transparent",
     "Primary": "primary",
     "Secondary": "secondary",
-    "Gradient": "gradient"
+    "Gradient": "gradient",
   }}>
   Background
 </Select>
@@ -129,6 +131,33 @@
   on:change={ event => setKey("full_width", event.detail.checked) }>
   Full width
 </Switch>
+
+<Switch
+  emit=true
+  key="include_button"
+  defaultValue={ navigation.include_button || true }
+  on:change={ event => setKey("include_button", event.detail.checked) }>
+  Include button
+</Switch>
+
+<Switch
+  emit=true
+  key="include_socials"
+  defaultValue={ navigation.include_socials || false }
+  on:change={ event => setKey("include_socials", event.detail.checked) }>
+  Include socials
+</Switch>
+
+{ #if navigation.include_socials }
+  { #each ["Twitter", "YouTube", "Discord"] as social }
+    <input
+      value={ navigation[social.toLowerCase()] }
+      on:change={ event => setKey(social.toLowerCase(), event.target.value) }
+      text=text
+      class="form-input mb-1/8"
+      placeholder="{ social } URL" />
+  { /each }
+{ /if }
 
 <h3 class="mt-1/1">Pages in navigation</h3>
 

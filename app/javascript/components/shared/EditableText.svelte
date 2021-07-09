@@ -33,7 +33,7 @@
     spellcheck=false
     bind:innerHTML={ content }
     on:input={ change }
-    on:focus={ showSettings } />
+    on:click={ showSettings } />
 { :else }
   <span>{ @html content }</span>
 { /if }

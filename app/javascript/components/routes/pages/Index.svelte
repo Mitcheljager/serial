@@ -70,7 +70,7 @@
     </div>
   </aside>
 
-  <div class="content">
+  <div class="content" in:fly={{ y: 100, duration: 500 }}>
     <div class="content__scroll" on:scroll={ setShadow } bind:this={ scrollElement } data-role="theme-container">        
       <div class="content__inner" bind:this={ innerElement }>
         <ShowPage { params } />
@@ -197,6 +197,10 @@
     background: var(--bg-dark);
     border-radius: 1rem;
     overflow: hidden;
+
+    :global(.theme) {
+      min-height: calc(100vh - 60px);
+    }
   }
 
   .content__shadow {

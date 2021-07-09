@@ -94,6 +94,7 @@
       .switch__input:checked + & {
         right: 6px;
         background: var(--text-color);
+        z-index: 1;
       }
     }
 

@@ -7,6 +7,9 @@
   import { theme } from "@stores/theme"
   import { editMode } from "@stores/user"
 
+  import IconYoutube from "@components/icons/Youtube.svelte"
+  import IconTwitter from "@components/icons/Twitter.svelte"
+  import IconDiscord from "@components/icons/Discord.svelte"
   import EditableButton from "@components/shared/EditableButton.svelte"
   import EditableImage from "@components/shared/EditableImage.svelte"
 
@@ -36,12 +39,12 @@
   class:navigation--with-shadow={ navigation.shadow && $theme.navigation.background != "transparent" }
   class:navigation--full-width={ navigation.full_width }
   class:navigation--in-editor={ $editMode }
-  class:navigation--logo-centered={ navigation.layout == "logo-centered" }
   on:click={ () => { if ($editMode) $currentTab = "navigation" } }> 
 
   <div
     class="navigation__container"
     class:navigation__container--active={ active }
+    class:navigation__container--logo-centered={ navigation.layout == "logo-centered" }
     class:wrapper={ !navigation.full_width }>
 
     <div class="navigation__logo" style="--width: { $theme.logo?.variant.attachment.variation.resize_to_limit }">
@@ -57,11 +60,21 @@
     </div>
 
     <div class="navigation__actions">
-      <EditableButton key="navigation_button" />
+      { #if navigation.include_socials }
+        <div class="navigation__socials">
+          { #if navigation.twitter }<a href={ navigation.twitter } target="_blank"><IconTwitter /></a>{ /if }
+          { #if navigation.youtube }<a href={ navigation.youtube } target="_blank"><IconYoutube /></a>{ /if }
+          { #if navigation.discord }<a href={ navigation.discord } target="_blank"><IconDiscord /></a>{ /if }
+        </div>
+      { /if }
+
+      { #if navigation.include_button == undefined ? true : navigation.include_button }
+        <EditableButton key="navigation_button" />
+      { /if }
     </div>
   </div>
 
-  <div class="navigation__mobile-trigger" on:click={ () => active = !active }>☰</div>
+  <div class="navigation__mobile-trigger" on:click={ () => { if (!$editMode) active = !active } }>☰</div>
 </nav>
 
 
@@ -70,13 +83,14 @@
   @mixin media-query {
     .navigation--in-editor &,
     &.navigation--in-editor {
+      // 1200px + 3rem
       @media (min-width: 1248px) {
         @content;
       }
     }
 
     .navigation:not(.navigation--in-editor) &,
-    &nav:not(.navigation--in-editor) {
+    &[class*="navigation--"]:not(.navigation--in-editor) {
       @media (min-width: 900px) {
         @content;
       }
@@ -85,19 +99,29 @@
 
   .navigation {
     position: relative;
-    padding: calc(.25rem + (.25rem * var(--margin-multiplier))) 0;
     background: var(--palette-content);
     color: var(--palette-font);
     z-index: 10;
 
+    @include media-query {
+      padding: calc(.15rem + (.15rem * var(--margin-multiplier))) 0;
+    }
+
+    :global(.button) {
+      margin-left: 1rem;
+    }
+
     &--floating {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: var(--max-width);
       margin: 1.5rem auto;
-      border-radius: var(--border-radius);
+      
+      @include media-query {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: var(--max-width);
+        border-radius: var(--border-radius);
+      }
     }
 
     &--full-width {
@@ -126,6 +150,14 @@
     &--gradient {
       background: var(--gradient);
       color: var(--primary-color-text-offset);
+    }
+
+    &--body {
+      background: var(--palette-body);
+    }
+
+    &--light {
+      background: var(--palette-border);
     }
 
     &--transparent {
@@ -177,13 +209,11 @@
     right: 0;
     bottom: 0;
     left: 0;
+    height: 100vh;
+    overflow-y: auto;
     background: var(--palette-content);
     z-index: 100;
     animation: show-navigation 100ms;
-
-    &--active {
-      display: flex; 
-    }
 
     @include media-query {
       position: initial;
@@ -191,16 +221,26 @@
       grid-template: "logo content actions";
       grid-auto-columns: min-content max-content auto;
       grid-gap: 3rem;
-      align-items: initial;
       justify-content: initial;
       background: transparent;
       align-items: center;
+      height: auto;
       animation: none;
     }
 
-    .navigation--logo-centered & {
-      grid-template: "content logo actions";
-      grid-auto-columns: calc(50% - 70px - 3rem) 140px calc(50% - 70px - 3rem);
+    &--active {
+      display: flex;
+
+      @include media-query {
+        display: grid;
+      }
+    }
+
+    &--logo-centered {
+      @include media-query {
+        grid-template: "content logo actions";
+        grid-auto-columns: calc(50% - 70px - 3rem) 140px calc(50% - 70px - 3rem);
+      }
     }
   }
 
@@ -212,7 +252,6 @@
     @include media-query {
       display: flex;
       width: 100%;
-      padding: calc(.25rem + (.15rem * var(--margin-multiplier))) 0;
       margin-top: 0;
     }
   }
@@ -245,6 +284,8 @@
     margin-top: 1.5rem;
 
     @include media-query {
+      display: flex;
+      align-items: center;
       margin-top: 0;
       margin-left: auto;
     }
@@ -264,7 +305,7 @@
       width: auto;
     }
 
-    .navigation--logo-centered & {
+    .navigation__container--logo-centered & {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -287,6 +328,37 @@
       position: absolute;
       top: 1rem;
       right: 0;
+    }
+  }
+
+  .navigation__socials {
+    display: flex;
+    justify-content: center;
+    margin-bottom: .75rem;
+
+    @include media-query {
+      margin-bottom: 0;
+    }
+
+    :global(a) {
+      display: block;
+      margin-right: .75rem;
+      color: currentColor;
+
+      &:hover,
+      &:active {
+        box-shadow: 0 2px 0 currentColor;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    :global(svg) {
+      display: block;
+      height: 1.25rem;
+      width: auto;
     }
   }
 
