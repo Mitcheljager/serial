@@ -17,14 +17,6 @@
   let active = false
   
   $: navigation = $theme.navigation || []
-
-  function urlForPage(uuid) {
-    if ($editMode) {
-      return `/pages/${ uuid }`
-    } else {
-      return `/1/pages/${ uuid }`
-    }
-  }
 </script>
 
 
@@ -54,7 +46,13 @@
     <div class="navigation__content">
       { #if navigation.pages && navigation.pages.length }
         { #each navigation.pages as page (page.uuid) }
-          <a href={ urlForPage(page.uuid) } animate:flip={{ duration: 200 }} use:link class="navigation__item">{ getPageByUUID(page.uuid).title }</a>
+          <span animate:flip={{ duration: 200 }}>
+            { #if page.type == "internal" }
+              <a href="{ $editMode ? "" : "/1" }/pages/{ page.uuid }" use:link class="navigation__item">{ getPageByUUID(page.uuid).title }</a>
+            { :else if page.type == "external" }
+              <a href={ page.url || "/" } target="_blank" class="navigation__item">{ page.title }</a>
+            { /if }
+          </span>
         { /each }
       { /if }
     </div>

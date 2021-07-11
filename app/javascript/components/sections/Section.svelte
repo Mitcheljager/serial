@@ -75,7 +75,6 @@
     margin: calc(var(--margin) * .5 * var(--spacing)) auto;
     background-size: cover;
     background-position: center;
-    overflow: hidden;
 
     &--block {
       max-width: calc(min(var(--max-width), 100%) - 3rem);

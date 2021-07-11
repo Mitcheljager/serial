@@ -12,6 +12,7 @@
   $: if (active) setTimeout(() => { position() })
 
   function clickOutside(event) {
+    if (!active) return
     if (event.target.closest(".dropdown") == element) return
 
     active = false
@@ -39,11 +40,11 @@
   { #if active }
     <div
       bind:this={ contentElement }
+      in:fly={{ y: 10, duration: 150 }}
       on:click={ () => { if (closeOnClick) active = false } }
       class="dropdown__content"
       class:dropdown__content--up={ direction == "up" }
-      class:dropdown__content--align-right={ alignRight }
-      in:fly={{ y: 10, duration: 150 }}>
+      class:dropdown__content--align-right={ alignRight }>
 
      <slot></slot>
     </div>
